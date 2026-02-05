@@ -355,8 +355,22 @@
         }
 
         @media (max-width: 480px) {
+            .login-section {
+                flex-direction: column;
+                justify-content: center;
+                padding: 20px;
+            }
+
+            .back-btn {
+                position: static;
+                align-self: flex-start;
+                margin-bottom: 20px;
+                color: var(--text-dark);
+                /* Ensure visibility */
+            }
+
             .login-container {
-                padding: 30px 20px;
+                padding: 25px 20px;
             }
 
             .login-header h2 {
@@ -366,6 +380,25 @@
             .google-modal {
                 width: 90%;
                 padding: 30px 20px;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .login-container {
+                padding: 20px 15px;
+            }
+
+            .login-header h2 {
+                font-size: 1.3rem;
+            }
+
+            .login-tabs {
+                gap: 10px;
+            }
+
+            .login-tab {
+                font-size: 0.9rem;
+                padding: 8px;
             }
         }
     </style>
