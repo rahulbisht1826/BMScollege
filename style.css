@@ -1029,6 +1029,15 @@ ul {
         align-self: flex-start;
     }
 
+    .faculty-image-box img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: top center;
+        /* Prioritize faces */
+        display: block;
+    }
+
     /* Disable hover effects on mobile */
     .faculty-card-slider:hover .faculty-card-inner {
         transform: none;
