@@ -149,4 +149,46 @@ document.addEventListener('DOMContentLoaded', () => {
         videoStack.addEventListener('mouseenter', stopAutoShuffle);
         videoStack.addEventListener('mouseleave', startAutoShuffle);
     }
+
+    // Modern Faculty Modal Logic
+    const modernModal = document.getElementById('facultyDetailModal');
+    const closeModernModal = document.getElementById('closeFacultyModal');
+    const knowMoreModernBtns = document.querySelectorAll('.btn-know-more-modern');
+
+    if (modernModal && knowMoreModernBtns.length > 0) {
+        knowMoreModernBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const name = btn.getAttribute('data-name');
+                const field = btn.getAttribute('data-field');
+                const subject = btn.getAttribute('data-subject');
+                const details = btn.getAttribute('data-details');
+                const imgSrc = btn.closest('.faculty-profile-card').querySelector('img').src;
+
+                document.getElementById('modalName').textContent = name;
+                document.getElementById('modalFieldTag').textContent = field;
+                document.getElementById('modalSubject').textContent = subject;
+                document.getElementById('modalBio').textContent = details;
+                document.getElementById('modalImg').src = imgSrc;
+
+                modernModal.style.display = 'flex';
+                document.body.style.overflow = 'hidden'; // Prevent scroll
+            });
+        });
+
+        const closeModalFunc = () => {
+            modernModal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        };
+
+        if (closeModernModal) {
+            closeModernModal.addEventListener('click', closeModalFunc);
+        }
+
+        // Close on backdrop click
+        modernModal.addEventListener('click', (e) => {
+            if (e.target.classList.contains('modal-backdrop')) {
+                closeModalFunc();
+            }
+        });
+    }
 });
