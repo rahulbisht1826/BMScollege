@@ -75,6 +75,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         function startAutoSlide() {
+            if (window.innerWidth <= 768) return; // Disable auto-slide for mobile
             slideInterval = setInterval(() => {
                 currentIndex++;
                 updateSlider();
