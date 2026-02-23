@@ -75,7 +75,12 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         function startAutoSlide() {
-            if (window.innerWidth <= 768) return; // Disable auto-slide for mobile
+            // Robust check for mobile
+            if (window.innerWidth <= 768 || /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+                stopAutoSlide(); // Ensure everything is dead
+                return;
+            }
+            stopAutoSlide(); // Clear any existing interval first
             slideInterval = setInterval(() => {
                 currentIndex++;
                 updateSlider();
