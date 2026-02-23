@@ -940,22 +940,68 @@ ul {
     }
 
     .faculty-card-inner {
-        height: 350px;
-        /* Even smaller for phones */
+        height: auto;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .faculty-image-box {
+        position: relative;
+        height: 250px;
+        width: 100%;
+    }
+
+    .faculty-image-box::after {
+        background: linear-gradient(to top, rgba(0, 0, 0, 0.3) 0%, transparent 100%);
+        height: 30%;
     }
 
     .faculty-details {
+        position: relative;
         padding: 20px;
+        background: var(--white);
+        color: var(--text-dark);
+        transform: none !important;
     }
 
     .faculty-details h3 {
-        font-size: 1.3rem;
+        color: var(--text-dark);
+        font-size: 1.4rem;
+        text-shadow: none;
+        margin-bottom: 5px;
+    }
+
+    .faculty-field {
+        margin-bottom: 10px;
+    }
+
+    .faculty-short-desc {
+        color: var(--text-light);
+        opacity: 1 !important;
+        transform: none !important;
+        margin-bottom: 15px;
+        font-size: 0.9rem;
+    }
+
+    .btn-know-more {
+        color: var(--header-top-bg);
+        border-bottom: 1px solid var(--header-top-bg);
+        padding: 5px 0;
+    }
+
+    /* Disable hover transforms on mobile */
+    .faculty-card-slider:hover .faculty-card-inner {
+        transform: none;
+    }
+
+    .faculty-card-slider:hover .faculty-image-box img {
+        transform: none;
     }
 }
 
 @media (max-width: 480px) {
-    .faculty-card-inner {
-        height: 320px;
+    .faculty-image-box {
+        height: 220px;
     }
 }
 
