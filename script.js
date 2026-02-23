@@ -119,6 +119,32 @@ document.addEventListener('DOMContentLoaded', () => {
             updateSlider();
         });
 
+        // --- Touch Swipe Support for Faculty Slider ---
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        facultySlider.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+            stopAutoSlide();
+        }, { passive: true });
+
+        facultySlider.addEventListener('touchend', (e) => {
+            touchEndX = e.changedTouches[0].screenX;
+            const swipeThreshold = 50;
+
+            if (touchStartX - touchEndX > swipeThreshold) {
+                // Swiped Left - Show Next
+                currentIndex++;
+                updateSlider();
+            } else if (touchEndX - touchStartX > swipeThreshold) {
+                // Swiped Right - Show Prev
+                currentIndex--;
+                updateSlider();
+            }
+
+            startAutoSlide();
+        }, { passive: true });
+
         // --- Know More / Modal Logic ---
         const modal = document.getElementById('facultyModal');
         const closeModal = document.querySelector('.close-modal');

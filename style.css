@@ -662,6 +662,8 @@ ul {
     overflow: hidden;
     padding: 20px 0;
     perspective: 1000px;
+    touch-action: pan-y;
+    /* Allow vertical scrolling */
 }
 
 .faculty-slider {
