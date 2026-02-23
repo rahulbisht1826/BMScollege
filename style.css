@@ -265,41 +265,86 @@ ul {
 
 /* Search Box */
 .search-box {
-    background: var(--white);
+    background: rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
     padding: 20px;
-    border-radius: 5px;
-    box-shadow: var(--shadow);
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.2);
     display: flex;
     flex-wrap: wrap;
-    gap: 10px;
+    gap: 12px;
     align-items: center;
     justify-content: center;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Subtle shimmer highlight on top edge */
+.search-box::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.5), transparent);
 }
 
 .search-box input,
 .search-box select {
-    padding: 12px 15px;
-    border: 1px solid #eee;
-    border-radius: 4px;
+    padding: 12px 18px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
     flex: 1;
     min-width: 150px;
     font-family: inherit;
+    font-size: 0.95rem;
     outline: none;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    color: var(--white);
+    transition: all 0.3s ease;
+}
+
+.search-box input::placeholder,
+.search-box select option {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.search-box select option {
+    background: #1a75ff;
+    color: white;
+}
+
+.search-box input:focus,
+.search-box select:focus {
+    border-color: rgba(255, 255, 255, 0.5);
+    background: rgba(255, 255, 255, 0.22);
+    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.1);
 }
 
 .search-box button {
     padding: 12px 30px;
-    background-color: var(--header-top-bg);
-    color: var(--white);
+    background: var(--white);
+    color: var(--primary-color);
     border: none;
-    border-radius: 4px;
+    border-radius: 12px;
     cursor: pointer;
-    font-weight: 600;
-    transition: var(--transition);
+    font-weight: 700;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+    white-space: nowrap;
 }
 
 .search-box button:hover {
-    background-color: #0ea5d0;
+    background: var(--primary-color);
+    color: var(--white);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(26, 117, 255, 0.4);
 }
 
 /* Features Section */
