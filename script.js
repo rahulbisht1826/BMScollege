@@ -150,5 +150,53 @@ document.addEventListener('DOMContentLoaded', () => {
         videoStack.addEventListener('mouseleave', startAutoShuffle);
     }
 
+    // Faculty Modal Logic
+    const facultyModal = document.getElementById('facultyModal');
+    const modalClose = document.getElementById('modalClose');
+    const knowMoreBtns = document.querySelectorAll('.btn-know-more-card');
+
+    const modalImg = document.getElementById('modalImg');
+    const modalName = document.getElementById('modalName');
+    const modalTag = document.getElementById('modalTag');
+    const modalExp = document.getElementById('modalExp');
+    const modalEdu = document.getElementById('modalEdu');
+    const modalBio = document.getElementById('modalBio');
+
+    if (facultyModal && knowMoreBtns.length > 0) {
+        knowMoreBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Populate Modal Data
+                modalImg.src = btn.getAttribute('data-img');
+                modalImg.alt = btn.getAttribute('data-name');
+                modalName.textContent = btn.getAttribute('data-name');
+                modalTag.textContent = btn.getAttribute('data-tag');
+                modalExp.textContent = btn.getAttribute('data-exp');
+                modalEdu.textContent = btn.getAttribute('data-edu');
+                modalBio.textContent = btn.getAttribute('data-bio');
+
+                // Show Modal
+                facultyModal.classList.add('active');
+                document.body.style.overflow = 'hidden'; // Prevent scrolling
+            });
+        });
+
+        // Close Modal
+        const closeModal = () => {
+            facultyModal.classList.remove('active');
+            document.body.style.overflow = 'auto'; // Re-enable scrolling
+        };
+
+        if (modalClose) {
+            modalClose.addEventListener('click', closeModal);
+        }
+
+        // Close on clicking outside
+        facultyModal.addEventListener('click', (e) => {
+            if (e.target === facultyModal) {
+                closeModal();
+            }
+        });
+    }
+
 
 });

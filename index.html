@@ -136,8 +136,12 @@
                             <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
                             <a href="#"><i class="fa-solid fa-envelope"></i></a>
                         </div>
-                        <a href="about.html" class="btn-know-more-card">Know More <i
-                                class="fa-solid fa-arrow-right"></i></a>
+                        <button class="btn-know-more-card" data-name="Dr. Sarah Jenkins" data-tag="Computer Science"
+                            data-img="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=1976&auto=format&fit=crop"
+                            data-bio="Dr. Sarah Jenkins is a pioneer in neural network research. She has authored over 40 papers on deep learning and has been a consultant for leading tech giants in Silicon Valley. Her passion lies in bridging the gap between theoretical AI and practical, ethical applications."
+                            data-exp="15+ Years" data-edu="Ph.D. in CS, Stanford University">
+                            Know More <i class="fa-solid fa-arrow-right"></i>
+                        </button>
                     </div>
                 </div>
                 <!-- Profile Card 2 -->
@@ -155,8 +159,12 @@
                             <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
                             <a href="#"><i class="fa-solid fa-envelope"></i></a>
                         </div>
-                        <a href="about.html" class="btn-know-more-card">Know More <i
-                                class="fa-solid fa-arrow-right"></i></a>
+                        <button class="btn-know-more-card" data-name="Prof. David Chen" data-tag="Engineering"
+                            data-img="https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=1974&auto=format&fit=crop"
+                            data-bio="Prof. Chen leads the Quantum Systems Laboratory. His research focuses on superconducting qubits and scalable quantum architectures. He is a recipient of the Global Excellence in Engineering award for his contributions to nanotechnology."
+                            data-exp="12+ Years" data-edu="Ph.D. in Engineering, MIT">
+                            Know More <i class="fa-solid fa-arrow-right"></i>
+                        </button>
                     </div>
                 </div>
                 <!-- Profile Card 3 -->
@@ -174,8 +182,12 @@
                             <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
                             <a href="#"><i class="fa-solid fa-envelope"></i></a>
                         </div>
-                        <a href="about.html" class="btn-know-more-card">Know More <i
-                                class="fa-solid fa-arrow-right"></i></a>
+                        <button class="btn-know-more-card" data-name="Dr. Elena Rodriguez" data-tag="Biotechnology"
+                            data-img="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=1976&auto=format&fit=crop"
+                            data-bio="Dr. Rodriguez is at the forefront of CRISPR technology application in personalized medicine. She has successfully led multiple clinical trials and serves on the board of International Bioethics Committee."
+                            data-exp="10+ Years" data-edu="Ph.D. in Genetics, Harvard University">
+                            Know More <i class="fa-solid fa-arrow-right"></i>
+                        </button>
                     </div>
                 </div>
                 <!-- Profile Card 4 -->
@@ -193,8 +205,13 @@
                             <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
                             <a href="#"><i class="fa-solid fa-envelope"></i></a>
                         </div>
-                        <a href="about.html" class="btn-know-more-card">Know More <i
-                                class="fa-solid fa-arrow-right"></i></a>
+                        <button class="btn-know-more-card" data-name="Prof. James Wilson"
+                            data-tag="Business & Economics"
+                            data-img="https://images.unsplash.com/photo-1566492031773-4f4e44671857?q=80&w=1974&auto=format&fit=crop"
+                            data-bio="Prof. Wilson is a former senior economist at the World Bank. He specializes in emerging market dynamics and sustainable corporate finance strategies. He has mentored hundreds of entrepreneurs."
+                            data-exp="20+ Years" data-edu="MBA, Wharton School; Ph.D. in Economics, Oxford">
+                            Know More <i class="fa-solid fa-arrow-right"></i>
+                        </button>
                     </div>
                 </div>
                 <!-- Profile Card 5 -->
@@ -212,8 +229,12 @@
                             <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
                             <a href="#"><i class="fa-solid fa-envelope"></i></a>
                         </div>
-                        <a href="about.html" class="btn-know-more-card">Know More <i
-                                class="fa-solid fa-arrow-right"></i></a>
+                        <button class="btn-know-more-card" data-name="Dr. Sophia Martinez" data-tag="Robotics"
+                            data-img="https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=1961&auto=format&fit=crop"
+                            data-bio="Dr. Martinez's work centers on making robots more intuitive and helpful in domestic environments. She has developed algorithms for adaptive learning in mobile robots and holds multiple patents in haptic feedback."
+                            data-exp="8+ Years" data-edu="Ph.D. in Robotics, Carnegie Mellon University">
+                            Know More <i class="fa-solid fa-arrow-right"></i>
+                        </button>
                     </div>
                 </div>
                 <!-- Profile Card 6 -->
@@ -231,13 +252,43 @@
                             <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
                             <a href="#"><i class="fa-solid fa-envelope"></i></a>
                         </div>
-                        <a href="about.html" class="btn-know-more-card">Know More <i
-                                class="fa-solid fa-arrow-right"></i></a>
+                        <button class="btn-know-more-card" data-name="Prof. Robert Taylor" data-tag="Cyber Security"
+                            data-img="https://images.unsplash.com/photo-1551836022-d5d88e9218df?q=80&w=2070&auto=format&fit=crop"
+                            data-bio="Prof. Taylor is a certified ethical hacker with decades of experience securing national infrastructure. He leads the University's Cyber Defense Competition team and researches blockchain-based security protocols."
+                            data-exp="18+ Years" data-edu="M.S. in InfoSec, Georgia Tech; CISSP">
+                            Know More <i class="fa-solid fa-arrow-right"></i>
+                        </button>
                     </div>
                 </div>
             </div>
         </div>
     </section>
+
+    <!-- Faculty Detail Modal -->
+    <div id="facultyModal" class="faculty-modal-overlay">
+        <div class="faculty-modal-content">
+            <button class="modal-close-btn" id="modalClose">&times;</button>
+            <div class="modal-body">
+                <div class="modal-header-info">
+                    <div class="modal-img-container">
+                        <img id="modalImg" src="" alt="">
+                    </div>
+                    <div class="modal-main-text">
+                        <span id="modalTag" class="profile-tag"></span>
+                        <h2 id="modalName"></h2>
+                        <div class="modal-stats">
+                            <span><strong>Experience:</strong> <span id="modalExp"></span></span>
+                            <span><strong>Education:</strong> <span id="modalEdu"></span></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-description">
+                    <h3>About the Faculty</h3>
+                    <p id="modalBio"></p>
+                </div>
+            </div>
+        </div>
+    </div>
 
 
     <!-- Popular Courses Section -->
