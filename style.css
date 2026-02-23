@@ -506,36 +506,25 @@ ul {
         left: 0;
         width: 100%;
 
-        /* Premium frosted glass */
-        background: rgba(10, 20, 60, 0.55);
-        backdrop-filter: blur(30px) saturate(180%) brightness(1.1);
-        -webkit-backdrop-filter: blur(30px) saturate(180%) brightness(1.1);
+        /* Clean solid white */
+        background: #ffffff;
 
         flex-direction: column;
         padding: 16px 20px 24px;
         z-index: 999;
 
-        /* Glass borders */
-        border-top: 1px solid rgba(255, 255, 255, 0.15);
-        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-
-        /* Deep shadow for depth */
-        box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.05);
+        border-top: 2px solid var(--primary-color);
+        border-bottom: 1px solid #e8edf2;
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
 
         /* Hidden by default */
         opacity: 0;
         pointer-events: none;
     }
 
-    /* Shimmer top accent line */
+    /* No shimmer on solid white */
     .nav-links::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 10%;
-        right: 10%;
-        height: 1px;
-        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.6), transparent);
+        display: none;
     }
 
     /* Active state — animate in */
@@ -550,7 +539,7 @@ ul {
     .nav-links li {
         margin: 0;
         text-align: left;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        border-bottom: 1px solid #f0f4f8;
 
         /* Hidden for stagger animation */
         opacity: 0;
@@ -597,8 +586,8 @@ ul {
         padding: 16px 10px;
         font-size: 1.05rem;
         font-weight: 600;
-        color: rgba(255, 255, 255, 0.92);
-        /* Bright white — crisp on dark glass */
+        color: #1a1a2e;
+        /* Dark — easy to read on white */
         letter-spacing: 0.4px;
         transition: all 0.25s ease;
         gap: 10px;
@@ -626,9 +615,9 @@ ul {
 
     .nav-links a:hover,
     .nav-links a.active {
-        color: #ffffff;
+        color: var(--primary-color);
         padding-left: 20px;
-        background: rgba(255, 255, 255, 0.07);
+        background: rgba(26, 117, 255, 0.05);
         border-radius: 10px;
     }
 
