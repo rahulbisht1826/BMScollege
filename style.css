@@ -65,13 +65,25 @@ ul {
 }
 
 .top-bar {
-    background-color: rgba(20, 189, 238, 0.6);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
+    background: rgba(20, 189, 238, 0.15);
+    /* More transparent for better glass effect */
+    backdrop-filter: blur(25px) saturate(200%);
+    /* Stronger blur and saturation */
+    -webkit-backdrop-filter: blur(25px) saturate(200%);
     color: var(--white);
     padding: 10px 0;
     font-size: 0.9rem;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    position: relative;
+    z-index: 1001;
+}
+
+.top-bar::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), transparent);
+    pointer-events: none;
 }
 
 .top-bar-content {
@@ -95,9 +107,18 @@ ul {
 
 .main-header {
     padding: 20px 0;
-    transition: var(--transition);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     background: var(--white);
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.header.scrolled .main-header {
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    padding: 12px 0;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 .main-header-content {
