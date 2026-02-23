@@ -416,8 +416,38 @@ ul {
     transform: translateY(0);
 }
 
-/* Responsive */
+/* =====================================================
+   MOBILE NAV — ENHANCED FROSTED GLASS + ANIMATIONS
+   ===================================================== */
+@keyframes navSlideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px) scaleY(0.95);
+        transform-origin: top;
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scaleY(1);
+        transform-origin: top;
+    }
+}
+
+@keyframes navItemFadeIn {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
 @media (max-width: 768px) {
+
+    /* ---- NAV CONTAINER ---- */
     .nav-links {
         display: none;
         position: absolute;
@@ -425,71 +455,144 @@ ul {
         left: 0;
         width: 100%;
 
-        /* === FROSTED GLASS === */
-        background: rgba(255, 255, 255, 0.75);
-        backdrop-filter: blur(24px) saturate(200%);
-        -webkit-backdrop-filter: blur(24px) saturate(200%);
-        border-bottom: 1px solid rgba(255, 255, 255, 0.4);
-        border-top: 1px solid rgba(255, 255, 255, 0.6);
+        /* Premium frosted glass */
+        background: rgba(10, 20, 60, 0.55);
+        backdrop-filter: blur(30px) saturate(180%) brightness(1.1);
+        -webkit-backdrop-filter: blur(30px) saturate(180%) brightness(1.1);
 
         flex-direction: column;
-        padding: 20px 24px 28px;
-        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.18);
+        padding: 16px 20px 24px;
         z-index: 999;
 
-        /* Slide down animation */
-        transform: translateY(-10px);
+        /* Glass borders */
+        border-top: 1px solid rgba(255, 255, 255, 0.15);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+
+        /* Deep shadow for depth */
+        box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.05);
+
+        /* Hidden by default */
         opacity: 0;
-        transition: opacity 0.3s ease, transform 0.3s ease;
         pointer-events: none;
     }
 
+    /* Shimmer top accent line */
+    .nav-links::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 10%;
+        right: 10%;
+        height: 1px;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.6), transparent);
+    }
+
+    /* Active state — animate in */
     .nav-links.active {
         display: flex;
         opacity: 1;
-        transform: translateY(0);
         pointer-events: all;
+        animation: navSlideDown 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
     }
 
+    /* ---- NAV LIST ITEMS ---- */
     .nav-links li {
-        margin-bottom: 4px;
-        text-align: center;
-        border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+        margin: 0;
+        text-align: left;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+
+        /* Hidden for stagger animation */
+        opacity: 0;
     }
 
     .nav-links li:last-child {
         border-bottom: none;
-        margin-bottom: 0;
     }
 
-    /* HIGH-CONTRAST readable text */
+    /* Staggered delays — set per child */
+    .nav-links li:nth-child(1) {
+        animation-delay: 0.05s;
+    }
+
+    .nav-links li:nth-child(2) {
+        animation-delay: 0.10s;
+    }
+
+    .nav-links li:nth-child(3) {
+        animation-delay: 0.15s;
+    }
+
+    .nav-links li:nth-child(4) {
+        animation-delay: 0.20s;
+    }
+
+    .nav-links li:nth-child(5) {
+        animation-delay: 0.25s;
+    }
+
+    .nav-links li:nth-child(6) {
+        animation-delay: 0.30s;
+    }
+
+    /* Items animate when parent is active */
+    .nav-links.active li {
+        animation: navItemFadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+
+    /* ---- NAV LINKS ---- */
     .nav-links a {
-        display: block;
-        padding: 14px 0;
+        display: flex;
+        align-items: center;
+        padding: 16px 10px;
         font-size: 1.05rem;
         font-weight: 600;
-        color: #1a1a2e;
-        /* Dark navy — easy to read on glass */
-        letter-spacing: 0.3px;
+        color: rgba(255, 255, 255, 0.92);
+        /* Bright white — crisp on dark glass */
+        letter-spacing: 0.4px;
         transition: all 0.25s ease;
+        gap: 10px;
+        position: relative;
+    }
+
+    /* Left active indicator bar */
+    .nav-links a::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 50%;
+        transform: translateY(-50%) scaleY(0);
+        width: 3px;
+        height: 60%;
+        background: var(--primary-color);
+        border-radius: 3px;
+        transition: transform 0.25s ease;
+    }
+
+    /* Remove underline animation on mobile */
+    .nav-links a::after {
+        display: none;
     }
 
     .nav-links a:hover,
     .nav-links a.active {
-        color: var(--primary-color);
-        padding-left: 8px;
+        color: #ffffff;
+        padding-left: 20px;
+        background: rgba(255, 255, 255, 0.07);
+        border-radius: 10px;
     }
 
-    .nav-links a::after {
-        display: none;
-        /* Hide underline pseudo-element on mobile */
+    .nav-links a:hover::before,
+    .nav-links a.active::before {
+        transform: translateY(-50%) scaleY(1);
     }
 
+    /* ---- HAMBURGER ---- */
     .hamburger {
         display: block;
         font-size: 1.5rem;
     }
 
+    /* ---- OTHER MOBILE STYLES ---- */
     .hero-title {
         font-size: 2.5rem;
     }
@@ -517,6 +620,7 @@ ul {
         padding: 50px 0;
     }
 }
+
 
 /* Courses Section */
 .section-header {

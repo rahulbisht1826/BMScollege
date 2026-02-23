@@ -25,15 +25,48 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Mobile Menu Toggle
+    // Mobile Menu Toggle — with stagger animation reset
     const hamburger = document.querySelector('.hamburger');
     const navLinks = document.querySelector('.nav-links');
+    const navItems = navLinks ? navLinks.querySelectorAll('li') : [];
 
     if (hamburger) {
-        hamburger.addEventListener('click', () => {
-            navLinks.classList.toggle('active');
+        hamburger.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const isOpen = navLinks.classList.contains('active');
+
+            if (!isOpen) {
+                // Reset each item's animation so it replays
+                navItems.forEach(li => {
+                    li.style.animation = 'none';
+                    li.offsetHeight; // force reflow
+                    li.style.animation = '';
+                });
+                navLinks.classList.add('active');
+                hamburger.setAttribute('aria-expanded', 'true');
+            } else {
+                navLinks.classList.remove('active');
+                hamburger.setAttribute('aria-expanded', 'false');
+            }
+        });
+
+        // Close menu when clicking anywhere outside
+        document.addEventListener('click', (e) => {
+            if (!navLinks.contains(e.target) && !hamburger.contains(e.target)) {
+                navLinks.classList.remove('active');
+                hamburger.setAttribute('aria-expanded', 'false');
+            }
+        });
+
+        // Close menu when a nav link is clicked
+        navItems.forEach(li => {
+            li.querySelector('a')?.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                hamburger.setAttribute('aria-expanded', 'false');
+            });
         });
     }
+
 
 
 
