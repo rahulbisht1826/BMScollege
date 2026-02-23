@@ -165,5 +165,105 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // --- Shuffle Stack Video Gallery Logic ---
+    const videoStack = document.getElementById('videoStack');
+    const cards = document.querySelectorAll('.video-card');
+    const nextShuffleBtn = document.getElementById('nextShuffle');
+    const prevShuffleBtn = document.getElementById('prevShuffle');
 
+    if (videoStack && cards.length > 0) {
+        let currentIndex = 0;
+        let shuffleInterval;
+
+        const updateStack = () => {
+            cards.forEach((card, index) => {
+                // Calculate position relative to top card
+                let pos = (index - currentIndex + cards.length) % cards.length;
+
+                // Assign positions: 0 is top, 1, 2, 3 are visible stack, others are hidden
+                if (pos >= 4) pos = -1; // Cards beyond 3 layers are hidden
+
+                card.setAttribute('data-pos', pos);
+
+                // Manage active state (overlay visibility)
+                if (pos === 0) {
+                    card.classList.add('active');
+                    const video = card.querySelector('video');
+                    if (video) {
+                        video.muted = true; // Ensure it's muted
+                        video.controls = true; // Show controls
+                        video.play().catch(e => console.warn("Autoplay blocked", e));
+                    }
+                } else {
+                    card.classList.remove('active');
+                    const video = card.querySelector('video');
+                    if (video) {
+                        video.controls = false; // Hide controls
+                        video.pause();
+                    }
+                }
+            });
+        };
+
+        const shuffleNext = () => {
+            const topCard = document.querySelector('.video-card[data-pos="0"]');
+            if (topCard) {
+                topCard.classList.add('shuffling-left');
+
+                setTimeout(() => {
+                    currentIndex = (currentIndex + 1) % cards.length;
+                    updateStack();
+                    topCard.classList.remove('shuffling-left');
+                }, 400); // Wait for transition out
+            }
+        };
+
+        const shufflePrev = () => {
+            // To shuffle back, we bring the "last" card to the front
+            // We animate the current top card to the right first
+            currentIndex = (currentIndex - 1 + cards.length) % cards.length;
+            const newTop = cards[currentIndex];
+            newTop.classList.add('shuffling-right');
+
+            updateStack();
+
+            setTimeout(() => {
+                newTop.classList.remove('shuffling-right');
+            }, 50);
+        };
+
+        // Auto Shuffle every 2 seconds
+        const startAutoShuffle = () => {
+            shuffleInterval = setInterval(shuffleNext, 2000);
+        };
+
+        const stopAutoShuffle = () => {
+            clearInterval(shuffleInterval);
+        };
+
+        // Event Listeners
+        if (nextShuffleBtn) {
+            nextShuffleBtn.addEventListener('click', () => {
+                stopAutoShuffle();
+                shuffleNext();
+                startAutoShuffle();
+            });
+        }
+
+        if (prevShuffleBtn) {
+            prevShuffleBtn.addEventListener('click', () => {
+                stopAutoShuffle();
+                shufflePrev();
+                startAutoShuffle();
+            });
+        }
+
+        // Initialize
+        updateStack();
+        startAutoShuffle();
+
+        // Pause on hover
+        videoStack.addEventListener('mouseenter', stopAutoShuffle);
+        videoStack.addEventListener('mouseleave', startAutoShuffle);
+    }
 });
