@@ -18,7 +18,8 @@
    - [Placement Page (placement.html)](#35-placement-page--placementhtml)
    - [Contact Page (contact.html)](#36-contact-page--contacthtml)
    - [Login Page (login.html)](#37-login-page--loginhtml)
-   - [404 Page (404.html)](#38-404-page--404html)
+   - [Sitemap Page (sitemap.html)](#38-sitemap-page--sitemaphtml)
+   - [404 Page (404.html)](#39-404-page--404html)
 4. [Stylesheet Guide (style.css)](#4-stylesheet-guide--stylecss)
 5. [JavaScript Guide (script.js)](#5-javascript-guide--scriptjs)
 6. [Images & Media](#6-images--media)
@@ -52,8 +53,11 @@ college website/
 ├── placement.html           # PLACEMENT PAGE — placement info (under development)
 ├── contact.html             # CONTACT PAGE — contact form + Google Maps
 ├── login.html               # LOGIN PAGE — login/register forms + Google Sign-In
-├── 404.html                 # 404 REDIRECT — auto-redirects to index.html
+├── sitemap.html             # SITEMAP PAGE — visual tree-style sitemap
+├── 404.html                 # 404 PAGE — animated error page with countdown redirect
 │
+├── sitemap.xml              # XML SITEMAP — machine-readable sitemap for search engines
+├── robots.txt               # ROBOTS.TXT — crawler instructions & sitemap reference
 ├── style.css                # GLOBAL STYLESHEET — all CSS for the entire site
 ├── script.js                # GLOBAL JAVASCRIPT — all JS logic for the entire site
 └── WALKTHROUGH.md           # THIS FILE — documentation
@@ -350,13 +354,64 @@ These are read by JavaScript to populate the modal. When adding a new faculty me
 
 ---
 
-### 3.8 404 Page — `404.html`
+### 3.8 Sitemap Page — `sitemap.html`
 
-**Title:** `BMS COLLEGE OF COMMERCE & MANAGEMENT - Redirecting...`
+**Title:** `Sitemap - BMS COLLEGE OF COMMERCE & MANAGEMENT`
 
-- Auto-redirects to `index.html` using both `<meta http-equiv="refresh">` and JavaScript
-- Minimal page — no header, footer, or content
-- Useful for GitHub Pages: any unknown URL redirects to the homepage
+**This page provides a visual overview of the entire website structure.**
+
+**Sections:**
+
+| Section | Description |
+|---------|-------------|
+| **Page Title Banner** | Dark gradient background (no external image) with "Sitemap" heading. |
+| **Website Structure** | Tree-style layout showing all pages. |
+| **XML Sitemap Link** | Button linking to the machine-readable `sitemap.xml`. |
+| **Footer** | Standard footer. |
+
+**Tree Layout:**
+- **Root Node** (Home) — Blue gradient card at the top with house icon
+- **Connector Line** — Gradient line from root to branch cards
+- **6 Branch Cards** in a 3×2 responsive grid:
+  - About, Courses, Faculty, Placement, Contact, Login
+- Each card shows: icon, title, short description, file path URL, priority badge
+- **Priority Badges:** Green (High), Orange (Medium), Purple (Utility)
+
+**Design:**
+- Uses the shared `style.css` for header/footer
+- Page-specific CSS is embedded in a `<style>` tag
+- Hover effects: cards lift up, icons rotate and change color
+- Scroll reveal animations on all cards
+- Responsive: collapses to single column on mobile
+
+---
+
+### 3.9 404 Page — `404.html`
+
+**Title:** `404 - Page Not Found | BMS COLLEGE OF COMMERCE & MANAGEMENT`
+
+**This is a standalone page with its own embedded CSS and JavaScript — it does NOT use `style.css` or `script.js`.**
+
+**Features:**
+
+| Feature | Description |
+|---------|-------------|
+| **Dark Background** | Deep navy (`#0a0e27`) with an animated grid pattern. |
+| **Floating Orbs** | 3 large blurred gradient orbs (blue, cyan, purple) with floating animation. |
+| **Particles** | 30 randomly generated glowing particles rising from the bottom. |
+| **404 Number** | Huge gradient text with a periodic glitch animation (jitter + red shadow flash). |
+| **Error Message** | "Oops! Page Not Found" title with a friendly description. |
+| **Action Buttons** | "Go to Homepage" (gradient blue) and "Contact Us" (glass-style border). |
+| **Countdown Redirect** | Shows a visible 10-second countdown, then auto-redirects to `index.html`. |
+
+**Key Technical Details:**
+- **No external CSS/JS files** — everything is self-contained in the HTML
+- Particles are generated dynamically via JavaScript (30 elements with random size, position, and animation delay)
+- The countdown uses `setInterval()` with a 1-second tick
+- Fully responsive: buttons stack vertically on mobile (< 480px)
+- Uses `clamp()` for the 404 font size to scale smoothly across screen sizes
+- The page does NOT have a header or footer (intentional — it's an error page)
+- Useful for GitHub Pages: any unknown URL shows this page before redirecting
 
 ---
 
@@ -430,6 +485,7 @@ All shared JavaScript is in `script.js` (~256 lines). Page-specific JS is inline
 ### Inline JavaScript (NOT in script.js):
 - **courses.html** — Course search & filter logic (bottom of file)
 - **login.html** — Tab switching, Google modal logic (bottom of file)
+- **404.html** — Particle generation + countdown redirect (bottom of file)
 
 ---
 
@@ -548,9 +604,9 @@ If you need to change it, update ALL of these in ALL HTML files.
 
 5. **No backend** — The contact form, login form, and register form are frontend-only mockups. They do not submit data anywhere.
 
-6. **CSS is in ONE file** — All styling for all pages is in `style.css`. There are no page-specific CSS files (except login.html which has inline styles).
+6. **CSS is in ONE file** — All styling for all pages is in `style.css`. There are no page-specific CSS files (except `login.html`, `sitemap.html`, and `404.html` which have inline styles).
 
-7. **JavaScript is in ONE file** — `script.js` handles all shared functionality. Page-specific JS is inline at the bottom of `courses.html` and `login.html`.
+7. **JavaScript is in ONE file** — `script.js` handles all shared functionality. Page-specific JS is inline at the bottom of `courses.html`, `login.html`, and `404.html`.
 
 8. **External images can break** — Course images, author avatars, gallery backgrounds, and page banners use external CDNs (Unsplash, randomuser.me, Mixkit). Consider hosting locally.
 
@@ -568,7 +624,10 @@ If you need to change it, update ALL of these in ALL HTML files.
 | `video/*.mp4` | Videos used in About page video gallery |
 | `style.css` | ALL website styles |
 | `script.js` | ALL shared JavaScript |
-| `404.html` | GitHub Pages redirect handler |
+| `sitemap.xml` | XML sitemap for search engine crawlers |
+| `robots.txt` | Crawler instructions pointing to sitemap.xml |
+| `sitemap.html` | Visual sitemap page with tree-style layout |
+| `404.html` | Animated error page with countdown redirect |
 
 ### 🔗 Navigation Link Reference
 
@@ -589,6 +648,9 @@ All pages should have these exact nav links:
 - All pages have `<meta name="description">` tags
 - Semantic HTML is used where possible
 - Google Fonts are preconnected (`rel="preconnect"`) for performance
+- **`sitemap.xml`** — Lists all 8 pages with priority, last modified date, and change frequency
+- **`robots.txt`** — Allows all crawlers and points them to the sitemap URL
+- **`sitemap.html`** — Visual sitemap for human visitors, linked from the XML sitemap
 
 ---
 
