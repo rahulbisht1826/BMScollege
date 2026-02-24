@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sitemap - BMS COLLEGE OF COMMERCE & MANAGEMENT</title>
+    <meta name="description" content="Sitemap for BMS COLLEGE OF COMMERCE & MANAGEMENT website.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/png" href="images/logo.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <style>
+        /* Sitemap Page Styles */
+        .sitemap-section {
+            padding: 80px 0;
+            min-height: 60vh;
+        }
+
+        .sitemap-intro {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .sitemap-intro h2 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 12px;
+        }
+
+        .sitemap-intro p {
+            color: var(--text-light);
+            font-size: 1.05rem;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        /* Tree Layout */
+        .sitemap-tree {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0;
+        }
+
+        /* Root Node */
+        .tree-root {
+            position: relative;
+            z-index: 2;
+        }
+
+        .tree-root .sitemap-node {
+            background: linear-gradient(135deg, #1a75ff 0%, #0ea5d0 100%);
+            color: #fff;
+            border: none;
+            box-shadow: 0 12px 40px rgba(26, 117, 255, 0.35);
+            padding: 24px 40px;
+        }
+
+        .tree-root .sitemap-node .node-icon {
+            background: rgba(255, 255, 255, 0.2);
+            color: #fff;
+        }
+
+        .tree-root .sitemap-node .node-title {
+            color: #fff;
+        }
+
+        .tree-root .sitemap-node .node-desc {
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .tree-root .sitemap-node .node-url {
+            color: rgba(255, 255, 255, 0.65);
+        }
+
+        /* Connector Line */
+        .tree-connector {
+            width: 3px;
+            height: 50px;
+            background: linear-gradient(to bottom, #1a75ff, #e0e7f1);
+            margin: 0 auto;
+        }
+
+        /* Branch Grid */
+        .tree-branches {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            max-width: 900px;
+            width: 100%;
+            position: relative;
+        }
+
+        .tree-branches::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 70%;
+            height: 3px;
+            background: linear-gradient(to right, transparent, #d0d8e8, #d0d8e8, transparent);
+        }
+
+        /* Individual Node Card */
+        .sitemap-node {
+            background: #ffffff;
+            border: 1px solid #e8edf3;
+            border-radius: 16px;
+            padding: 24px;
+            text-decoration: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            gap: 12px;
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            position: relative;
+            cursor: pointer;
+        }
+
+        .sitemap-node:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.12);
+            border-color: var(--primary-color);
+        }
+
+        .sitemap-node::before {
+            content: '';
+            position: absolute;
+            top: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 3px;
+            height: 25px;
+            background: #d0d8e8;
+        }
+
+        .tree-root .sitemap-node::before {
+            display: none;
+        }
+
+        .node-icon {
+            width: 52px;
+            height: 52px;
+            border-radius: 14px;
+            background: linear-gradient(135deg, #eef2ff, #e0e7ff);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            color: var(--primary-color);
+            transition: all 0.3s ease;
+        }
+
+        .sitemap-node:hover .node-icon {
+            transform: scale(1.1) rotate(-5deg);
+            background: linear-gradient(135deg, #1a75ff, #0ea5d0);
+            color: #fff;
+        }
+
+        .tree-root .sitemap-node:hover .node-icon {
+            background: rgba(255, 255, 255, 0.35);
+        }
+
+        .node-title {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            line-height: 1.3;
+        }
+
+        .node-desc {
+            font-size: 0.8rem;
+            color: var(--text-light);
+            line-height: 1.5;
+        }
+
+        .node-url {
+            font-size: 0.7rem;
+            color: #aab3c0;
+            font-family: 'Courier New', monospace;
+            word-break: break-all;
+        }
+
+        /* Priority Badge */
+        .node-priority {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            font-size: 0.6rem;
+            font-weight: 700;
+            padding: 3px 8px;
+            border-radius: 20px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .priority-high {
+            background: #e8f5e9;
+            color: #2e7d32;
+        }
+
+        .priority-medium {
+            background: #fff3e0;
+            color: #e65100;
+        }
+
+        .priority-low {
+            background: #f3e5f5;
+            color: #7b1fa2;
+        }
+
+        /* XML Link */
+        .sitemap-xml-link {
+            text-align: center;
+            margin-top: 60px;
+            padding-top: 40px;
+            border-top: 1px solid #e8edf3;
+        }
+
+        .sitemap-xml-link p {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            margin-bottom: 12px;
+        }
+
+        .sitemap-xml-link a {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 24px;
+            background: #f5f7fa;
+            color: var(--primary-color);
+            text-decoration: none;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            border: 1px solid #e0e7f1;
+            transition: all 0.3s ease;
+        }
+
+        .sitemap-xml-link a:hover {
+            background: var(--primary-color);
+            color: #fff;
+            border-color: var(--primary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(26, 117, 255, 0.25);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .tree-branches {
+                grid-template-columns: 1fr;
+                max-width: 400px;
+            }
+
+            .tree-branches::before {
+                width: 3px;
+                height: 100%;
+                left: 50%;
+                top: 0;
+            }
+
+            .sitemap-intro h2 {
+                font-size: 1.7rem;
+            }
+
+            .tree-root .sitemap-node {
+                padding: 20px 28px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .sitemap-section {
+                padding: 50px 0;
+            }
+
+            .sitemap-intro h2 {
+                font-size: 1.4rem;
+            }
+
+            .sitemap-node {
+                padding: 18px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="top-bar">
+            <div class="container top-bar-content">
+                <div class="contact-info">
+                </div>
+                <div class="auth-buttons">
+                    <a href="login.html" class="btn-register">Register Now <i class="fa-solid fa-user-plus"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="main-header">
+            <div class="container main-header-content">
+                <div class="logo">
+                    <a href="index.html" class="logo-link">
+                        <div class="logo-icon-wrap">
+                            <img src="images/logo.png" alt="BMS College Logo">
+                        </div>
+                        <div class="logo-text">
+                            <span class="logo-title">BMS</span>
+                            <span class="logo-sub">COLLEGE OF COMMERCE & MANAGEMENT</span>
+                        </div>
+                    </a>
+                </div>
+                <nav class="navbar">
+                    <ul class="nav-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="courses.html">Courses</a></li>
+                        <li><a href="faculty.html">Faculty</a></li>
+                        <li><a href="placement.html">Placement</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </nav>
+                <div class="header-actions">
+                    <div class="hamburger">
+                        <img src="images/menu_icon.svg" alt="Menu Icon">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Page Title -->
+    <section class="page-title-section"
+        style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%); padding: 100px 0; margin-top: 100px; position: relative;">
+        <div class="container" style="position: relative; z-index: 2; text-align: center; color: white;">
+            <h1 class="fade-in-up">Sitemap</h1>
+            <p class="fade-in-up delay-1">Home / Sitemap</p>
+        </div>
+    </section>
+
+    <!-- Sitemap Content -->
+    <section class="sitemap-section">
+        <div class="container">
+
+            <div class="sitemap-intro scroll-reveal">
+                <h2>Website Structure</h2>
+                <p>Explore all pages and sections of the BMS College website.</p>
+            </div>
+
+            <div class="sitemap-tree">
+
+                <!-- Root: Home -->
+                <div class="tree-root scroll-reveal">
+                    <a href="index.html" class="sitemap-node">
+                        <div class="node-icon">
+                            <i class="fa-solid fa-house"></i>
+                        </div>
+                        <div class="node-title">Home</div>
+                        <div class="node-desc">Main landing page — Hero, Features, Popular Courses</div>
+                        <div class="node-url">/index.html</div>
+                    </a>
+                </div>
+
+                <!-- Connector -->
+                <div class="tree-connector scroll-reveal"></div>
+
+                <!-- Branch Pages -->
+                <div class="tree-branches">
+
+                    <!-- About -->
+                    <a href="about.html" class="sitemap-node scroll-reveal">
+                        <span class="node-priority priority-high">High</span>
+                        <div class="node-icon">
+                            <i class="fa-solid fa-info-circle"></i>
+                        </div>
+                        <div class="node-title">About Us</div>
+                        <div class="node-desc">Campus gallery, video showcase, college history & mission</div>
+                        <div class="node-url">/about.html</div>
+                    </a>
+
+                    <!-- Courses -->
+                    <a href="courses.html" class="sitemap-node scroll-reveal">
+                        <span class="node-priority priority-high">High</span>
+                        <div class="node-icon">
+                            <i class="fa-solid fa-book-open"></i>
+                        </div>
+                        <div class="node-title">Courses</div>
+                        <div class="node-desc">Course catalog with search & filter by category</div>
+                        <div class="node-url">/courses.html</div>
+                    </a>
+
+                    <!-- Faculty -->
+                    <a href="faculty.html" class="sitemap-node scroll-reveal">
+                        <span class="node-priority priority-high">High</span>
+                        <div class="node-icon">
+                            <i class="fa-solid fa-chalkboard-user"></i>
+                        </div>
+                        <div class="node-title">Faculty</div>
+                        <div class="node-desc">49 faculty profiles with photos, bios & contact details</div>
+                        <div class="node-url">/faculty.html</div>
+                    </a>
+
+                    <!-- Placement -->
+                    <a href="placement.html" class="sitemap-node scroll-reveal">
+                        <span class="node-priority priority-medium">Medium</span>
+                        <div class="node-icon">
+                            <i class="fa-solid fa-briefcase"></i>
+                        </div>
+                        <div class="node-title">Placement</div>
+                        <div class="node-desc">Placement records, recruiters & career opportunities</div>
+                        <div class="node-url">/placement.html</div>
+                    </a>
+
+                    <!-- Contact -->
+                    <a href="contact.html" class="sitemap-node scroll-reveal">
+                        <span class="node-priority priority-high">High</span>
+                        <div class="node-icon">
+                            <i class="fa-solid fa-envelope"></i>
+                        </div>
+                        <div class="node-title">Contact</div>
+                        <div class="node-desc">Contact form, address, phone, email & Google Maps</div>
+                        <div class="node-url">/contact.html</div>
+                    </a>
+
+                    <!-- Login -->
+                    <a href="login.html" class="sitemap-node scroll-reveal">
+                        <span class="node-priority priority-low">Utility</span>
+                        <div class="node-icon">
+                            <i class="fa-solid fa-right-to-bracket"></i>
+                        </div>
+                        <div class="node-title">Login / Register</div>
+                        <div class="node-desc">Student login, registration & Google sign-in</div>
+                        <div class="node-url">/login.html</div>
+                    </a>
+
+                </div>
+            </div>
+
+            <!-- XML Sitemap Link -->
+            <div class="sitemap-xml-link scroll-reveal">
+                <p>For search engines, an XML version is also available:</p>
+                <a href="sitemap.xml">
+                    <i class="fa-solid fa-code"></i> View sitemap.xml
+                </a>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h3>BMS COLLEGE OF COMMERCE & MANAGEMENT</h3>
+                    <p>The Premium System Education. Future Of Education Technology.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+                        <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
+                        <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="courses.html">Courses</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="#">Become a Partner</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Contact Us</h3>
+                    <p><i class="fa-solid fa-envelope"></i> principal.bmsccm@gmail.com<br>principal@bmsccm.ac.in</p>
+                    <p><i class="fa-solid fa-phone"></i> 080-26610174 / 91 96202 25400-03</p>
+                    <p><i class="fa-solid fa-location-dot"></i> No-97, Kavi Lakshmisha Road, V.V. Puram, Bangalore - 560
+                        004 Karnataka, India.</p>
+                </div>
+                <div class="footer-col">
+                    <h3>Newsletter</h3>
+                    <form class="newsletter-form">
+                        <input type="email" placeholder="Your Email">
+                        <button type="submit">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 BMS COLLEGE OF COMMERCE & MANAGEMENT. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
