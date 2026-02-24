@@ -194,6 +194,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const modalExp = document.getElementById('modalExp');
     const modalEdu = document.getElementById('modalEdu');
     const modalBio = document.getElementById('modalBio');
+    const modalEmail = document.getElementById('modalEmail');
 
     if (facultyModal && knowMoreBtns.length > 0) {
         knowMoreBtns.forEach(btn => {
@@ -203,9 +204,21 @@ document.addEventListener('DOMContentLoaded', () => {
                 modalImg.alt = btn.getAttribute('data-name');
                 modalName.textContent = btn.getAttribute('data-name');
                 modalTag.textContent = btn.getAttribute('data-tag');
-                modalExp.textContent = btn.getAttribute('data-exp');
-                modalEdu.textContent = btn.getAttribute('data-edu');
+                modalExp.textContent = btn.getAttribute('data-exp') || '-';
+                modalEdu.textContent = btn.getAttribute('data-edu') || '-';
                 modalBio.textContent = btn.getAttribute('data-bio');
+
+                // Handle email
+                const email = btn.getAttribute('data-email');
+                if (modalEmail) {
+                    if (email) {
+                        modalEmail.href = 'mailto:' + email;
+                        modalEmail.innerHTML = '<i class="fa-solid fa-envelope"></i> ' + email;
+                        modalEmail.style.display = 'inline-flex';
+                    } else {
+                        modalEmail.style.display = 'none';
+                    }
+                }
 
                 // Show Modal
                 facultyModal.classList.add('active');
@@ -226,6 +239,13 @@ document.addEventListener('DOMContentLoaded', () => {
         // Close on clicking outside
         facultyModal.addEventListener('click', (e) => {
             if (e.target === facultyModal) {
+                closeModal();
+            }
+        });
+
+        // Close on Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && facultyModal.classList.contains('active')) {
                 closeModal();
             }
         });
