@@ -167,13 +167,18 @@
         }
 
         .btn-danger {
-            background: linear-gradient(135deg, #f5365c, #f56036);
+            background: linear-gradient(135deg, #ef4444, #dc2626);
             color: #fff;
         }
 
         .btn-danger:hover {
             transform: translateY(-2px);
             box-shadow: 0 8px 25px rgba(245, 54, 92, 0.4);
+        }
+
+        .btn-warning {
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+            color: #fff;
         }
 
         .btn-secondary {
@@ -184,6 +189,63 @@
 
         .btn-secondary:hover {
             background: rgba(255, 255, 255, 0.15);
+        }
+
+        .btn-delete-item,
+        .btn-edit-item {
+            border: none;
+            padding: 6px 10px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: var(--g-transition);
+        }
+
+        .btn-delete-item {
+            background: rgba(239, 68, 68, 0.2);
+            color: #ef4444;
+        }
+
+        .btn-delete-item:hover {
+            background: rgba(239, 68, 68, 0.4);
+        }
+
+        .btn-edit-item {
+            background: rgba(245, 158, 11, 0.2);
+            color: #f59e0b;
+            margin-right: 4px;
+        }
+
+        .btn-edit-item:hover {
+            background: rgba(245, 158, 11, 0.4);
+        }
+
+        .item-actions {
+            display: flex;
+            gap: 4px;
+            align-items: center;
+            flex-shrink: 0;
+        }
+
+        .cancel-edit-link {
+            color: #f59e0b;
+            cursor: pointer;
+            font-size: 12px;
+            margin-left: 10px;
+            text-decoration: underline;
+        }
+
+        .cancel-edit-link:hover {
+            color: #fbbf24;
+        }
+
+        .editing-indicator {
+            display: inline-block;
+            background: rgba(245, 158, 11, 0.2);
+            color: #f59e0b;
+            font-size: 11px;
+            padding: 2px 8px;
+            border-radius: 4px;
+            margin-left: 8px;
         }
 
         .btn-sm {
@@ -417,23 +479,6 @@
             margin-top: 2px;
         }
 
-        .btn-delete-item {
-            background: rgba(245, 54, 92, 0.15);
-            border: 1px solid rgba(245, 54, 92, 0.3);
-            color: #ff6b8a;
-            border-radius: 8px;
-            padding: 7px 14px;
-            cursor: pointer;
-            font-size: 12px;
-            font-family: inherit;
-            transition: 0.3s;
-            flex-shrink: 0;
-        }
-
-        .btn-delete-item:hover {
-            background: #f5365c;
-            color: #fff;
-        }
 
         /* ── Page-Specific Panels ─────────────────── */
         .page-panel {
@@ -717,9 +762,9 @@
             <!-- ═══ FACULTY PAGE PANEL ═══ -->
             <div class="page-panel" id="panel-faculty">
                 <!-- Add Faculty -->
-                <div class="card">
+                <div class="card" id="fac-form-card">
                     <div class="card-header">
-                        <h3><i class="fa-solid fa-user-plus"></i> Add New Faculty</h3>
+                        <h3 id="fac-form-title"><i class="fa-solid fa-user-plus"></i> Add New Faculty</h3>
                     </div>
                     <div style="display:grid; grid-template-columns:1fr 1fr; gap: 12px;">
                         <div class="form-group">
@@ -762,11 +807,15 @@
                     </div>
                     <div class="form-group">
                         <label><i class="fa-solid fa-camera" style="margin-right:6px; color:#667eea;"></i> Photo
-                            *</label>
+                            (leave empty to keep current photo when editing)</label>
                         <input type="file" id="fac-photo" accept="image/*">
                     </div>
-                    <button class="btn btn-primary" onclick="addFaculty()"><i class="fa-solid fa-plus"></i> Add Faculty
-                        Member</button>
+                    <div style="display: flex; align-items: center;">
+                        <button class="btn btn-primary" id="fac-submit-btn" onclick="addFaculty()"><i
+                                class="fa-solid fa-plus"></i> Add Faculty Member</button>
+                        <span class="cancel-edit-link" id="fac-cancel-edit" style="display:none;"
+                            onclick="cancelEditFaculty()">✕ Cancel Edit</span>
+                    </div>
                 </div>
 
                 <!-- Existing Faculty -->
@@ -781,9 +830,9 @@
             <!-- ═══ COURSES PAGE PANEL ═══ -->
             <div class="page-panel" id="panel-courses">
                 <!-- Add Course -->
-                <div class="card">
+                <div class="card" id="course-form-card">
                     <div class="card-header">
-                        <h3><i class="fa-solid fa-circle-plus"></i> Add New Course</h3>
+                        <h3 id="course-form-title"><i class="fa-solid fa-circle-plus"></i> Add New Course</h3>
                     </div>
                     <div class="form-group">
                         <label>Course Title *</label>
@@ -808,8 +857,12 @@
                             <input type="text" id="course-img" placeholder="https://... (leave empty for default)">
                         </div>
                     </div>
-                    <button class="btn btn-primary" onclick="addCourse()"><i class="fa-solid fa-plus"></i> Add
-                        Course</button>
+                    <div style="display: flex; align-items: center;">
+                        <button class="btn btn-primary" id="course-submit-btn" onclick="addCourse()"><i
+                                class="fa-solid fa-plus"></i> Add Course</button>
+                        <span class="cancel-edit-link" id="course-cancel-edit" style="display:none;"
+                            onclick="cancelEditCourse()">✕ Cancel Edit</span>
+                    </div>
                 </div>
 
                 <!-- Existing Courses -->
@@ -900,9 +953,9 @@
             <!-- ═══ PLACEMENT PAGE PANEL ═══ -->
             <div class="page-panel" id="panel-placement">
                 <!-- Add Placement -->
-                <div class="card">
+                <div class="card" id="place-form-card">
                     <div class="card-header">
-                        <h3><i class="fa-solid fa-user-tie"></i> Add Placement Record</h3>
+                        <h3 id="place-form-title"><i class="fa-solid fa-user-tie"></i> Add Placement Record</h3>
                     </div>
                     <div style="display:grid; grid-template-columns:1fr 1fr; gap: 12px;">
                         <div class="form-group">
@@ -932,8 +985,12 @@
                         <label>Course / Department</label>
                         <input type="text" id="place-dept" placeholder="e.g., BCA, BBA, B.COM">
                     </div>
-                    <button class="btn btn-primary" onclick="addPlacement()"><i class="fa-solid fa-plus"></i> Add
-                        Placement Record</button>
+                    <div style="display: flex; align-items: center;">
+                        <button class="btn btn-primary" id="place-submit-btn" onclick="addPlacement()"><i
+                                class="fa-solid fa-plus"></i> Add Placement Record</button>
+                        <span class="cancel-edit-link" id="place-cancel-edit" style="display:none;"
+                            onclick="cancelEditPlacement()">✕ Cancel Edit</span>
+                    </div>
                 </div>
 
                 <!-- Placement Stats -->
@@ -1323,9 +1380,44 @@
                             <div class="item-name">${fac.name}</div>
                             <div class="item-sub">${fac.tag} · ${fac.category}</div>
                         </div>
-                        <button class="btn-delete-item" onclick="deleteFaculty(${i})"><i class="fa-solid fa-trash"></i></button>
+                        <div class="item-actions">
+                            <button class="btn-edit-item" onclick="editFaculty(${i})" title="Edit"><i class="fa-solid fa-pen"></i></button>
+                            <button class="btn-delete-item" onclick="deleteFaculty(${i})" title="Delete"><i class="fa-solid fa-trash"></i></button>
+                        </div>
                     </div>`;
             });
+        }
+
+        let editingFacultyIndex = -1;
+
+        function editFaculty(index) {
+            const fac = siteData.faculty[index];
+            editingFacultyIndex = index;
+            document.getElementById('fac-name').value = fac.name || '';
+            document.getElementById('fac-tag').value = fac.tag || '';
+            document.getElementById('fac-edu').value = fac.education || '';
+            document.getElementById('fac-exp').value = fac.experience || '';
+            document.getElementById('fac-email').value = fac.email || '';
+            document.getElementById('fac-bio').value = fac.bio || '';
+            document.getElementById('fac-category').value = fac.category || 'faculty-member';
+            document.getElementById('fac-photo').value = '';
+
+            document.getElementById('fac-form-title').innerHTML = '<i class="fa-solid fa-pen-to-square"></i> Editing: ' + fac.name + ' <span class="editing-indicator">EDITING</span>';
+            document.getElementById('fac-submit-btn').innerHTML = '<i class="fa-solid fa-check"></i> Update Faculty';
+            document.getElementById('fac-submit-btn').className = 'btn btn-warning';
+            document.getElementById('fac-cancel-edit').style.display = 'inline';
+
+            document.getElementById('fac-form-card').scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+        function cancelEditFaculty() {
+            editingFacultyIndex = -1;
+            ['fac-name', 'fac-tag', 'fac-edu', 'fac-exp', 'fac-email', 'fac-bio'].forEach(id => document.getElementById(id).value = '');
+            document.getElementById('fac-photo').value = '';
+            document.getElementById('fac-form-title').innerHTML = '<i class="fa-solid fa-user-plus"></i> Add New Faculty';
+            document.getElementById('fac-submit-btn').innerHTML = '<i class="fa-solid fa-plus"></i> Add Faculty Member';
+            document.getElementById('fac-submit-btn').className = 'btn btn-primary';
+            document.getElementById('fac-cancel-edit').style.display = 'none';
         }
 
         function addFaculty() {
@@ -1338,12 +1430,48 @@
                 showAlert('error', 'Please fill Name, Designation, and Bio.');
                 return;
             }
+
+            // EDIT MODE: update existing faculty
+            if (editingFacultyIndex >= 0) {
+                const fac = siteData.faculty[editingFacultyIndex];
+                fac.name = name;
+                fac.tag = tag;
+                fac.education = document.getElementById('fac-edu').value.trim();
+                fac.experience = document.getElementById('fac-exp').value.trim();
+                fac.email = document.getElementById('fac-email').value.trim();
+                fac.bio = bio;
+                fac.category = document.getElementById('fac-category').value;
+
+                // If a new photo was selected, prepare for upload
+                if (photoFile) {
+                    const reader = new FileReader();
+                    reader.onload = () => {
+                        const newPath = `images/faculty_${Date.now()}.${photoFile.name.split('.').pop()}`;
+                        fac.image = newPath;
+                        fac._pendingUpload = reader.result.split(',')[1];
+                        fac._pendingPath = newPath;
+                        cancelEditFaculty();
+                        renderFaculty();
+                        updateStats();
+                        showAlert('success', `"${name}" updated. Click Publish to save.`);
+                    };
+                    reader.readAsDataURL(photoFile);
+                } else {
+                    // Keep existing photo
+                    cancelEditFaculty();
+                    renderFaculty();
+                    updateStats();
+                    showAlert('success', `"${name}" updated. Click Publish to save.`);
+                }
+                return;
+            }
+
+            // ADD MODE: new faculty
             if (!photoFile) {
                 showAlert('error', 'Please select a photo for the faculty member.');
                 return;
             }
 
-            // We'll store locally; upload happens on publish
             const reader = new FileReader();
             reader.onload = () => {
                 const newFac = {
@@ -1403,9 +1531,41 @@
                             <div class="item-name">${c.title}</div>
                             <div class="item-sub">${c.category.toUpperCase()} · ${c.description.substring(0, 60)}...</div>
                         </div>
-                        <button class="btn-delete-item" onclick="deleteCourse(${i})"><i class="fa-solid fa-trash"></i></button>
+                        <div class="item-actions">
+                            <button class="btn-edit-item" onclick="editCourse(${i})" title="Edit"><i class="fa-solid fa-pen"></i></button>
+                            <button class="btn-delete-item" onclick="deleteCourse(${i})" title="Delete"><i class="fa-solid fa-trash"></i></button>
+                        </div>
                     </div>`;
             });
+        }
+
+        let editingCourseIndex = -1;
+
+        function editCourse(index) {
+            const c = siteData.courses[index];
+            editingCourseIndex = index;
+            document.getElementById('course-title').value = c.title || '';
+            document.getElementById('course-desc').value = c.description || '';
+            document.getElementById('course-cat').value = c.category || 'bca';
+            document.getElementById('course-img').value = c.image || '';
+
+            document.getElementById('course-form-title').innerHTML = '<i class="fa-solid fa-pen-to-square"></i> Editing: ' + c.title + ' <span class="editing-indicator">EDITING</span>';
+            document.getElementById('course-submit-btn').innerHTML = '<i class="fa-solid fa-check"></i> Update Course';
+            document.getElementById('course-submit-btn').className = 'btn btn-warning';
+            document.getElementById('course-cancel-edit').style.display = 'inline';
+
+            document.getElementById('course-form-card').scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+        function cancelEditCourse() {
+            editingCourseIndex = -1;
+            document.getElementById('course-title').value = '';
+            document.getElementById('course-desc').value = '';
+            document.getElementById('course-img').value = '';
+            document.getElementById('course-form-title').innerHTML = '<i class="fa-solid fa-circle-plus"></i> Add New Course';
+            document.getElementById('course-submit-btn').innerHTML = '<i class="fa-solid fa-plus"></i> Add Course';
+            document.getElementById('course-submit-btn').className = 'btn btn-primary';
+            document.getElementById('course-cancel-edit').style.display = 'none';
         }
 
         function addCourse() {
@@ -1426,9 +1586,19 @@
                 bcom: 'https://images.unsplash.com/photo-1554224155-6726b3ff858f?q=80&w=2071&auto=format&fit=crop',
                 management: 'https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=2070&auto=format&fit=crop'
             };
-
             if (!img) img = defaultImages[cat] || defaultImages.bca;
 
+            // EDIT MODE
+            if (editingCourseIndex >= 0) {
+                siteData.courses[editingCourseIndex] = { title, description: desc, image: img, category: cat };
+                cancelEditCourse();
+                renderCourses();
+                updateStats();
+                showAlert('success', `"${title}" updated. Click Publish to save.`);
+                return;
+            }
+
+            // ADD MODE
             siteData.courses.push({ title, description: desc, image: img, category: cat });
             renderCourses();
             updateStats();
@@ -1501,23 +1671,68 @@
                             <div class="item-name">${p.name} — ${p.company}</div>
                             <div class="item-sub">${p.role || ''} · ${p.package || ''} · ${p.year || ''} · ${p.dept || ''}</div>
                         </div>
-                        <button class="btn-delete-item" onclick="deletePlacement(${i})"><i class="fa-solid fa-trash"></i></button>
+                        <div class="item-actions">
+                            <button class="btn-edit-item" onclick="editPlacement(${i})" title="Edit"><i class="fa-solid fa-pen"></i></button>
+                            <button class="btn-delete-item" onclick="deletePlacement(${i})" title="Delete"><i class="fa-solid fa-trash"></i></button>
+                        </div>
                     </div>`;
             });
+        }
+
+        let editingPlacementIndex = -1;
+
+        function editPlacement(index) {
+            const p = siteData.placements[index];
+            editingPlacementIndex = index;
+            document.getElementById('place-name').value = p.name || '';
+            document.getElementById('place-company').value = p.company || '';
+            document.getElementById('place-role').value = p.role || '';
+            document.getElementById('place-package').value = p.package || '';
+            document.getElementById('place-year').value = p.year || '';
+            document.getElementById('place-dept').value = p.dept || '';
+
+            document.getElementById('place-form-title').innerHTML = '<i class="fa-solid fa-pen-to-square"></i> Editing: ' + p.name + ' <span class="editing-indicator">EDITING</span>';
+            document.getElementById('place-submit-btn').innerHTML = '<i class="fa-solid fa-check"></i> Update Record';
+            document.getElementById('place-submit-btn').className = 'btn btn-warning';
+            document.getElementById('place-cancel-edit').style.display = 'inline';
+
+            document.getElementById('place-form-card').scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+        function cancelEditPlacement() {
+            editingPlacementIndex = -1;
+            ['place-name', 'place-company', 'place-role', 'place-package', 'place-year', 'place-dept'].forEach(id => document.getElementById(id).value = '');
+            document.getElementById('place-form-title').innerHTML = '<i class="fa-solid fa-user-tie"></i> Add Placement Record';
+            document.getElementById('place-submit-btn').innerHTML = '<i class="fa-solid fa-plus"></i> Add Placement Record';
+            document.getElementById('place-submit-btn').className = 'btn btn-primary';
+            document.getElementById('place-cancel-edit').style.display = 'none';
         }
 
         function addPlacement() {
             const name = document.getElementById('place-name').value.trim();
             const company = document.getElementById('place-company').value.trim();
             if (!name || !company) { showAlert('error', 'Student Name and Company are required.'); return; }
-            siteData.placements.push({
+
+            const record = {
                 name,
                 company,
                 role: document.getElementById('place-role').value.trim(),
                 package: document.getElementById('place-package').value.trim(),
                 year: document.getElementById('place-year').value.trim(),
                 dept: document.getElementById('place-dept').value.trim()
-            });
+            };
+
+            // EDIT MODE
+            if (editingPlacementIndex >= 0) {
+                siteData.placements[editingPlacementIndex] = record;
+                cancelEditPlacement();
+                renderPlacements();
+                showAlert('success', `"${name}" updated. Click Publish to save.`);
+                return;
+            }
+
+            // ADD MODE
+            siteData.placements.push(record);
             ['place-name', 'place-company', 'place-role', 'place-package', 'place-year', 'place-dept'].forEach(id => document.getElementById(id).value = '');
             renderPlacements();
             showAlert('success', `Placement record for "${name}" added. Click Publish to save.`);
