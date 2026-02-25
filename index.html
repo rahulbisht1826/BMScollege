@@ -84,21 +84,7 @@
                         style="margin-right:10px;"></i><span id="dynamic-notice-text"></span></h3>
             </div>
 
-            <div style="display:flex; flex-wrap:wrap; gap:30px; justify-content:center;">
-                <!-- Dynamic Image -->
-                <div id="dynamic-image-container" style="display:none; flex:1; min-width:300px;">
-                    <img id="dynamic-image" src="" alt="Latest Update"
-                        style="width:100%; border-radius:15px; box-shadow: var(--shadow); object-fit:cover;">
-                </div>
-
-                <!-- Dynamic Video -->
-                <div id="dynamic-video-container" style="display:none; flex:1; min-width:300px;">
-                    <video id="dynamic-video" controls
-                        style="width:100%; border-radius:15px; box-shadow: var(--shadow); background:#000;">
-                        <source id="dynamic-video-src" src="" type="video/mp4">
-                        Your browser does not support the video tag.
-                    </video>
-                </div>
+            <div id="dynamic-media-container" style="display:flex; flex-wrap:wrap; gap:30px; justify-content:center;">
             </div>
         </div>
     </section>
@@ -279,17 +265,34 @@
                         document.getElementById('dynamic-notice-container').style.display = 'block';
                         hasContent = true;
                     }
-                    if (data.image && data.image.trim() !== '') {
-                        document.getElementById('dynamic-image').src = data.image + "?t=" + new Date().getTime();
-                        document.getElementById('dynamic-image-container').style.display = 'block';
+                    let images = [];
+                    if (Array.isArray(data.images)) images = data.images;
+                    else if (data.image) images = [data.image];
+
+                    let videos = [];
+                    if (Array.isArray(data.videos)) videos = data.videos;
+                    else if (data.video) videos = [data.video];
+
+                    const mediaContainer = document.getElementById('dynamic-media-container');
+                    mediaContainer.innerHTML = '';
+
+                    images.forEach(imgSrc => {
+                        if (imgSrc.trim() === '') return;
+                        const div = document.createElement('div');
+                        div.style = 'flex:1; min-width:300px; max-width:500px;';
+                        div.innerHTML = `<img src="${imgSrc}?t=${new Date().getTime()}" alt="Latest Update" style="width:100%; border-radius:15px; box-shadow: var(--shadow); object-fit:cover;">`;
+                        mediaContainer.appendChild(div);
                         hasContent = true;
-                    }
-                    if (data.video && data.video.trim() !== '') {
-                        document.getElementById('dynamic-video-src').src = data.video + "?t=" + new Date().getTime();
-                        document.getElementById('dynamic-video').load();
-                        document.getElementById('dynamic-video-container').style.display = 'block';
+                    });
+
+                    videos.forEach(vidSrc => {
+                        if (vidSrc.trim() === '') return;
+                        const div = document.createElement('div');
+                        div.style = 'flex:1; min-width:300px; max-width:500px;';
+                        div.innerHTML = `<video controls style="width:100%; border-radius:15px; box-shadow: var(--shadow); background:#000;"><source src="${vidSrc}?t=${new Date().getTime()}" type="video/mp4">Your browser does not support the video tag.</video>`;
+                        mediaContainer.appendChild(div);
                         hasContent = true;
-                    }
+                    });
 
                     if (hasContent) {
                         document.getElementById('dynamic-updates-section').style.display = 'block';
