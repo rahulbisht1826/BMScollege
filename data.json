@@ -519,5 +519,168 @@
       "image": "https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=2070&auto=format&fit=crop",
       "category": "management"
     }
+  ],
+  "about": {
+    "heading": "Welcome to BMS COLLEGE OF COMMERCE & MANAGEMENT",
+    "para1": "BMS College of Commerce & Management is a premier institution established with a vision to provide quality education in commerce and management. With a legacy spanning over decades, we focus on holistic development of students through academic excellence and practical exposure.",
+    "para2": "Our campus is equipped with state-of-the-art facilities, including modern labs, a vast library, and collaborative student spaces. We believe in fostering innovation and leadership in every student.",
+    "cards": [
+      {
+        "title": "Top Rated",
+        "desc": "Recognized as one of the best institutions for commerce and management globally.",
+        "icon": "fa-solid fa-trophy"
+      },
+      {
+        "title": "Global Community",
+        "desc": "Join a diverse network of students and future leaders from around the world.",
+        "icon": "fa-solid fa-globe"
+      },
+      {
+        "title": "Certified Courses",
+        "desc": "Industry-aligned certifications to give you a competitive edge.",
+        "icon": "fa-solid fa-certificate"
+      }
+    ],
+    "gallery": [
+      {
+        "image": "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?q=80&w=2070&auto=format&fit=crop",
+        "icon": "fas fa-university",
+        "title": "Main Building",
+        "sub": "Where heritage meets modern education."
+      },
+      {
+        "image": "https://images.unsplash.com/photo-1562774053-701939374585?q=80&w=1986&auto=format&fit=crop",
+        "icon": "fas fa-microscope",
+        "title": "Advanced Labs",
+        "sub": "Equipped with state-of-the-art research tools."
+      },
+      {
+        "image": "https://images.unsplash.com/photo-1521587760476-6c12a4b040da?q=80&w=2070&auto=format&fit=crop",
+        "icon": "fas fa-book-reader",
+        "title": "Library Center",
+        "sub": "A quiet sanctuary for knowledge seekers."
+      },
+      {
+        "image": "https://images.unsplash.com/photo-1519337265831-281ec6cc8514?q=80&w=2070&auto=format&fit=crop",
+        "icon": "fas fa-users",
+        "title": "Student Lounge",
+        "sub": "Cultivating collaboration and community."
+      },
+      {
+        "image": "https://images.unsplash.com/photo-1504450758481-7338eba7524a?q=80&w=2069&auto=format&fit=crop",
+        "icon": "fas fa-running",
+        "title": "Sports Arena",
+        "sub": "Fueling the competitive spirit."
+      }
+    ],
+    "aboutVideos": [
+      {
+        "src": "video/32aa32b3564e50d11cca18f1b63fac0b_720w.mp4",
+        "title": "Aerial Campus View",
+        "desc": "Experience the vastness of our historic campus from a new perspective."
+      },
+      {
+        "src": "video/ec0266fb955b9521ead16989d2b76944.mp4",
+        "title": "Student Connections",
+        "desc": "Lifelong friendships start in our collaborative student hubs."
+      },
+      {
+        "src": "https://assets.mixkit.co/videos/preview/mixkit-students-walking-in-a-university-campus-41551-large.mp4",
+        "title": "Campus Pathways",
+        "desc": "Walk through the iconic corridors of academic excellence."
+      },
+      {
+        "src": "https://assets.mixkit.co/videos/preview/mixkit-university-building-and-fountain-41553-large.mp4",
+        "title": "The Landmark Fountain",
+        "desc": "Our landmarks tell the story of a century-long legacy."
+      }
+    ]
+  },
+  "placements": [],
+  "placementStats": {
+    "total": "450+",
+    "recruiters": "120+",
+    "highest": "18 LPA"
+  },
+  "contact": {
+    "address": "No-97, Kavi Lakshmisha Road, V.V. Puram, Bangalore - 560 004 Karnataka, India.",
+    "phone": "080-26610174 / 91 96202 25400-03",
+    "email": "principal.bmsccm@gmail.com\nprincipal@bmsccm.ac.in",
+    "mapUrl": "https://maps.google.com/maps?q=No-97,+Kavi+Lakshmisha+Road,+V.V.+Puram,+Bangalore+-+560+004+Karnataka,+India&t=&z=15&ie=UTF8&iwloc=&output=embed"
+  },
+  "sitemap": [
+    {
+      "title": "Home",
+      "url": "index.html",
+      "desc": "Main landing page — Hero, Features, Popular Courses",
+      "icon": "fa-solid fa-house",
+      "priority": "high",
+      "freq": "weekly",
+      "isRoot": true
+    },
+    {
+      "title": "About Us",
+      "url": "about.html",
+      "desc": "Campus gallery, video showcase, college history & mission",
+      "icon": "fa-solid fa-info-circle",
+      "priority": "high",
+      "freq": "monthly"
+    },
+    {
+      "title": "Courses",
+      "url": "courses.html",
+      "desc": "Course catalog with search & filter by category",
+      "icon": "fa-solid fa-book-open",
+      "priority": "high",
+      "freq": "weekly"
+    },
+    {
+      "title": "Faculty",
+      "url": "faculty.html",
+      "desc": "49 faculty profiles with photos, bios & contact details",
+      "icon": "fa-solid fa-chalkboard-user",
+      "priority": "high",
+      "freq": "monthly"
+    },
+    {
+      "title": "Placement",
+      "url": "placement.html",
+      "desc": "Placement records, recruiters & career opportunities",
+      "icon": "fa-solid fa-briefcase",
+      "priority": "medium",
+      "freq": "monthly"
+    },
+    {
+      "title": "Contact",
+      "url": "contact.html",
+      "desc": "Contact form, address, phone, email & Google Maps",
+      "icon": "fa-solid fa-envelope",
+      "priority": "high",
+      "freq": "monthly"
+    },
+    {
+      "title": "Login / Register",
+      "url": "login.html",
+      "desc": "Student login, registration & Google sign-in",
+      "icon": "fa-solid fa-right-to-bracket",
+      "priority": "low",
+      "freq": "yearly"
+    },
+    {
+      "title": "Admin Dashboard",
+      "url": "admin.html",
+      "desc": "Website administration panel for managing content",
+      "icon": "fa-solid fa-shield-halved",
+      "priority": "low",
+      "freq": "yearly"
+    },
+    {
+      "title": "Sitemap",
+      "url": "sitemap.html",
+      "desc": "Visual website structure & XML sitemap link",
+      "icon": "fa-solid fa-sitemap",
+      "priority": "low",
+      "freq": "monthly"
+    }
   ]
 }
