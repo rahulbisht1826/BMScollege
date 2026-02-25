@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - BMS College</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <style>
+        body {
+            background: #f0f4f8;
+            font-family: 'Poppins', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        .admin-card {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 500px;
+            margin: 20px;
+        }
+
+        .admin-card h2 {
+            margin-top: 0;
+            text-align: center;
+            color: #333;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #555;
+        }
+
+        .input-group input,
+        .input-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-sizing: border-box;
+            font-family: inherit;
+            font-size: 14px;
+        }
+
+        .input-group input:focus,
+        .input-group textarea:focus {
+            outline: none;
+            border-color: #1a75ff;
+            box-shadow: 0 0 0 3px rgba(26, 117, 255, 0.1);
+        }
+
+        .btn {
+            width: 100%;
+            padding: 14px;
+            background: #1a75ff;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s;
+            font-weight: 600;
+        }
+
+        .btn:hover {
+            background: #005ce6;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(26, 117, 255, 0.3);
+        }
+
+        .btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        #dashboard {
+            display: none;
+            max-width: 700px;
+        }
+
+        .alert {
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: none;
+            font-size: 14px;
+        }
+
+        .alert.error {
+            background: #fef2f2;
+            color: #b91c1c;
+            border: 1px solid #fecaca;
+        }
+
+        .alert.success {
+            background: #f0fdf4;
+            color: #15803d;
+            border: 1px solid #bbf7d0;
+        }
+
+        .alert.info {
+            background: #eff6ff;
+            color: #1d4ed8;
+            border: 1px solid #bfdbfe;
+        }
+
+        .loader {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #fff;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            animation: spin 1s linear infinite;
+            display: inline-block;
+            vertical-align: middle;
+            margin-right: 10px;
+            display: none;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="admin-card" id="login-screen">
+        <div style="text-align:center; margin-bottom:20px;">
+            <i class="fa-solid fa-user-shield" style="font-size: 40px; color: #1a75ff;"></i>
+        </div>
+        <h2>Admin Authentication</h2>
+        <div class="alert error" id="login-error">Invalid id or password.</div>
+        <div class="input-group">
+            <label>Admin ID</label>
+            <input type="text" id="admin-id" placeholder="Enter ID">
+        </div>
+        <div class="input-group">
+            <label>Password</label>
+            <input type="password" id="admin-pass" placeholder="Enter Password">
+        </div>
+        <button class="btn" onclick="login()">Login</button>
+    </div>
+
+    <div class="admin-card" id="dashboard">
+        <h2>Content Dashboard</h2>
+        <div class="alert error" id="dash-error"></div>
+        <div class="alert success" id="dash-success"></div>
+        <div class="alert info" style="display:block;">
+            <i class="fa-solid fa-circle-info"></i> To publish your changes dynamically to the site, please provide a
+            GitHub Personal Access Token. Repository: <b>rahulbisht1826/BMScollege</b>
+        </div>
+
+        <div class="input-group" style="padding-bottom:20px; border-bottom:1px solid #eee; margin-bottom:20px;">
+            <label>GitHub Personal Access Token (Classic)</label>
+            <input type="password" id="gh-token" placeholder="ghp_........................">
+        </div>
+
+        <div class="input-group">
+            <label>Home Page Notice</label>
+            <textarea id="notice-text" rows="3" placeholder="Enter important text notice to display..."></textarea>
+            <div style="text-align:right;"><button class="btn"
+                    style="width:auto; padding:8px 15px; margin-top:5px; font-size:13px; background:#dc3545;"
+                    onclick="document.getElementById('notice-text').value=''">Clear Notice</button></div>
+        </div>
+
+        <div class="input-group">
+            <label>Upload Image Update</label>
+            <input type="file" id="image-upload" accept="image/*">
+        </div>
+
+        <div class="input-group">
+            <label>Upload Video Update (Keep under 20MB)</label>
+            <input type="file" id="video-upload" accept="video/mp4,video/webm">
+        </div>
+
+        <button class="btn" id="save-btn" onclick="saveChanges()">
+            <span class="loader" id="save-loader"></span>
+            <span id="save-text">Publish to Homepage</span>
+        </button>
+        <button class="btn" onclick="logout()" style="background:#6c757d; margin-top:10px;">Logout</button>
+    </div>
+
+    <script>
+        const REPO = 'rahulbisht1826/BMScollege';
+
+        function login() {
+            const id = document.getElementById('admin-id').value;
+            const pass = document.getElementById('admin-pass').value;
+            if (id === 'admin' && pass === 'admin') {
+                document.getElementById('login-screen').style.display = 'none';
+                document.getElementById('dashboard').style.display = 'block';
+                document.getElementById('login-error').style.display = 'none';
+
+                // Load existing token if any
+                const savedToken = localStorage.getItem('gh_admin_token');
+                if (savedToken) document.getElementById('gh-token').value = savedToken;
+
+                loadExistingData();
+            } else {
+                document.getElementById('login-error').style.display = 'block';
+            }
+        }
+
+        function logout() {
+            document.getElementById('login-screen').style.display = 'block';
+            document.getElementById('dashboard').style.display = 'none';
+            document.getElementById('admin-id').value = '';
+            document.getElementById('admin-pass').value = '';
+        }
+
+        async function loadExistingData() {
+            try {
+                // Read local data.json just to prepopulate text fields
+                const res = await fetch('data.json?t=' + Date.now());
+                if (res.ok) {
+                    const data = await res.json();
+                    if (data.notice) document.getElementById('notice-text').value = data.notice;
+                }
+            } catch (e) { }
+        }
+
+        function showStatus(type, msg) {
+            const errEl = document.getElementById('dash-error');
+            const sucEl = document.getElementById('dash-success');
+            errEl.style.display = 'none';
+            sucEl.style.display = 'none';
+
+            if (type === 'error') { errEl.textContent = msg; errEl.style.display = 'block'; }
+            if (type === 'success') { sucEl.textContent = msg; sucEl.style.display = 'block'; }
+        }
+
+        function getBase64(file) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.onload = () => resolve(reader.result.split(',')[1]); // return base64 part
+                reader.onerror = error => reject(error);
+                reader.readAsDataURL(file);
+            });
+        }
+
+        async function uploadToGitHub(token, path, contentBase64) {
+            const url = `https://api.github.com/repos/${REPO}/contents/${path}`;
+            const headers = {
+                'Authorization': `token ${token}`,
+                'Content-Type': 'application/json'
+            };
+
+            // Get existing file sha if it exists
+            let sha = null;
+            try {
+                const getRes = await fetch(url, { headers });
+                if (getRes.ok) {
+                    const getJson = await getRes.json();
+                    sha = getJson.sha;
+                }
+            } catch (e) { }
+
+            const body = {
+                message: `Admin Update: ${path}`,
+                content: contentBase64
+            };
+            if (sha) body.sha = sha;
+
+            const putRes = await fetch(url, {
+                method: 'PUT',
+                headers,
+                body: JSON.stringify(body)
+            });
+
+            if (!putRes.ok) {
+                const errorData = await putRes.json();
+                throw new Error(errorData.message || 'File upload failed');
+            }
+            return putRes.json();
+        }
+
+        async function saveChanges() {
+            const token = document.getElementById('gh-token').value.trim();
+            if (!token) {
+                showStatus('error', 'Please provide a GitHub Personal Access Token.');
+                return;
+            }
+
+            localStorage.setItem('gh_admin_token', token);
+
+            const btn = document.getElementById('save-btn');
+            btn.disabled = true;
+            document.getElementById('save-loader').style.display = 'inline-block';
+            document.getElementById('save-text').textContent = 'Uploading...';
+            showStatus('', '');
+
+            try {
+                let dataJson = { notice: document.getElementById('notice-text').value, image: '', video: '' };
+
+                // Handle Image
+                const imgFile = document.getElementById('image-upload').files[0];
+                if (imgFile) {
+                    const b64 = await getBase64(imgFile);
+                    const ext = imgFile.name.split('.').pop();
+                    const path = `images/dynamic_${Date.now()}.${ext}`;
+                    await uploadToGitHub(token, path, b64);
+                    dataJson.image = path;
+                }
+
+                // Handle Video
+                const vidFile = document.getElementById('video-upload').files[0];
+                if (vidFile) {
+                    const b64 = await getBase64(vidFile);
+                    const ext = vidFile.name.split('.').pop();
+                    const path = `video/dynamic_${Date.now()}.${ext}`;
+                    await uploadToGitHub(token, path, b64);
+                    dataJson.video = path;
+                }
+
+                // If no new files uploaded, keep existing paths if any
+                try {
+                    const res = await fetch(`https://api.github.com/repos/${REPO}/contents/data.json`, { headers: { 'Authorization': `token ${token}` } });
+                    if (res.ok) {
+                        const oldContentRaw = await res.json();
+                        const oldData = JSON.parse(atob(oldContentRaw.content));
+                        if (!imgFile && oldData.image) dataJson.image = oldData.image;
+                        if (!vidFile && oldData.video) dataJson.video = oldData.video;
+                    }
+                } catch (e) { }
+
+                // Upload data.json
+                const dataStr = unescape(encodeURIComponent(JSON.stringify(dataJson, null, 2))); // handle utf-8 base64 properly
+                const dataB64 = btoa(dataStr);
+                await uploadToGitHub(token, 'data.json', dataB64);
+
+                showStatus('success', 'Changes published successfully! They will appear on the homepage shortly.');
+                document.getElementById('image-upload').value = "";
+                document.getElementById('video-upload').value = "";
+
+            } catch (e) {
+                console.error(e);
+                showStatus('error', 'Error: ' + e.message);
+            } finally {
+                btn.disabled = false;
+                document.getElementById('save-loader').style.display = 'none';
+                document.getElementById('save-text').textContent = 'Publish to Homepage';
+            }
+        }
+    </script>
+</body>
+
+</html>

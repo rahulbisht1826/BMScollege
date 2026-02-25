@@ -251,5 +251,31 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // Faculty Category Filter Logic
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const profileCards = document.querySelectorAll('.profile-card');
+
+    if (filterBtns.length > 0 && profileCards.length > 0) {
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Remove active class from all buttons
+                filterBtns.forEach(b => b.classList.remove('active'));
+                // Add active class to clicked button
+                btn.classList.add('active');
+
+                const filterValue = btn.getAttribute('data-filter');
+
+                profileCards.forEach(card => {
+                    const categories = (card.getAttribute('data-category') || 'uncategorized').split(' ');
+
+                    if (filterValue === 'all' || categories.includes(filterValue)) {
+                        card.classList.remove('card-hidden');
+                    } else {
+                        card.classList.add('card-hidden');
+                    }
+                });
+            });
+        });
+    }
 
 });

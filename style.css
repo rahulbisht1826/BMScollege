@@ -403,11 +403,54 @@ ul {
     box-shadow: 0 8px 25px rgba(26, 117, 255, 0.4);
 }
 
+/* Faculty Filter */
+.faculty-filter {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-bottom: 40px;
+}
+
+.filter-btn {
+    padding: 10px 25px;
+    background: var(--white);
+    color: var(--text-dark);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 30px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: var(--transition);
+    font-size: 0.95rem;
+}
+
+.filter-btn:hover {
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+}
+
+.filter-btn.active {
+    background: var(--primary-color);
+    color: var(--white);
+    border-color: var(--primary-color);
+}
+
+.card-hidden {
+    display: none !important;
+}
+
 /* Features Section */
 .features-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    display: flex;
+    flex-wrap: wrap;
     gap: 30px;
+    justify-content: center;
+}
+
+.features-grid>* {
+    width: 100%;
+    max-width: 320px;
+    flex: 1 1 280px;
 }
 
 .feature-card {
@@ -936,10 +979,17 @@ ul {
 }
 
 .profile-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    display: flex;
+    flex-wrap: wrap;
     gap: 30px;
     margin-top: 50px;
+    justify-content: center;
+}
+
+.profile-grid>* {
+    width: 100%;
+    max-width: 320px;
+    flex: 1 1 280px;
 }
 
 .profile-card {

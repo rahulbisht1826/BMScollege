@@ -79,12 +79,10 @@
                 <input type="text" id="courseSearch" placeholder="Search courses...">
                 <select id="courseCategory">
                     <option value="">All Categories</option>
-                    <option value="development">Development</option>
-                    <option value="data-science">Data Science</option>
-                    <option value="design">Design</option>
-                    <option value="marketing">Marketing</option>
-                    <option value="programming">Programming</option>
-                    <option value="education">Education</option>
+                    <option value="bca">BCA</option>
+                    <option value="bba">BBA</option>
+                    <option value="bcom">B.COM</option>
+                    <option value="management">Management</option>
                 </select>
 
                 <button type="button" id="courseSearchBtn">SEARCH</button>
@@ -97,141 +95,63 @@
         <div class="container">
             <div class="courses-grid" id="coursesGrid">
                 <!-- Course 1 -->
-                <div class="course-card scroll-reveal" data-category="development">
+                <div class="course-card scroll-reveal" data-category="bca">
                     <div class="course-image">
-                        <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=2072&auto=format&fit=crop"
-                            alt="Web Development">
-
+                        <img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=2070&auto=format&fit=crop"
+                            alt="BCA">
                     </div>
                     <div class="course-content">
-                        <div class="course-meta">
-                            <span><i class="fa-solid fa-user"></i> John Doe</span>
-                            <span><i class="fa-solid fa-star"></i> 4.5</span>
-                        </div>
-                        <h3>Web Development Bootcamp</h3>
-                        <p>Master HTML, CSS, and JavaScript in this comprehensive bootcamp.</p>
+                        <h3>BACHELORS OF COMPUTER APPLICATION (BCA)</h3>
+                        <p>Comprehensive program covering software development, programming languages, and computer
+                            applications.</p>
                     </div>
                     <div class="course-footer">
-                        <div class="course-author">
-                            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Author">
-                            <span>By John Doe</span>
-                        </div>
-                        <span class="course-students"><i class="fa-solid fa-users"></i> 150</span>
+                        <span class="course-students"><i class="fa-solid fa-users"></i> Available</span>
                     </div>
                 </div>
+
                 <!-- Course 2 -->
-                <div class="course-card scroll-reveal delay-1" data-category="data-science">
+                <div class="course-card scroll-reveal delay-1" data-category="bba">
                     <div class="course-image">
-                        <img src="https://images.unsplash.com/photo-1561736778-92e52a7769ef?q=80&w=2070&auto=format&fit=crop"
-                            alt="Data Science">
-
+                        <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=2070&auto=format&fit=crop"
+                            alt="BBA">
                     </div>
                     <div class="course-content">
-                        <div class="course-meta">
-                            <span><i class="fa-solid fa-user"></i> Sarah Smith</span>
-                            <span><i class="fa-solid fa-star"></i> 4.8</span>
-                        </div>
-                        <h3>Data Science Fundamentals</h3>
-                        <p>Introduction to Python, Pandas, and Machine Learning.</p>
+                        <h3>BACHELOR OF BUSINESS ADMINISTRATION (BBA)</h3>
+                        <p>Develop leadership and management skills for the modern business world.</p>
                     </div>
                     <div class="course-footer">
-                        <div class="course-author">
-                            <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Author">
-                            <span>By Sarah Smith</span>
-                        </div>
-                        <span class="course-students"><i class="fa-solid fa-users"></i> 200</span>
+                        <span class="course-students"><i class="fa-solid fa-users"></i> Available</span>
                     </div>
                 </div>
+
                 <!-- Course 3 -->
-                <div class="course-card scroll-reveal delay-2" data-category="design">
+                <div class="course-card scroll-reveal delay-2" data-category="bcom">
                     <div class="course-image">
-                        <img src="https://images.unsplash.com/photo-1555421689-491a97ff2040?q=80&w=2070&auto=format&fit=crop"
-                            alt="UI/UX Design">
-
+                        <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?q=80&w=2071&auto=format&fit=crop"
+                            alt="B.COM">
                     </div>
                     <div class="course-content">
-                        <div class="course-meta">
-                            <span><i class="fa-solid fa-user"></i> Mike Ross</span>
-                            <span><i class="fa-solid fa-star"></i> 4.7</span>
-                        </div>
-                        <h3>UI/UX Design Masterclass</h3>
-                        <p>Learn to design beautiful interfaces using Figma and Adobe XD.</p>
+                        <h3>BACHELOR OF COMMERCE (B.COM)</h3>
+                        <p>In-depth understanding of finance, accounting, taxation, and business principles.</p>
                     </div>
                     <div class="course-footer">
-                        <div class="course-author">
-                            <img src="https://randomuser.me/api/portraits/men/85.jpg" alt="Author">
-                            <span>By Mike Ross</span>
-                        </div>
-                        <span class="course-students"><i class="fa-solid fa-users"></i> 120</span>
+                        <span class="course-students"><i class="fa-solid fa-users"></i> Available</span>
                     </div>
                 </div>
+
                 <!-- Course 4 -->
-                <div class="course-card scroll-reveal" data-category="marketing">
+                <div class="course-card scroll-reveal" data-category="management">
                     <div class="course-image">
                         <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=2070&auto=format&fit=crop"
-                            alt="Marketing">
-
+                            alt="Executive Management">
                     </div>
                     <div class="course-content">
-                        <div class="course-meta">
-                            <span><i class="fa-solid fa-user"></i> Emily White</span>
-                            <span><i class="fa-solid fa-star"></i> 4.6</span>
-                        </div>
-                        <h3>Digital Marketing Strategy</h3>
-                        <p>Learn SEO, SEM, and social media marketing strategies.</p>
+                        <h3>WEEKEND EXECUTIVE MANAGEMENT PROGRAM</h3>
+                        <p>Designed for working professionals to upgrade their management skills on weekends.</p>
                     </div>
                     <div class="course-footer">
-                        <div class="course-author">
-                            <img src="https://randomuser.me/api/portraits/women/22.jpg" alt="Author">
-                            <span>By Emily White</span>
-                        </div>
-                        <span class="course-students"><i class="fa-solid fa-users"></i> 180</span>
-                    </div>
-                </div>
-                <!-- Course 5 -->
-                <div class="course-card scroll-reveal delay-1" data-category="programming">
-                    <div class="course-image">
-                        <img src="https://images.unsplash.com/photo-1587620962725-abab7fe55159?q=80&w=2031&auto=format&fit=crop"
-                            alt="Programming">
-
-                    </div>
-                    <div class="course-content">
-                        <div class="course-meta">
-                            <span><i class="fa-solid fa-user"></i> David Lee</span>
-                            <span><i class="fa-solid fa-star"></i> 4.9</span>
-                        </div>
-                        <h3>Advanced Java Programming</h3>
-                        <p>Deep dive into Java streams, lambda functions, and multithreading.</p>
-                    </div>
-                    <div class="course-footer">
-                        <div class="course-author">
-                            <img src="https://randomuser.me/api/portraits/men/45.jpg" alt="Author">
-                            <span>By David Lee</span>
-                        </div>
-                        <span class="course-students"><i class="fa-solid fa-users"></i> 90</span>
-                    </div>
-                </div>
-                <!-- Course 6 -->
-                <div class="course-card scroll-reveal delay-2" data-category="education">
-                    <div class="course-image">
-                        <img src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?q=80&w=2070&auto=format&fit=crop"
-                            alt="Education">
-
-                    </div>
-                    <div class="course-content">
-                        <div class="course-meta">
-                            <span><i class="fa-solid fa-user"></i> Lisa Brown</span>
-                            <span><i class="fa-solid fa-star"></i> 4.4</span>
-                        </div>
-                        <h3>Teaching Methods 101</h3>
-                        <p>Effective teaching strategies for modern classrooms.</p>
-                    </div>
-                    <div class="course-footer">
-                        <div class="course-author">
-                            <img src="https://randomuser.me/api/portraits/women/66.jpg" alt="Author">
-                            <span>By Lisa Brown</span>
-                        </div>
-                        <span class="course-students"><i class="fa-solid fa-users"></i> 300</span>
+                        <span class="course-students"><i class="fa-solid fa-users"></i> Available</span>
                     </div>
                 </div>
             </div>

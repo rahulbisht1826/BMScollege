@@ -73,6 +73,36 @@
         </div>
     </section>
 
+    <!-- Dynamic Updates Section managed by Admin -->
+    <section class="dynamic-updates section-padding" id="dynamic-updates-section"
+        style="display:none; background: #fff; text-align: center;">
+        <div class="container">
+            <!-- Notice -->
+            <div id="dynamic-notice-container"
+                style="background:#1a75ff; color:#fff; padding:20px; border-radius:10px; margin-bottom: 30px; display:none; box-shadow: var(--shadow);">
+                <h3 style="margin:0; font-weight:600;"><i class="fa-solid fa-bullhorn"
+                        style="margin-right:10px;"></i><span id="dynamic-notice-text"></span></h3>
+            </div>
+
+            <div style="display:flex; flex-wrap:wrap; gap:30px; justify-content:center;">
+                <!-- Dynamic Image -->
+                <div id="dynamic-image-container" style="display:none; flex:1; min-width:300px;">
+                    <img id="dynamic-image" src="" alt="Latest Update"
+                        style="width:100%; border-radius:15px; box-shadow: var(--shadow); object-fit:cover;">
+                </div>
+
+                <!-- Dynamic Video -->
+                <div id="dynamic-video-container" style="display:none; flex:1; min-width:300px;">
+                    <video id="dynamic-video" controls
+                        style="width:100%; border-radius:15px; box-shadow: var(--shadow); background:#000;">
+                        <source id="dynamic-video-src" src="" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Features Section placeholder -->
     <section class="features section-padding">
         <div class="container">
@@ -233,6 +263,41 @@
     </footer>
 
     <script src="script.js"></script>
+    <script>
+        // Fetch dynamic data for the home page updates
+        document.addEventListener('DOMContentLoaded', () => {
+            fetch('data.json')
+                .then(response => {
+                    if (!response.ok) throw new Error('data.json not found');
+                    return response.json();
+                })
+                .then(data => {
+                    let hasContent = false;
+
+                    if (data.notice && data.notice.trim() !== '') {
+                        document.getElementById('dynamic-notice-text').textContent = data.notice;
+                        document.getElementById('dynamic-notice-container').style.display = 'block';
+                        hasContent = true;
+                    }
+                    if (data.image && data.image.trim() !== '') {
+                        document.getElementById('dynamic-image').src = data.image + "?t=" + new Date().getTime();
+                        document.getElementById('dynamic-image-container').style.display = 'block';
+                        hasContent = true;
+                    }
+                    if (data.video && data.video.trim() !== '') {
+                        document.getElementById('dynamic-video-src').src = data.video + "?t=" + new Date().getTime();
+                        document.getElementById('dynamic-video').load();
+                        document.getElementById('dynamic-video-container').style.display = 'block';
+                        hasContent = true;
+                    }
+
+                    if (hasContent) {
+                        document.getElementById('dynamic-updates-section').style.display = 'block';
+                    }
+                })
+                .catch(err => console.log('No dynamic updates found.'));
+        });
+    </script>
 </body>
 
 </html>
