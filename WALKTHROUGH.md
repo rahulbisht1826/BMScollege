@@ -101,7 +101,8 @@ Every page has a **two-part header**:
 
 Every page (except `login.html` and `404.html`) has an identical footer with:
 - **Column 1:** College name + tagline + social media icons (Facebook, X/Twitter, Instagram, LinkedIn)
-- **Column 2:** Quick Links (About Us, Courses, Contact, Become a Partner)
+  - All social links include `aria-label` for screen reader accessibility (e.g., `aria-label="Follow us on Facebook"`)
+- **Column 2:** Quick Links (About Us, Courses, Contact, Sitemap, Admin Dashboard)
 - **Column 3:** Contact info (email, phone, address)
 - **Column 4:** Newsletter subscription form
 - **Footer Bottom:** Copyright notice
@@ -115,6 +116,12 @@ Every page (except `login.html` and `404.html`) has an identical footer with:
 - Elements with class `.scroll-reveal` animate in when they enter the viewport
 - Uses Intersection Observer API in `script.js` (lines 1-16)
 - Add `.delay-1` or `.delay-2` for staggered entrance effects
+
+### 2.6 Accessibility & Performance
+- **ARIA Labels**: All interactive elements (buttons, links, social icons) have descriptive `aria-label` attributes.
+- **Image Optimization**: All images include `width`, `height`, `loading="lazy"`, and `decoding="async"` attributes to improve Core Web Vitals (CLS and LCP).
+- **Contrast**: UI colors have been adjusted for WCAG AA compliance (especially `--text-light` and header backgrounds).
+- **Focus Management**: The faculty modal handles focus trapping for keyboard navigation.
 
 ---
 
@@ -151,8 +158,8 @@ Every page (except `login.html` and `404.html`) has an identical footer with:
 | **Page Title Banner** | Background image (Unsplash) with "About Us" heading and breadcrumb. Has `margin-top: 100px` to account for the fixed header. |
 | **About Content** | Welcome text with description paragraphs. |
 | **Feature Cards** | 3 cards: Top Rated, Global Community, Certified Courses. |
-| **Expanding Gallery** | 5 interactive image panels. Click a panel to expand it while others shrink. Each has an icon, title, and subtitle overlay. |
-| **Shuffle Stack Video Gallery** | 8 video cards stacked in a 3D deck. Auto-shuffles every 2 seconds. Has prev/next navigation buttons. |
+| **Expanding Gallery** | 4 interactive image panels (Main Building, Advanced Labs, Library, Student Lounge). |
+| **Shuffle Stack Video Gallery** | 4 video cards in a 3D deck. Auto-shuffles every 2 seconds. |
 | **Footer** | Standard footer. |
 
 **Key Features:**
@@ -160,10 +167,10 @@ Every page (except `login.html` and `404.html`) has an identical footer with:
 - **Video Stack** (`video-stack`): Complex shuffle animation handled in `script.js` (lines 84-183). Features:
   - Auto-shuffle every 2 seconds
   - Pause on hover
-  - Manual prev/next controls
+  - Manual prev/next controls with `aria-label`
   - Top card shows video controls, others are paused
   - Cards animate left/right when shuffling
-- Videos: 2 are local files in `video/` folder, 6 are from Mixkit CDN
+- Videos: 2 are local files in `video/` folder, 2 are from Mixkit CDN
 
 ---
 
@@ -412,6 +419,19 @@ These are read by JavaScript to populate the modal. When adding a new faculty me
 - Uses `clamp()` for the 404 font size to scale smoothly across screen sizes
 - The page does NOT have a header or footer (intentional — it's an error page)
 - Useful for GitHub Pages: any unknown URL shows this page before redirecting
+
+
+### 3.10 Admin Dashboard — `admin.html`
+
+**This page is a password-protected management tool for site administrators.**
+
+**Features:**
+- **Dynamic Content Management**: Allows updating images, notices, and faculty/course data without editing HTML files directly.
+- **GitHub Integration**: Uses the GitHub API to fetch and update `data.json` and rebuild HTML pages.
+- **Form-Based Updates**: Administrators can fill out forms to add/edit/delete content.
+- **Automated Rebuilds**: The dashboard contains logic (`rebuildAboutPage`, `rebuildFacultyPage`, etc.) to automatically inject updated JSON data into the corresponding HTML templates using markers like `<!-- Faculty Grid Start -->`.
+
+**IMPORTANT:** This page requires a GitHub Personal Access Token (PAT) with `repo` scope to function. It is intended for authorized staff only.
 
 ---
 
