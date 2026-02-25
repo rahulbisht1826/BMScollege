@@ -1,5 +1,523 @@
 {
   "notice": "",
-  "image": "",
-  "video": ""
+  "images": [],
+  "videos": [],
+  "faculty": [
+    {
+      "name": "SRI. AVIRAM SHARMA",
+      "tag": "Faculty",
+      "education": "",
+      "experience": "",
+      "email": "",
+      "bio": "Trustee Member, BMS Educational Trust Chairman – BMS College of Commerce and Management...",
+      "image": "images/image1.jpeg",
+      "category": "chairman"
+    },
+    {
+      "name": "Dr. Pankaj Choudhary",
+      "tag": "Faculty",
+      "education": "Ph.D, MBA, B.COM",
+      "experience": "",
+      "email": "",
+      "bio": "Principal, BMS College of Commerce and Management...",
+      "image": "images/image2.jpeg",
+      "category": "principal faculty-member"
+    },
+    {
+      "name": "Dr. Preethi Stanley",
+      "tag": "HOD, Department of Management",
+      "education": "PhD, MBA, B.Com",
+      "experience": "HR and Editorial",
+      "email": "",
+      "bio": "Dr. Preethi Stanley is presently the HOD of Department of Management and Head of Corporate Communication Department at BMS College of Commerce and Management...",
+      "image": "images/image3.png",
+      "category": "faculty-member"
+    },
+    {
+      "name": "Dr. Manu H Natesh",
+      "tag": "Faculty",
+      "education": "-",
+      "experience": "16 Years",
+      "email": "",
+      "bio": "Dr. Manu H Natesh has 16 years of teaching experience, authored many text books related to commerce and management...",
+      "image": "images/image4.jpeg",
+      "category": "faculty-member"
+    },
+    {
+      "name": "Dr. Kiran Kumar MN",
+      "tag": "HOD, Department of Computer Application",
+      "education": "MCA,Ph.D",
+      "experience": "",
+      "email": "Kiran@bmsccm.ac.in",
+      "bio": "Dr. Kiran Kumar M N, Head of Department, Computer Applications at BMS College of Commerce and Management...",
+      "image": "images/image5.png",
+      "category": "faculty-member"
+    },
+    {
+      "name": "Dr. Priya Srinivasa",
+      "tag": "Assistant Professor, Department of Management",
+      "education": "PhD, UGC-NET, M.Phil, M.Com, MBA, PGDHRM, PGDIM, BBA",
+      "experience": "",
+      "email": "priya@bmsccm.ac.in",
+      "bio": "An efficient professional, known for team work, patience flexibility, passion for work...",
+      "image": "images/image6.jpeg",
+      "category": "faculty-member"
+    },
+    {
+      "name": "Mrs. LEKHA R",
+      "tag": "Assistant Professor, Department of Management",
+      "education": "Pursuing PhD",
+      "experience": "7+ Years",
+      "email": "",
+      "bio": "Mrs. Lekha R has expertise in career counselling for students. Actively pursuing a PhD - Management in University of Mysore...",
+      "image": "images/image7.jpeg",
+      "category": "faculty-member"
+    },
+    {
+      "name": "TEJASHWINI. T.S",
+      "tag": "Assistant Professor, Department of Commerce",
+      "education": "(PH.D), UGC-NET, MBA, M.COM, B.COM",
+      "experience": "",
+      "email": "tejashwini@bmsccm.ac.in",
+      "bio": "Mrs. Tejashwini.T.S, is working as an Assistant Professor in the department of commerce having 8+ years of professional experience...",
+      "image": "images/image8.png",
+      "category": "faculty-member"
+    },
+    {
+      "name": "Dr. Krishna Anurag",
+      "tag": "Assistant Professor, Department of Hindi",
+      "education": "Ph.D., UGC–NET, JRF, SRF",
+      "experience": "",
+      "email": "krishna@bmsccm.ac.in",
+      "bio": "Dr. Krishna Anurag has five years of teaching experience. He has taught postgraduate students...",
+      "image": "images/image9.jpeg",
+      "category": "faculty-member"
+    },
+    {
+      "name": "SOUMYA V",
+      "tag": "Assistant Professor, Department of Kannada",
+      "education": "M.A, NET, B.ed",
+      "experience": "7 Years",
+      "email": "",
+      "bio": "Ms. SOUMYA V is currently working as Assistant Professor in department of Kannada. She have 07 years of teaching experience at graduate level...",
+      "image": "images/image10.jpeg",
+      "category": "faculty-member"
+    },
+    {
+      "name": "Mr. Vivek S",
+      "tag": "Assistant Professor, Department of Commerce",
+      "education": "Master’s in Finance and Accounting",
+      "experience": "4 Years Industry",
+      "email": "",
+      "bio": "Mr. Vivek S is an Assistant Professor in the Department of Commerce, bringing a rich blend of academic and industry experience...",
+      "image": "images/image11.jpeg",
+      "category": "faculty-member"
+    },
+    {
+      "name": "Dr. Geetha R.",
+      "tag": "Assistant professor, Department of Sanskrit",
+      "education": "Ph.D",
+      "experience": "17 Years",
+      "email": "geetha@bmsccm.ac.in",
+      "bio": "Dr. Geetha R. is very Active, Dedicated and Love to teach and learn. She has 17years of teaching experience...",
+      "image": "images/image12.jpeg",
+      "category": "faculty-member"
+    },
+    {
+      "name": "Dr. Pratibha Singh",
+      "tag": "Assistant Professor",
+      "education": "PhD in English literature",
+      "experience": "15 Years",
+      "email": "",
+      "bio": "Dr Pratibha hold a PhD in English literature, and have over 15 years of teaching experience at the undergraduate and graduate levels...",
+      "image": "images/image13.jpeg",
+      "category": "faculty-member"
+    },
+    {
+      "name": "Mr. Sharath Kumar V",
+      "tag": "Assistant Professor , Department of Management",
+      "education": "KSET, MBA, BE(CS)",
+      "experience": "8 Years",
+      "email": "sharath@bmsccm.ac.in",
+      "bio": "Mr Sharath is a passionate Entrepreneur working closely with like minded students to achieve their start up goals...",
+      "image": "images/image14.jpeg",
+      "category": "faculty-member"
+    },
+    {
+      "name": "Ms Aaminah Firdos",
+      "tag": "Assistant Professor, Department of Commerce",
+      "education": "M Com, UGC - NET, KSET",
+      "experience": "8 Years",
+      "email": "",
+      "bio": "Ms Aaminah Firdos is an accomplished Assistant Professor in the Department of Commerce with over 8 years of enriching experience...",
+      "image": "images/image15.jpeg",
+      "category": "faculty-member"
+    },
+    {
+      "name": "Mr. Dhanush R C",
+      "tag": "Assistant Professor",
+      "education": "MBA, KSET",
+      "experience": "7 Years",
+      "email": "",
+      "bio": "Mr. Dhanush RC is currently pursuing doctoral research in Marketing at University of Mysore. His academic credentials are further augmented by an MBA...",
+      "image": "images/image16.jpeg",
+      "category": "faculty-member"
+    },
+    {
+      "name": "Dr. Akshay Mahajan",
+      "tag": "Assistant Professor",
+      "education": "Ph.D., PGDM, PGDIBO, M.Com",
+      "experience": "5 Years",
+      "email": "",
+      "bio": "Dr. Akshay Mahajan, a distinguished luminary in the academic world, stands as a paragon of scholarly excellence...",
+      "image": "images/image17.jpeg",
+      "category": "faculty-member"
+    },
+    {
+      "name": "Dr. KOMALATHA B C",
+      "tag": "Assistant Professor, Department of Commerce",
+      "education": "M.COM, KSET, MBA, Ph.D",
+      "experience": "8 Years",
+      "email": "komalatha@bmsccm.ac.in",
+      "bio": "Dr. Komalatha is an experienced educator with over 8 years of teaching in commerce. Has completed M.Com, K-SET, MBA...",
+      "image": "images/image18.jpeg",
+      "category": "faculty-member"
+    },
+    {
+      "name": "Mr. BALARAM M",
+      "tag": "Assistant Professor, Department of Computer Application",
+      "education": "MCA",
+      "experience": "10+ Years",
+      "email": "balaram@bmsccm.ac.in",
+      "bio": "Mr Balaram M is pursuing PhD in Visvesvaraya Technological University (VTU), MCA degree from Visvesvaraya Technological University (VTU)...",
+      "image": "images/image19.jpeg",
+      "category": "faculty-member"
+    },
+    {
+      "name": "Mr. Ramkishore",
+      "tag": "Assistant Professor, Department of English",
+      "education": "MA English, NET, (PhD)",
+      "experience": "7 Years",
+      "email": "ramskishore@bmscc.ac.in",
+      "bio": "Mr. Ramkishore is currently working as Assistant Professor He has about 7 years of experience in teaching literature and Communication Skills...",
+      "image": "images/image20.jpeg",
+      "category": "faculty-member"
+    },
+    {
+      "name": "Nikhil P. Kattatt",
+      "tag": "Assistant professor",
+      "education": "MBA, UGC-NET",
+      "experience": "5+ Years",
+      "email": "nikhil@bmsccm.ac.in",
+      "bio": "Mr. Nikhil P. Kattatt is pursuing his Ph.D. in Management, with expertise in Finance, Marketing, and Accounting...",
+      "image": "images/image21.jpeg",
+      "category": "faculty-member"
+    },
+    {
+      "name": "Shreesha R Huddar",
+      "tag": "Assistant Professor, Department of Commerce",
+      "education": "MCom",
+      "experience": "",
+      "email": "shreesha@bmsccm.ac.in",
+      "bio": "Mr Shreesha is working as Assistant Professor in the Department of Commerce at BMSCCM. He has published the research paper on Artificial Intelligence...",
+      "image": "images/image22.jpeg",
+      "category": "faculty-member"
+    },
+    {
+      "name": "Shrinkhala Kumari",
+      "tag": "Assistant Professor, Department of Computer Applications",
+      "education": "MCA",
+      "experience": "",
+      "email": "shrinkhala@bmsccm.ac.in",
+      "bio": "Ms. Shrinkhala Kumari is currently working as an Assistant Professor in the Department of Computer Applications at BMS College of Commerce and Management...",
+      "image": "images/image23.jpeg",
+      "category": "faculty-member"
+    },
+    {
+      "name": "Shivani Shikha",
+      "tag": "Assistant Professor, Department of Computer Applications",
+      "education": "MCA",
+      "experience": "",
+      "email": "shivani@bmsccm.ac.in",
+      "bio": "Ms. Shivani Shikha is an Assistant Professor in the Department of Computer Applications...",
+      "image": "images/image24.jpeg",
+      "category": "faculty-member"
+    },
+    {
+      "name": "Rachana.R.",
+      "tag": "Assistant professor, Department of Kannada",
+      "education": "MA in kannada literature, NET, KSET",
+      "experience": "5 Years",
+      "email": "rachana@bmsccm.ac.in",
+      "bio": "Mrs Rachana is currently working as an assistant professor in the department of Kannada...",
+      "image": "images/image25.jpeg",
+      "category": "faculty-member"
+    },
+    {
+      "name": "Rashmi K R",
+      "tag": "Assistant Professor, Department of Commerce",
+      "education": "(Ph.D), KSET, M.Com BBM",
+      "experience": "7 Years",
+      "email": "rashmi.kr@bmsccm.ac.in",
+      "bio": "Mrs Rashmi K R have 7 years of teaching experience and she is pursuing PhD from University of Mysore, Karnataka.",
+      "image": "images/image26.jpeg",
+      "category": "faculty-member"
+    },
+    {
+      "name": "Anvitha Mallya K",
+      "tag": "Assistant Professor in Management",
+      "education": "MCom, KSET",
+      "experience": "4+ Years",
+      "email": "anvitha@bmsccm.ac.in",
+      "bio": "I hold a Master of Commerce and Bachelor of Commerce degree from Mangalore University and have obtained KSET qualification...",
+      "image": "images/image27.jpeg",
+      "category": "faculty-member"
+    },
+    {
+      "name": "Chandrakala N",
+      "tag": "Assistant Teacher, Physical Education Department",
+      "education": "M.P.Ed",
+      "experience": "",
+      "email": "Chandrakala@bmsccm.ac.in",
+      "bio": "Mrs Chandrakala is an International Dodgeball player, National Level Netball player, National Level Volleyball player and a National Level Throwball player...",
+      "image": "images/image28.jpeg",
+      "category": "faculty-member"
+    },
+    {
+      "name": "Sathyashree S",
+      "tag": "Faculty",
+      "education": "",
+      "experience": "",
+      "email": "",
+      "bio": "Sathyashree S is an esteemed faculty...",
+      "image": "images/image29.png",
+      "category": "faculty-member"
+    },
+    {
+      "name": "Shreelatha P",
+      "tag": "Faculty",
+      "education": "MBA, pursuing Ph.D",
+      "experience": "Industry &amp; Academic",
+      "email": "",
+      "bio": "Mrs. Shreelatha P holds MBA degree from Visvesvaraya Technological University, Belagavi, where she honed her business acumen...",
+      "image": "images/image30.jpeg",
+      "category": "faculty-member"
+    },
+    {
+      "name": "Supriya J",
+      "tag": "Assistant Professor, Department of English",
+      "education": "MA English",
+      "experience": "",
+      "email": "supriya@bmsccm.ac.in",
+      "bio": "Ms. Supriya has completed her Master’s in English Literature from Bangalore University...",
+      "image": "images/image31.jpeg",
+      "category": "faculty-member"
+    },
+    {
+      "name": "Mahadevaswamy M",
+      "tag": "Assistant Librarian",
+      "education": "MLISc",
+      "experience": "",
+      "email": "mahadeva@bmsccm.ac.in",
+      "bio": "I am Mahadevaswamy M, currently working as an Assistant Librarian in the Department of Library and Information Centre...",
+      "image": "images/image32.jpeg",
+      "category": "faculty-member"
+    },
+    {
+      "name": "Mr. Deepak D N",
+      "tag": "Manager of Admissions",
+      "education": "Master's degree in Marketing",
+      "experience": "12+ Years",
+      "email": "",
+      "bio": "Mr. Deepak serves as the Manager of Admissions at BMS College of Commerce and Management (BMSCCM). He earned his master's degree in Marketing from VTU and has accumulated over 12 years of valuable experience in both corporate and academia.",
+      "image": "images/image33.jpeg",
+      "category": "non-teaching"
+    },
+    {
+      "name": "Mr. Siddanth P.",
+      "tag": "Senior Marketing Manager",
+      "education": "PGDM, BBA",
+      "experience": "10+ Years",
+      "email": "siddhanth@bmsccm.ac.in",
+      "bio": "Mr Siddhanth has over 10 years’ experience in the Digital Marketing industry. At present he is working as the Senior Marketing Manager at BMSCCM. He is passionate about his work and self-driven. With good communication skills, he is highly organized at work.",
+      "image": "images/image34.jpeg",
+      "category": "non-teaching"
+    },
+    {
+      "name": "Mr. Kumar Gupta",
+      "tag": "System Admin",
+      "education": "Diploma",
+      "experience": "",
+      "email": "kumar@bmsccm.ac.in",
+      "bio": "Mr Kumar Gupta works as System Admin at BMS College of Commerce and Management. Contact: kumar@bmsccm.ac.in",
+      "image": "images/image35.jpeg",
+      "category": "non-teaching"
+    },
+    {
+      "name": "Mrs. Pooja M.B",
+      "tag": "Accounts Executive",
+      "education": "",
+      "experience": "5+ Years",
+      "email": "",
+      "bio": "Mrs Pooja have over 5 years of experience in the accounting field in the finance sector. She is currently working as an accounts executive at BMSCCM.",
+      "image": "images/image36.jpeg",
+      "category": "non-teaching"
+    },
+    {
+      "name": "Ms. Bhagyalakshmi M",
+      "tag": "Academic Administrator",
+      "education": "",
+      "experience": "5+ Years",
+      "email": "",
+      "bio": "Ms Bhagyalakshmi is working in this institution from past 5 years. She is handling all the academic related work.",
+      "image": "images/image37.jpeg",
+      "category": "non-teaching"
+    },
+    {
+      "name": "Mr. Hithesh kumar R",
+      "tag": "Accounts and Admin Executive, Associate NCC Officer(ANO)",
+      "education": "MCOM",
+      "experience": "3+ Years",
+      "email": "hitheshkumar@bmsccm.ac.in",
+      "bio": "Mr Hitesh is an NCC Officer in BMSCCM, where he focus on Unity and Discipline of the students. He has been working in BMSCCM for three years.",
+      "image": "images/image38.jpeg",
+      "category": "non-teaching"
+    },
+    {
+      "name": "Chandan H Gowda",
+      "tag": "Staff",
+      "education": "UG",
+      "experience": "",
+      "email": "",
+      "bio": "Chandan H Gowda Persuaded UG at BMS College Of Commerce &amp; Management. Done PUC at Bharathiya Samskriti Vidyapitha and Secondary Education at holy angels high school.",
+      "image": "images/image39.jpeg",
+      "category": "non-teaching"
+    },
+    {
+      "name": "Shwetha Tamang",
+      "tag": "Executive DEO",
+      "education": "BCOM",
+      "experience": "",
+      "email": "shwethatamang@bmsccm.ac.in",
+      "bio": "Ms Shwetha Tamang is an bcom graduate pursuing PGDM . She has worked as an executive DEO for a year and she handles and prepares study certificates and carter to the students queries and assist in running the official college portal and ERP.",
+      "image": "images/image40.jpeg",
+      "category": "non-teaching"
+    },
+    {
+      "name": "Ms. Ananya N. Bharadwaj",
+      "tag": "Digital Marketing Executive",
+      "education": "BBA",
+      "experience": "",
+      "email": "",
+      "bio": "Ms. Ananya N. Bharadwaj is a BBA graduate from BMSCW and currently works as a Digital Marketing Executive. In her role, she is involved in various aspects of digital marketing, including social media management, content creation, campaign planning, admission lead generation, and brand communication.",
+      "image": "images/image41.jpeg",
+      "category": "non-teaching"
+    },
+    {
+      "name": "Progya Ghosh",
+      "tag": "Corporate communication executive",
+      "education": "BBA",
+      "experience": "",
+      "email": "progya@bmsccm.ac.in",
+      "bio": "Ms. Progya Ghosh is a BBA graduate from BMS College of Commerce and Management and currently serves as the Corporate Communication Executive. In this role, she oversees campus placements, guest lectures, workshops, industrial visits, and skill enhancement programs.",
+      "image": "images/image42.jpeg",
+      "category": "non-teaching"
+    },
+    {
+      "name": "Varsha K Kumar",
+      "tag": "Corporate Communication executive",
+      "education": "Bcom",
+      "experience": "",
+      "email": "varsha@bmsccm.ac.in",
+      "bio": "Ms. Varsha K Kumar, a B.Com graduate from BMS College of Commerce and Management, currently works in the Corporate Communication department while simultaneously pursuing her ACCA qualification.",
+      "image": "images/image43.jpeg",
+      "category": "non-teaching"
+    },
+    {
+      "name": "Lavanya R",
+      "tag": "Team Leader - Admission",
+      "education": "BCOM",
+      "experience": "5+ Years",
+      "email": "",
+      "bio": "Mrs. Lavanya is an experienced professional with a strong background in marketing. She has 5 years of Experience in leading admission team in EdTech Company (IES). She is currently working at BMSCCM as a Team Leader in Admission Department.",
+      "image": "images/image44.jpeg",
+      "category": "non-teaching"
+    },
+    {
+      "name": "Kavya S",
+      "tag": "Admissions Executive",
+      "education": "BCA",
+      "experience": "",
+      "email": "kavya@bmsccm.ac.in",
+      "bio": "Ms Kavya is highly motivated and detail oriented Admissions Executive with a strong background in corporate experience and a passion for communication.",
+      "image": "images/image45.jpeg",
+      "category": "non-teaching"
+    },
+    {
+      "name": "NIKITA GIRIYA",
+      "tag": "Admission Executive",
+      "education": "BBA",
+      "experience": "",
+      "email": "",
+      "bio": "My name is Nikita Giriya, a Bachelor of Business Administration (BBA) graduate with a strong interest in Marketing and Human Resource functions. Currently, I am working as an Admission Executive at BMS College of Commerce and Management.",
+      "image": "images/image46.jpeg",
+      "category": "non-teaching"
+    },
+    {
+      "name": "Lakshmi sree T",
+      "tag": "Admission Counsellor",
+      "education": "MCom",
+      "experience": "2.8+ Years",
+      "email": "",
+      "bio": "A dedicated and knowledgeable education professional with a Master's degree in (MCom) and over 2.8 years of experience in Collegedekho and Shiksha as an admission counsellor.",
+      "image": "images/image47.jpeg",
+      "category": "non-teaching"
+    },
+    {
+      "name": "Prerana S",
+      "tag": "Academic Counsellor",
+      "education": "Bachelor's degree",
+      "experience": "2+ Years",
+      "email": "",
+      "bio": "Versatile and motivated professional with a Bachelor's degree, 2 years of corporate experience at Accenture, and currently working as an Academic Counsellor in BMS College Of Commerce And Management.",
+      "image": "images/image49.jpeg",
+      "category": "non-teaching"
+    },
+    {
+      "name": "Mr. Duggesh K.S",
+      "tag": "Driver and Office Assistant",
+      "education": "",
+      "experience": "",
+      "email": "duggesh@bmsccm.ac.in",
+      "bio": "Support Staff at BMS College of Commerce and Management. Designation: Driver and Office Assistant.",
+      "image": "images/image48.jpeg",
+      "category": "non-teaching"
+    }
+  ],
+  "courses": [
+    {
+      "title": "BACHELORS OF COMPUTER APPLICATION (BCA)",
+      "description": "Comprehensive program covering software development, programming languages, and computer\n                            applications.",
+      "image": "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=2070&auto=format&fit=crop",
+      "category": "bca"
+    },
+    {
+      "title": "BACHELOR OF BUSINESS ADMINISTRATION (BBA)",
+      "description": "Develop leadership and management skills for the modern business world.",
+      "image": "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=2070&auto=format&fit=crop",
+      "category": "bba"
+    },
+    {
+      "title": "BACHELOR OF COMMERCE (B.COM)",
+      "description": "In-depth understanding of finance, accounting, taxation, and business principles.",
+      "image": "https://images.unsplash.com/photo-1554224155-6726b3ff858f?q=80&w=2071&auto=format&fit=crop",
+      "category": "bcom"
+    },
+    {
+      "title": "WEEKEND EXECUTIVE MANAGEMENT PROGRAM",
+      "description": "Designed for working professionals to upgrade their management skills on weekends.",
+      "image": "https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=2070&auto=format&fit=crop",
+      "category": "management"
+    }
+  ]
 }

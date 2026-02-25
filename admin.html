@@ -8,500 +8,1480 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <link rel="icon" type="image/png" href="images/logo.png">
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
-            background: #f0f4f8;
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
             font-family: 'Poppins', sans-serif;
+            min-height: 100vh;
+            color: #e0e0e0;
+        }
+
+        /* ── Login Screen ─────────────────────────── */
+        .login-wrapper {
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            margin: 0;
             padding: 20px;
-            box-sizing: border-box;
         }
 
-        .admin-card {
-            background: white;
-            padding: 40px;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        .login-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 50px 40px;
+            border-radius: 20px;
             width: 100%;
-            max-width: 600px;
-            margin: 20px auto;
-        }
-
-        .admin-card h2 {
-            margin-top: 0;
+            max-width: 440px;
             text-align: center;
-            color: #333;
         }
 
-        .input-group {
-            margin-bottom: 20px;
+        .login-card .logo-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 30px;
+            color: #fff;
         }
 
-        .input-group label {
-            display: block;
+        .login-card h2 {
+            color: #fff;
             margin-bottom: 8px;
-            font-weight: 500;
-            color: #555;
+            font-size: 22px;
         }
 
-        .input-group input,
-        .input-group textarea {
+        .login-card p {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 13px;
+            margin-bottom: 30px;
+        }
+
+        /* ── Form Controls ────────────────────────── */
+        .form-group {
+            margin-bottom: 18px;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 7px;
+            font-weight: 500;
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
             width: 100%;
-            padding: 12px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            box-sizing: border-box;
+            padding: 12px 15px;
+            background: rgba(255, 255, 255, 0.07);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 10px;
+            color: #fff;
             font-family: inherit;
             font-size: 14px;
+            transition: 0.3s;
         }
 
-        .input-group input:focus,
-        .input-group textarea:focus {
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
             outline: none;
-            border-color: #1a75ff;
-            box-shadow: 0 0 0 3px rgba(26, 117, 255, 0.1);
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2);
         }
 
+        .form-group select option {
+            background: #1a1a2e;
+            color: #fff;
+        }
+
+        .form-group input[type="file"] {
+            padding: 10px;
+        }
+
+        .input-with-toggle {
+            position: relative;
+        }
+
+        .input-with-toggle input {
+            padding-right: 45px;
+        }
+
+        .toggle-visibility {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            font-size: 16px;
+            padding: 5px;
+            transition: 0.2s;
+        }
+
+        .toggle-visibility:hover {
+            color: #667eea;
+        }
+
+        /* ── Buttons ──────────────────────────────── */
         .btn {
             width: 100%;
-            padding: 14px;
-            background: #1a75ff;
-            color: white;
+            padding: 13px;
             border: none;
-            border-radius: 8px;
-            font-size: 16px;
-            cursor: pointer;
-            transition: 0.3s;
+            border-radius: 10px;
+            font-size: 15px;
             font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: inherit;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
         }
 
-        .btn:hover {
-            background: #005ce6;
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: #fff;
+        }
+
+        .btn-primary:hover {
             transform: translateY(-2px);
-            box-shadow: 0 4px 10px rgba(26, 117, 255, 0.3);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-danger {
+            background: linear-gradient(135deg, #f5365c, #f56036);
+            color: #fff;
+        }
+
+        .btn-danger:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(245, 54, 92, 0.4);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.08);
+            color: #ccc;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .btn-sm {
+            padding: 8px 16px;
+            font-size: 12px;
+            width: auto;
         }
 
         .btn:disabled {
-            background: #ccc;
+            opacity: 0.5;
             cursor: not-allowed;
-            transform: none;
-            box-shadow: none;
+            transform: none !important;
+            box-shadow: none !important;
         }
 
+        /* ── Dashboard Layout ─────────────────────── */
         #dashboard {
             display: none;
-            max-width: 700px;
         }
 
-        .alert {
-            padding: 12px;
-            border-radius: 8px;
+        .dash-topbar {
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            padding: 15px 30px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .dash-topbar .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 600;
+            font-size: 16px;
+            color: #fff;
+        }
+
+        .dash-topbar .brand i {
+            font-size: 22px;
+            color: #667eea;
+        }
+
+        .dash-topbar-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .dash-container {
+            max-width: 900px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        /* ── Cards ────────────────────────────────── */
+        .card {
+            background: rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            padding: 30px;
+            margin-bottom: 24px;
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
             margin-bottom: 20px;
+        }
+
+        .card-header h3 {
+            font-size: 17px;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card-header h3 i {
+            color: #667eea;
+            font-size: 18px;
+        }
+
+        /* ── Alerts ───────────────────────────────── */
+        .alert {
+            padding: 14px 18px;
+            border-radius: 10px;
+            font-size: 13px;
+            margin-bottom: 18px;
             display: none;
-            font-size: 14px;
+            align-items: center;
+            gap: 10px;
         }
 
-        .alert.error {
-            background: #fef2f2;
-            color: #b91c1c;
-            border: 1px solid #fecaca;
+        .alert.show {
+            display: flex;
         }
 
-        .alert.success {
-            background: #f0fdf4;
-            color: #15803d;
-            border: 1px solid #bbf7d0;
+        .alert-error {
+            background: rgba(245, 54, 92, 0.15);
+            border: 1px solid rgba(245, 54, 92, 0.3);
+            color: #ff6b8a;
         }
 
-        .alert.info {
-            background: #eff6ff;
-            color: #1d4ed8;
-            border: 1px solid #bfdbfe;
+        .alert-success {
+            background: rgba(45, 206, 137, 0.15);
+            border: 1px solid rgba(45, 206, 137, 0.3);
+            color: #2dce89;
         }
 
-        .loader {
-            border: 4px solid #f3f3f3;
-            border-top: 4px solid #fff;
-            border-radius: 50%;
-            width: 20px;
-            height: 20px;
-            animation: spin 1s linear infinite;
-            display: inline-block;
-            vertical-align: middle;
-            margin-right: 10px;
-            display: none;
+        .alert-info {
+            background: rgba(102, 126, 234, 0.15);
+            border: 1px solid rgba(102, 126, 234, 0.3);
+            color: #8ea4f7;
         }
 
-        @keyframes spin {
-            0% {
-                transform: rotate(0deg);
-            }
-
-            100% {
-                transform: rotate(360deg);
-            }
+        /* ── Page Selector Tabs ───────────────────── */
+        .page-tabs {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
         }
 
-        .media-item {
+        .page-tab {
+            padding: 10px 20px;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 50px;
+            background: rgba(255, 255, 255, 0.04);
+            color: rgba(255, 255, 255, 0.6);
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 500;
+            font-family: inherit;
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .page-tab:hover {
+            background: rgba(255, 255, 255, 0.08);
+            color: #fff;
+        }
+
+        .page-tab.active {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-color: transparent;
+            color: #fff;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        /* ── Media / Item Lists ───────────────────── */
+        .item-list {
+            max-height: 500px;
+            overflow-y: auto;
+            padding-right: 5px;
+        }
+
+        .item-list::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        .item-list::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 10px;
+        }
+
+        .media-item,
+        .faculty-item,
+        .course-item {
             display: flex;
             align-items: center;
             gap: 15px;
-            padding: 10px;
-            background: #fff;
-            border: 1px solid #ddd;
-            border-radius: 8px;
+            padding: 12px 15px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 12px;
             margin-bottom: 10px;
+            transition: 0.2s;
+        }
+
+        .media-item:hover,
+        .faculty-item:hover,
+        .course-item:hover {
+            border-color: rgba(245, 54, 92, 0.3);
+            background: rgba(245, 54, 92, 0.05);
         }
 
         .media-item img,
         .media-item video {
-            height: 60px;
-            width: 100px;
+            width: 80px;
+            height: 55px;
             object-fit: cover;
-            border-radius: 5px;
+            border-radius: 8px;
             background: #000;
+            flex-shrink: 0;
         }
 
-        .media-item div {
-            flex-grow: 1;
-            word-break: break-all;
+        .faculty-item img {
+            width: 50px;
+            height: 50px;
+            object-fit: cover;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .item-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .item-info .item-name {
             font-size: 13px;
+            font-weight: 500;
+            color: #fff;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
-        .media-item input[type="checkbox"] {
-            width: 20px;
-            height: 20px;
+        .item-info .item-sub {
+            font-size: 11px;
+            color: rgba(255, 255, 255, 0.4);
+            margin-top: 2px;
+        }
+
+        .btn-delete-item {
+            background: rgba(245, 54, 92, 0.15);
+            border: 1px solid rgba(245, 54, 92, 0.3);
+            color: #ff6b8a;
+            border-radius: 8px;
+            padding: 7px 14px;
             cursor: pointer;
+            font-size: 12px;
+            font-family: inherit;
+            transition: 0.3s;
+            flex-shrink: 0;
+        }
+
+        .btn-delete-item:hover {
+            background: #f5365c;
+            color: #fff;
+        }
+
+        /* ── Page-Specific Panels ─────────────────── */
+        .page-panel {
+            display: none;
+        }
+
+        .page-panel.active {
+            display: block;
+        }
+
+        /* ── Token Bar ────────────────────────────── */
+        .token-bar {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 18px;
+            background: rgba(102, 126, 234, 0.1);
+            border: 1px solid rgba(102, 126, 234, 0.2);
+            border-radius: 12px;
+            margin-bottom: 8px;
+        }
+
+        .token-bar i {
+            color: #667eea;
+            font-size: 16px;
+        }
+
+        .token-bar span {
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .token-bar .token-status {
+            margin-left: auto;
+            font-size: 11px;
+            padding: 3px 10px;
+            border-radius: 20px;
+        }
+
+        .token-bar .token-status.connected {
+            background: rgba(45, 206, 137, 0.15);
+            color: #2dce89;
+            border: 1px solid rgba(45, 206, 137, 0.3);
+        }
+
+        .token-bar .token-status.missing {
+            background: rgba(245, 54, 92, 0.15);
+            color: #ff6b8a;
+            border: 1px solid rgba(245, 54, 92, 0.3);
+        }
+
+        /* ── Spinner ──────────────────────────────── */
+        .spinner {
+            border: 3px solid rgba(255, 255, 255, 0.1);
+            border-top: 3px solid #fff;
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            animation: spin 0.8s linear infinite;
+            display: none;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* ── Stats Row ────────────────────────────── */
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 14px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .stat-card .stat-num {
+            font-size: 28px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .stat-card .stat-label {
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.5);
+            margin-top: 5px;
+        }
+
+        /* ── Separator ────────────────────────────── */
+        .separator {
+            height: 1px;
+            background: rgba(255, 255, 255, 0.08);
+            margin: 20px 0;
+        }
+
+        /* ── Responsive ──────────────────────────── */
+        @media (max-width: 600px) {
+            .dash-topbar {
+                padding: 12px 15px;
+                flex-wrap: wrap;
+                gap: 10px;
+            }
+
+            .dash-container {
+                padding: 0 12px;
+            }
+
+            .card {
+                padding: 20px 16px;
+            }
+
+            .page-tab {
+                padding: 8px 14px;
+                font-size: 12px;
+            }
+
+            .faculty-item,
+            .course-item,
+            .media-item {
+                flex-wrap: wrap;
+            }
         }
     </style>
 </head>
 
 <body>
-    <div class="admin-card" id="login-screen">
-        <div style="text-align:center; margin-bottom:20px;">
-            <i class="fa-solid fa-user-shield" style="font-size: 40px; color: #1a75ff;"></i>
+    <!-- ══════════════ LOGIN SCREEN ══════════════ -->
+    <div class="login-wrapper" id="login-screen">
+        <div class="login-card">
+            <div class="logo-icon"><i class="fa-solid fa-shield-halved"></i></div>
+            <h2>Admin Portal</h2>
+            <p>BMS College Content Management System</p>
+
+            <div class="alert alert-error" id="login-error"><i class="fa-solid fa-circle-exclamation"></i> Invalid ID or
+                Password.</div>
+
+            <div class="form-group">
+                <label>Admin ID</label>
+                <input type="text" id="admin-id" placeholder="Enter your admin ID" autocomplete="username">
+            </div>
+            <div class="form-group">
+                <label>Password</label>
+                <div class="input-with-toggle">
+                    <input type="password" id="admin-pass" placeholder="Enter your password"
+                        autocomplete="current-password">
+                    <button class="toggle-visibility" onclick="toggleVis('admin-pass', this)"><i
+                            class="fa-solid fa-eye"></i></button>
+                </div>
+            </div>
+            <button class="btn btn-primary" onclick="login()"><i class="fa-solid fa-right-to-bracket"></i>
+                Login</button>
         </div>
-        <h2>Admin Authentication</h2>
-        <div class="alert error" id="login-error">Invalid id or password.</div>
-        <div class="input-group">
-            <label>Admin ID</label>
-            <input type="text" id="admin-id" placeholder="Enter ID">
-        </div>
-        <div class="input-group">
-            <label>Password</label>
-            <input type="password" id="admin-pass" placeholder="Enter Password">
-        </div>
-        <button class="btn" onclick="login()">Login</button>
     </div>
 
-    <div class="admin-card" id="dashboard">
-        <h2>Content Dashboard</h2>
-        <div class="alert error" id="dash-error"></div>
-        <div class="alert success" id="dash-success"></div>
-        <div class="alert info" style="display:block;">
-            <i class="fa-solid fa-circle-info"></i> To publish your changes dynamically to the site, please provide a
-            GitHub Personal Access Token.
+    <!-- ══════════════ DASHBOARD ══════════════ -->
+    <div id="dashboard">
+        <!-- Top Bar -->
+        <div class="dash-topbar">
+            <div class="brand"><i class="fa-solid fa-gauge-high"></i> Admin Dashboard</div>
+            <div class="dash-topbar-actions">
+                <button class="btn btn-secondary btn-sm" onclick="logout()"><i
+                        class="fa-solid fa-right-from-bracket"></i>
+                    Logout</button>
+            </div>
         </div>
 
-        <div class="input-group" style="padding-bottom:20px; border-bottom:1px solid #eee; margin-bottom:20px;">
-            <label>GitHub Personal Access Token (Classic)</label>
-            <input type="password" id="gh-token" placeholder="ghp_........................">
-        </div>
+        <div class="dash-container">
+            <!-- Alerts -->
+            <div class="alert alert-error" id="dash-error"><i class="fa-solid fa-circle-exclamation"></i> <span
+                    id="dash-error-text"></span></div>
+            <div class="alert alert-success" id="dash-success"><i class="fa-solid fa-circle-check"></i> <span
+                    id="dash-success-text"></span></div>
 
-        <div class="input-group">
-            <label>Home Page Notice</label>
-            <textarea id="notice-text" rows="3" placeholder="Enter important text notice to display..."></textarea>
-            <div style="text-align:right;"><button class="btn"
-                    style="width:auto; padding:8px 15px; margin-top:5px; font-size:13px; background:#dc3545;"
-                    onclick="document.getElementById('notice-text').value=''">Clear Notice</button></div>
-        </div>
+            <!-- Token Management Card -->
+            <div class="card">
+                <div class="card-header">
+                    <h3><i class="fa-solid fa-key"></i> GitHub Token</h3>
+                    <div id="token-status-badge"></div>
+                </div>
+                <p style="font-size: 12px; color: rgba(255,255,255,0.4); margin-bottom: 15px;">Your token is stored
+                    permanently in this browser. You only need to set it once.</p>
+                <div class="form-group" style="margin-bottom: 10px;">
+                    <div class="input-with-toggle">
+                        <input type="password" id="gh-token" placeholder="ghp_........................">
+                        <button class="toggle-visibility" onclick="toggleVis('gh-token', this)"><i
+                                class="fa-solid fa-eye"></i></button>
+                    </div>
+                </div>
+                <div style="display:flex; gap:8px;">
+                    <button class="btn btn-primary btn-sm" onclick="saveToken()" style="flex:1"><i
+                            class="fa-solid fa-floppy-disk"></i> Save Token</button>
+                    <button class="btn btn-secondary btn-sm" onclick="clearToken()" style="flex:1"><i
+                            class="fa-solid fa-trash"></i> Clear Token</button>
+                </div>
+            </div>
 
-        <!-- Section for managing existing media -->
-        <div class="input-group" id="existing-media-container"
-            style="display:none; background:#f8f9fa; padding:15px; border-radius:8px; border: 1px solid #eee;">
-            <label style="color:#333;"><i class="fa-solid fa-trash-can"
-                    style="margin-right:8px; color:#dc3545;"></i>Manage Existing Media</label>
-            <p style="font-size:12px; color:#666; margin-top:0;">Check the boxes to mark files for deletion.</p>
-            <div id="existing-media-list"></div>
-        </div>
+            <!-- Stats -->
+            <div class="stats-row" id="stats-row">
+                <div class="stat-card">
+                    <div class="stat-num" id="stat-faculty">0</div>
+                    <div class="stat-label">Faculty Members</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-num" id="stat-courses">0</div>
+                    <div class="stat-label">Courses</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-num" id="stat-media">0</div>
+                    <div class="stat-label">Media Files</div>
+                </div>
+            </div>
 
-        <div class="input-group" style="margin-top:20px;">
-            <label><i class="fa-solid fa-image" style="margin-right:8px; color:#1a75ff;"></i>Upload New Image</label>
-            <input type="file" id="image-upload" accept="image/*">
-        </div>
+            <!-- Page Selector Tabs -->
+            <div class="page-tabs">
+                <button class="page-tab active" data-page="home" onclick="switchPage('home')"><i
+                        class="fa-solid fa-house"></i> Home Page</button>
+                <button class="page-tab" data-page="faculty" onclick="switchPage('faculty')"><i
+                        class="fa-solid fa-chalkboard-user"></i> Faculty</button>
+                <button class="page-tab" data-page="courses" onclick="switchPage('courses')"><i
+                        class="fa-solid fa-graduation-cap"></i> Courses</button>
+            </div>
 
-        <div class="input-group">
-            <label><i class="fa-solid fa-film" style="margin-right:8px; color:#1a75ff;"></i>Upload New Video (Keep under
-                20MB)</label>
-            <input type="file" id="video-upload" accept="video/mp4,video/webm">
-        </div>
+            <!-- ═══ HOME PAGE PANEL ═══ -->
+            <div class="page-panel active" id="panel-home">
+                <!-- Notice -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3><i class="fa-solid fa-bullhorn"></i> Notice Banner</h3>
+                        <button class="btn btn-danger btn-sm" onclick="document.getElementById('notice-text').value=''"
+                            title="Clear Notice"><i class="fa-solid fa-eraser"></i> Clear</button>
+                    </div>
+                    <div class="form-group">
+                        <textarea id="notice-text" rows="3"
+                            placeholder="Enter important notice to display on homepage..."></textarea>
+                    </div>
+                </div>
 
-        <button class="btn" id="save-btn" onclick="saveChanges()" style="margin-top:10px;">
-            <span class="loader" id="save-loader"></span>
-            <span id="save-text">Publish Changes to Homepage</span>
-        </button>
-        <button class="btn" onclick="logout()" style="background:#6c757d; margin-top:10px;">Logout</button>
+                <!-- Existing Media -->
+                <div class="card" id="existing-media-card" style="display:none;">
+                    <div class="card-header">
+                        <h3><i class="fa-solid fa-photo-film"></i> Current Media</h3>
+                    </div>
+                    <div class="item-list" id="existing-media-list"></div>
+                </div>
+
+                <!-- Upload New -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3><i class="fa-solid fa-cloud-arrow-up"></i> Upload New Media</h3>
+                    </div>
+                    <div class="form-group">
+                        <label><i class="fa-solid fa-image" style="margin-right:6px; color:#667eea;"></i> Image
+                            File</label>
+                        <input type="file" id="image-upload" accept="image/*">
+                    </div>
+                    <div class="form-group">
+                        <label><i class="fa-solid fa-film" style="margin-right:6px; color:#667eea;"></i> Video File
+                            (max 20MB)</label>
+                        <input type="file" id="video-upload" accept="video/mp4,video/webm">
+                    </div>
+                </div>
+            </div>
+
+            <!-- ═══ FACULTY PAGE PANEL ═══ -->
+            <div class="page-panel" id="panel-faculty">
+                <!-- Add Faculty -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3><i class="fa-solid fa-user-plus"></i> Add New Faculty</h3>
+                    </div>
+                    <div style="display:grid; grid-template-columns:1fr 1fr; gap: 12px;">
+                        <div class="form-group">
+                            <label>Full Name *</label>
+                            <input type="text" id="fac-name" placeholder="e.g., Dr. John Smith">
+                        </div>
+                        <div class="form-group">
+                            <label>Designation / Tag *</label>
+                            <input type="text" id="fac-tag" placeholder="e.g., Assistant Professor">
+                        </div>
+                    </div>
+                    <div style="display:grid; grid-template-columns:1fr 1fr; gap: 12px;">
+                        <div class="form-group">
+                            <label>Education</label>
+                            <input type="text" id="fac-edu" placeholder="e.g., Ph.D, MBA, B.COM">
+                        </div>
+                        <div class="form-group">
+                            <label>Experience</label>
+                            <input type="text" id="fac-exp" placeholder="e.g., 10+ Years">
+                        </div>
+                    </div>
+                    <div style="display:grid; grid-template-columns:1fr 1fr; gap: 12px;">
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input type="email" id="fac-email" placeholder="e.g., name@bmsccm.ac.in">
+                        </div>
+                        <div class="form-group">
+                            <label>Category *</label>
+                            <select id="fac-category">
+                                <option value="faculty-member">Faculty Member</option>
+                                <option value="chairman">Chairman</option>
+                                <option value="principal">Principal</option>
+                                <option value="non-teaching">Non Teaching</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Bio / Description *</label>
+                        <textarea id="fac-bio" rows="3" placeholder="Short biography..."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label><i class="fa-solid fa-camera" style="margin-right:6px; color:#667eea;"></i> Photo
+                            *</label>
+                        <input type="file" id="fac-photo" accept="image/*">
+                    </div>
+                    <button class="btn btn-primary" onclick="addFaculty()"><i class="fa-solid fa-plus"></i> Add Faculty
+                        Member</button>
+                </div>
+
+                <!-- Existing Faculty -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3><i class="fa-solid fa-users"></i> Current Faculty (<span id="fac-count">0</span>)</h3>
+                    </div>
+                    <div class="item-list" id="faculty-list"></div>
+                </div>
+            </div>
+
+            <!-- ═══ COURSES PAGE PANEL ═══ -->
+            <div class="page-panel" id="panel-courses">
+                <!-- Add Course -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3><i class="fa-solid fa-circle-plus"></i> Add New Course</h3>
+                    </div>
+                    <div class="form-group">
+                        <label>Course Title *</label>
+                        <input type="text" id="course-title" placeholder="e.g., BACHELOR OF COMMERCE (B.COM)">
+                    </div>
+                    <div class="form-group">
+                        <label>Description *</label>
+                        <textarea id="course-desc" rows="2" placeholder="Brief description of the course..."></textarea>
+                    </div>
+                    <div style="display:grid; grid-template-columns:1fr 1fr; gap: 12px;">
+                        <div class="form-group">
+                            <label>Category *</label>
+                            <select id="course-cat">
+                                <option value="bca">BCA</option>
+                                <option value="bba">BBA</option>
+                                <option value="bcom">B.COM</option>
+                                <option value="management">Management</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Image URL</label>
+                            <input type="text" id="course-img" placeholder="https://... (leave empty for default)">
+                        </div>
+                    </div>
+                    <button class="btn btn-primary" onclick="addCourse()"><i class="fa-solid fa-plus"></i> Add
+                        Course</button>
+                </div>
+
+                <!-- Existing Courses -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3><i class="fa-solid fa-book-open"></i> Current Courses (<span id="course-count">0</span>)
+                        </h3>
+                    </div>
+                    <div class="item-list" id="courses-list"></div>
+                </div>
+            </div>
+
+            <!-- ═══ PUBLISH BUTTON ═══ -->
+            <button class="btn btn-primary" id="publish-btn" onclick="publishChanges()"
+                style="padding: 16px; font-size: 16px; margin-bottom: 40px;">
+                <span class="spinner" id="publish-spinner"></span>
+                <i class="fa-solid fa-rocket" id="publish-icon"></i>
+                <span id="publish-text">Publish All Changes</span>
+            </button>
+        </div>
     </div>
 
     <script>
+        // ══════════════════════════════════════════════════
+        //  CONSTANTS & STATE
+        // ══════════════════════════════════════════════════
         const REPO = 'rahulbisht1826/BMScollege';
+        let siteData = { notice: '', images: [], videos: [], faculty: [], courses: [] };
+        let mediaToDelete = new Set();
 
-        function login() {
-            const id = document.getElementById('admin-id').value;
-            const pass = document.getElementById('admin-pass').value;
-            if (id === 'admin' && pass === 'admin') {
-                document.getElementById('login-screen').style.display = 'none';
-                document.getElementById('dashboard').style.display = 'block';
-                document.getElementById('login-error').style.display = 'none';
-
-                // Load existing token if any
-                const savedToken = localStorage.getItem('gh_admin_token');
-                if (savedToken) document.getElementById('gh-token').value = savedToken;
-
-                loadExistingData();
+        // ══════════════════════════════════════════════════
+        //  UTILITY: Toggle password visibility
+        // ══════════════════════════════════════════════════
+        function toggleVis(inputId, btn) {
+            const input = document.getElementById(inputId);
+            const icon = btn.querySelector('i');
+            if (input.type === 'password') {
+                input.type = 'text';
+                icon.className = 'fa-solid fa-eye-slash';
             } else {
-                document.getElementById('login-error').style.display = 'block';
+                input.type = 'password';
+                icon.className = 'fa-solid fa-eye';
             }
         }
 
+        // ══════════════════════════════════════════════════
+        //  LOGIN / LOGOUT
+        // ══════════════════════════════════════════════════
+        function login() {
+            const id = document.getElementById('admin-id').value.trim();
+            const pass = document.getElementById('admin-pass').value.trim();
+            if (id === 'admin' && pass === 'admin') {
+                document.getElementById('login-screen').style.display = 'none';
+                document.getElementById('dashboard').style.display = 'block';
+                document.getElementById('login-error').classList.remove('show');
+                initDashboard();
+            } else {
+                document.getElementById('login-error').classList.add('show');
+            }
+        }
+
+        // Allow enter key to login
+        document.getElementById('admin-pass').addEventListener('keydown', e => {
+            if (e.key === 'Enter') login();
+        });
+
         function logout() {
-            document.getElementById('login-screen').style.display = 'block';
+            document.getElementById('login-screen').style.display = 'flex';
             document.getElementById('dashboard').style.display = 'none';
             document.getElementById('admin-id').value = '';
             document.getElementById('admin-pass').value = '';
         }
 
-        let existingImages = [];
-        let existingVideos = [];
-        let mediaToRemove = new Set();
+        // ══════════════════════════════════════════════════
+        //  TOKEN MANAGEMENT (Permanent)
+        // ══════════════════════════════════════════════════
+        function loadToken() {
+            const t = localStorage.getItem('gh_admin_token');
+            if (t) {
+                document.getElementById('gh-token').value = t;
+            }
+            updateTokenBadge();
+        }
 
-        async function loadExistingData() {
-            try {
-                // Read local data.json 
-                const res = await fetch('data.json?t=' + Date.now());
-                if (res.ok) {
-                    const data = await res.json();
+        function saveToken() {
+            const t = document.getElementById('gh-token').value.trim();
+            if (!t) { showAlert('error', 'Please enter a token.'); return; }
+            localStorage.setItem('gh_admin_token', t);
+            updateTokenBadge();
+            showAlert('success', 'Token saved permanently to this browser!');
+        }
 
-                    if (data.notice) document.getElementById('notice-text').value = data.notice;
+        function clearToken() {
+            localStorage.removeItem('gh_admin_token');
+            document.getElementById('gh-token').value = '';
+            updateTokenBadge();
+            showAlert('success', 'Token cleared.');
+        }
 
-                    let images = [];
-                    if (Array.isArray(data.images)) images = data.images;
-                    else if (data.image) images = [data.image];
+        function getToken() {
+            return (document.getElementById('gh-token').value.trim() || localStorage.getItem('gh_admin_token') || '').trim();
+        }
 
-                    let videos = [];
-                    if (Array.isArray(data.videos)) videos = data.videos;
-                    else if (data.video) videos = [data.video];
-
-                    existingImages = images.filter(img => img && img.trim() !== '');
-                    existingVideos = videos.filter(vid => vid && vid.trim() !== '');
-
-                    renderExistingMedia();
-                }
-            } catch (e) {
-                console.error("Could not load existing data.json", e);
+        function updateTokenBadge() {
+            const badge = document.getElementById('token-status-badge');
+            const t = getToken();
+            if (t) {
+                badge.innerHTML = '<span class="token-status connected"><i class="fa-solid fa-check-circle"></i> Connected</span>';
+            } else {
+                badge.innerHTML = '<span class="token-status missing"><i class="fa-solid fa-xmark-circle"></i> Missing</span>';
             }
         }
 
-        function renderExistingMedia() {
-            const container = document.getElementById('existing-media-container');
+        // ══════════════════════════════════════════════════
+        //  ALERTS
+        // ══════════════════════════════════════════════════
+        function showAlert(type, msg) {
+            const errEl = document.getElementById('dash-error');
+            const sucEl = document.getElementById('dash-success');
+            errEl.classList.remove('show');
+            sucEl.classList.remove('show');
+
+            if (type === 'error') {
+                document.getElementById('dash-error-text').textContent = msg;
+                errEl.classList.add('show');
+                errEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+            if (type === 'success') {
+                document.getElementById('dash-success-text').textContent = msg;
+                sucEl.classList.add('show');
+            }
+        }
+
+        function hideAlerts() {
+            document.getElementById('dash-error').classList.remove('show');
+            document.getElementById('dash-success').classList.remove('show');
+        }
+
+        // ══════════════════════════════════════════════════
+        //  PAGE SWITCHING
+        // ══════════════════════════════════════════════════
+        function switchPage(page) {
+            document.querySelectorAll('.page-tab').forEach(t => t.classList.remove('active'));
+            document.querySelector(`.page-tab[data-page="${page}"]`).classList.add('active');
+            document.querySelectorAll('.page-panel').forEach(p => p.classList.remove('active'));
+            document.getElementById(`panel-${page}`).classList.add('active');
+            hideAlerts();
+        }
+
+        // ══════════════════════════════════════════════════
+        //  INIT DASHBOARD — Load from data.json
+        // ══════════════════════════════════════════════════
+        async function initDashboard() {
+            loadToken();
+            try {
+                let data;
+                try {
+                    const res = await fetch('data.json?t=' + Date.now(), { cache: 'no-store' });
+                    if (res.ok) data = await res.json();
+                } catch (fetchErr) {
+                    // Fallback for file:// protocol — use XMLHttpRequest
+                    data = await new Promise((resolve, reject) => {
+                        const xhr = new XMLHttpRequest();
+                        xhr.open('GET', 'data.json', true);
+                        xhr.onload = () => { try { resolve(JSON.parse(xhr.responseText)); } catch (e) { reject(e); } };
+                        xhr.onerror = reject;
+                        xhr.send();
+                    });
+                }
+                if (data) {
+                    siteData.notice = data.notice || '';
+                    siteData.images = Array.isArray(data.images) ? data.images : (data.image ? [data.image] : []);
+                    siteData.videos = Array.isArray(data.videos) ? data.videos : (data.video ? [data.video] : []);
+                    siteData.faculty = data.faculty || [];
+                    siteData.courses = data.courses || [];
+
+                    // Filter empties
+                    siteData.images = siteData.images.filter(x => x && x.trim());
+                    siteData.videos = siteData.videos.filter(x => x && x.trim());
+
+                    document.getElementById('notice-text').value = siteData.notice;
+                    renderAll();
+                }
+            } catch (e) {
+                console.error('Could not load data.json', e);
+            }
+        }
+
+        // ══════════════════════════════════════════════════
+        //  RENDER ALL SECTIONS
+        // ══════════════════════════════════════════════════
+        function renderAll() {
+            renderMedia();
+            renderFaculty();
+            renderCourses();
+            updateStats();
+        }
+
+        function updateStats() {
+            document.getElementById('stat-faculty').textContent = siteData.faculty.length;
+            document.getElementById('stat-courses').textContent = siteData.courses.length;
+            document.getElementById('stat-media').textContent = siteData.images.length + siteData.videos.length;
+        }
+
+        // ── Media ──────────────────────────────────────
+        function renderMedia() {
+            const card = document.getElementById('existing-media-card');
             const list = document.getElementById('existing-media-list');
             list.innerHTML = '';
+            mediaToDelete.clear();
 
-            if (existingImages.length === 0 && existingVideos.length === 0) {
-                container.style.display = 'none';
+            if (siteData.images.length === 0 && siteData.videos.length === 0) {
+                card.style.display = 'none';
+                return;
+            }
+            card.style.display = 'block';
+
+            siteData.images.forEach((path, i) => {
+                list.innerHTML += `
+                    <div class="media-item">
+                        <img src="${path}?t=${Date.now()}" alt="img">
+                        <div class="item-info">
+                            <div class="item-name">${path.split('/').pop()}</div>
+                            <div class="item-sub">Image File</div>
+                        </div>
+                        <button class="btn-delete-item" onclick="markMediaDelete('img', ${i}, this)"><i class="fa-solid fa-trash"></i></button>
+                    </div>`;
+            });
+
+            siteData.videos.forEach((path, i) => {
+                list.innerHTML += `
+                    <div class="media-item">
+                        <video src="${path}?t=${Date.now()}"></video>
+                        <div class="item-info">
+                            <div class="item-name">${path.split('/').pop()}</div>
+                            <div class="item-sub">Video File</div>
+                        </div>
+                        <button class="btn-delete-item" onclick="markMediaDelete('vid', ${i}, this)"><i class="fa-solid fa-trash"></i></button>
+                    </div>`;
+            });
+        }
+
+        function markMediaDelete(type, index, btn) {
+            const path = type === 'img' ? siteData.images[index] : siteData.videos[index];
+            mediaToDelete.add(path);
+            if (type === 'img') siteData.images.splice(index, 1);
+            else siteData.videos.splice(index, 1);
+            renderMedia();
+            updateStats();
+        }
+
+        // ── Faculty ────────────────────────────────────
+        function renderFaculty() {
+            const list = document.getElementById('faculty-list');
+            document.getElementById('fac-count').textContent = siteData.faculty.length;
+            list.innerHTML = '';
+
+            if (siteData.faculty.length === 0) {
+                list.innerHTML = '<p style="text-align:center; color:rgba(255,255,255,0.3); font-size:13px; padding:20px;">No faculty members yet.</p>';
                 return;
             }
 
-            container.style.display = 'block';
-
-            existingImages.forEach((img) => {
-                const item = document.createElement('label');
-                item.className = 'media-item';
-                item.innerHTML = `
-                    <input type="checkbox" onchange="toggleRemoveMedia('${img}', this.checked)">
-                    <img src="${img}?t=${Date.now()}" alt="image">
-                    <div>${img.split('/').pop()}</div>
-                `;
-                list.appendChild(item);
-            });
-
-            existingVideos.forEach((vid) => {
-                const item = document.createElement('label');
-                item.className = 'media-item';
-                item.innerHTML = `
-                    <input type="checkbox" onchange="toggleRemoveMedia('${vid}', this.checked)">
-                    <video src="${vid}?t=${Date.now()}"></video>
-                    <div>${vid.split('/').pop()}</div>
-                `;
-                list.appendChild(item);
+            siteData.faculty.forEach((fac, i) => {
+                const imgSrc = fac.image && fac.image.startsWith('http') ? fac.image : (fac.image || 'images/logo.png');
+                list.innerHTML += `
+                    <div class="faculty-item">
+                        <img src="${imgSrc}" alt="${fac.name}" onerror="this.src='images/logo.png'">
+                        <div class="item-info">
+                            <div class="item-name">${fac.name}</div>
+                            <div class="item-sub">${fac.tag} · ${fac.category}</div>
+                        </div>
+                        <button class="btn-delete-item" onclick="deleteFaculty(${i})"><i class="fa-solid fa-trash"></i></button>
+                    </div>`;
             });
         }
 
-        function toggleRemoveMedia(path, checked) {
-            if (checked) mediaToRemove.add(path);
-            else mediaToRemove.delete(path);
+        function addFaculty() {
+            const name = document.getElementById('fac-name').value.trim();
+            const tag = document.getElementById('fac-tag').value.trim();
+            const bio = document.getElementById('fac-bio').value.trim();
+            const photoFile = document.getElementById('fac-photo').files[0];
+
+            if (!name || !tag || !bio) {
+                showAlert('error', 'Please fill Name, Designation, and Bio.');
+                return;
+            }
+            if (!photoFile) {
+                showAlert('error', 'Please select a photo for the faculty member.');
+                return;
+            }
+
+            // We'll store locally; upload happens on publish
+            const reader = new FileReader();
+            reader.onload = () => {
+                const newFac = {
+                    name,
+                    tag,
+                    education: document.getElementById('fac-edu').value.trim(),
+                    experience: document.getElementById('fac-exp').value.trim(),
+                    email: document.getElementById('fac-email').value.trim(),
+                    bio,
+                    category: document.getElementById('fac-category').value,
+                    image: `images/faculty_${Date.now()}.${photoFile.name.split('.').pop()}`,
+                    _pendingUpload: reader.result.split(',')[1],
+                    _pendingPath: `images/faculty_${Date.now()}.${photoFile.name.split('.').pop()}`
+                };
+                siteData.faculty.push(newFac);
+                renderFaculty();
+                updateStats();
+
+                // Clear form
+                ['fac-name', 'fac-tag', 'fac-edu', 'fac-exp', 'fac-email', 'fac-bio'].forEach(id => document.getElementById(id).value = '');
+                document.getElementById('fac-photo').value = '';
+                showAlert('success', `Faculty member "${name}" added. Click Publish to save.`);
+            };
+            reader.readAsDataURL(photoFile);
         }
 
-        function showStatus(type, msg) {
-            const errEl = document.getElementById('dash-error');
-            const sucEl = document.getElementById('dash-success');
-            errEl.style.display = 'none';
-            sucEl.style.display = 'none';
-
-            if (type === 'error') { errEl.textContent = msg; errEl.style.display = 'block'; }
-            if (type === 'success') { sucEl.textContent = msg; sucEl.style.display = 'block'; }
+        function deleteFaculty(index) {
+            const name = siteData.faculty[index].name;
+            if (confirm(`Remove "${name}" from faculty?`)) {
+                // If image is a local path, mark for deletion
+                const img = siteData.faculty[index].image;
+                if (img && !img.startsWith('http')) {
+                    mediaToDelete.add(img);
+                }
+                siteData.faculty.splice(index, 1);
+                renderFaculty();
+                updateStats();
+                showAlert('success', `"${name}" removed. Click Publish to save.`);
+            }
         }
 
+        // ── Courses ────────────────────────────────────
+        function renderCourses() {
+            const list = document.getElementById('courses-list');
+            document.getElementById('course-count').textContent = siteData.courses.length;
+            list.innerHTML = '';
+
+            if (siteData.courses.length === 0) {
+                list.innerHTML = '<p style="text-align:center; color:rgba(255,255,255,0.3); font-size:13px; padding:20px;">No courses yet.</p>';
+                return;
+            }
+
+            siteData.courses.forEach((c, i) => {
+                list.innerHTML += `
+                    <div class="course-item">
+                        <div class="item-info">
+                            <div class="item-name">${c.title}</div>
+                            <div class="item-sub">${c.category.toUpperCase()} · ${c.description.substring(0, 60)}...</div>
+                        </div>
+                        <button class="btn-delete-item" onclick="deleteCourse(${i})"><i class="fa-solid fa-trash"></i></button>
+                    </div>`;
+            });
+        }
+
+        function addCourse() {
+            const title = document.getElementById('course-title').value.trim();
+            const desc = document.getElementById('course-desc').value.trim();
+            const cat = document.getElementById('course-cat').value;
+            let img = document.getElementById('course-img').value.trim();
+
+            if (!title || !desc) {
+                showAlert('error', 'Please fill Course Title and Description.');
+                return;
+            }
+
+            // Default images per category
+            const defaultImages = {
+                bca: 'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=2070&auto=format&fit=crop',
+                bba: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=2070&auto=format&fit=crop',
+                bcom: 'https://images.unsplash.com/photo-1554224155-6726b3ff858f?q=80&w=2071&auto=format&fit=crop',
+                management: 'https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=2070&auto=format&fit=crop'
+            };
+
+            if (!img) img = defaultImages[cat] || defaultImages.bca;
+
+            siteData.courses.push({ title, description: desc, image: img, category: cat });
+            renderCourses();
+            updateStats();
+
+            document.getElementById('course-title').value = '';
+            document.getElementById('course-desc').value = '';
+            document.getElementById('course-img').value = '';
+            showAlert('success', `Course "${title}" added. Click Publish to save.`);
+        }
+
+        function deleteCourse(index) {
+            const title = siteData.courses[index].title;
+            if (confirm(`Remove "${title}"?`)) {
+                siteData.courses.splice(index, 1);
+                renderCourses();
+                updateStats();
+                showAlert('success', `"${title}" removed. Click Publish to save.`);
+            }
+        }
+
+        // ══════════════════════════════════════════════════
+        //  GITHUB API HELPERS
+        // ══════════════════════════════════════════════════
         function getBase64(file) {
             return new Promise((resolve, reject) => {
-                const reader = new FileReader();
-                reader.onload = () => resolve(reader.result.split(',')[1]); // return base64 part
-                reader.onerror = error => reject(error);
-                reader.readAsDataURL(file);
+                const r = new FileReader();
+                r.onload = () => resolve(r.result.split(',')[1]);
+                r.onerror = reject;
+                r.readAsDataURL(file);
             });
         }
 
-        async function uploadToGitHub(token, path, contentBase64) {
+        async function ghUpload(token, path, base64Content) {
             const url = `https://api.github.com/repos/${REPO}/contents/${path}`;
-            const headers = {
-                'Authorization': `token ${token}`,
-                'Content-Type': 'application/json'
-            };
+            const headers = { 'Authorization': `token ${token}`, 'Content-Type': 'application/json' };
 
             let sha = null;
             try {
-                const getRes = await fetch(url, { headers });
-                if (getRes.ok) {
-                    const getJson = await getRes.json();
-                    sha = getJson.sha;
-                }
+                const r = await fetch(url, { headers });
+                if (r.ok) sha = (await r.json()).sha;
             } catch (e) { }
 
-            const body = {
-                message: `Admin Update: ${path}`,
-                content: contentBase64
-            };
+            const body = { message: `Admin Update: ${path}`, content: base64Content };
             if (sha) body.sha = sha;
 
-            const putRes = await fetch(url, {
-                method: 'PUT',
-                headers,
-                body: JSON.stringify(body)
-            });
-
-            if (!putRes.ok) {
-                const errorData = await putRes.json();
-                throw new Error(errorData.message || 'File upload failed');
+            const res = await fetch(url, { method: 'PUT', headers, body: JSON.stringify(body) });
+            if (!res.ok) {
+                const err = await res.json();
+                throw new Error(err.message || 'Upload failed');
             }
-            return putRes.json();
+            return res.json();
         }
 
-        async function deleteFromGitHub(token, path) {
+        async function ghDelete(token, path) {
             const url = `https://api.github.com/repos/${REPO}/contents/${path}`;
-            const headers = {
-                'Authorization': `token ${token}`,
-                'Content-Type': 'application/json'
-            };
-
+            const headers = { 'Authorization': `token ${token}`, 'Content-Type': 'application/json' };
             try {
-                const getRes = await fetch(url, { headers });
-                if (getRes.ok) {
-                    const getJson = await getRes.json();
-                    const sha = getJson.sha;
-
-                    await fetch(url, {
-                        method: 'DELETE',
-                        headers,
-                        body: JSON.stringify({
-                            message: `Admin Delete: ${path}`,
-                            sha: sha
-                        })
-                    });
+                const r = await fetch(url, { headers });
+                if (r.ok) {
+                    const sha = (await r.json()).sha;
+                    await fetch(url, { method: 'DELETE', headers, body: JSON.stringify({ message: `Admin Delete: ${path}`, sha }) });
                 }
             } catch (e) {
-                console.warn("Could not delete file from repo:", path);
+                console.warn('Could not delete:', path);
             }
         }
 
-        async function saveChanges() {
-            const token = document.getElementById('gh-token').value.trim();
+        // ══════════════════════════════════════════════════
+        //  PUBLISH ALL CHANGES
+        // ══════════════════════════════════════════════════
+        async function publishChanges() {
+            const token = getToken();
             if (!token) {
-                showStatus('error', 'Please provide a GitHub Personal Access Token.');
+                showAlert('error', 'Please save a GitHub Personal Access Token first.');
                 return;
             }
 
+            // Auto-save token on publish
             localStorage.setItem('gh_admin_token', token);
+            updateTokenBadge();
 
-            const btn = document.getElementById('save-btn');
+            const btn = document.getElementById('publish-btn');
+            const spinner = document.getElementById('publish-spinner');
+            const icon = document.getElementById('publish-icon');
+            const text = document.getElementById('publish-text');
+
             btn.disabled = true;
-            document.getElementById('save-loader').style.display = 'inline-block';
-            document.getElementById('save-text').textContent = 'Uploading...';
-            showStatus('', '');
+            spinner.style.display = 'inline-block';
+            icon.style.display = 'none';
+            text.textContent = 'Publishing...';
+            hideAlerts();
 
             try {
-                let dataJson = { notice: document.getElementById('notice-text').value, images: [], videos: [] };
+                // 1. Upload pending faculty photos
+                for (let fac of siteData.faculty) {
+                    if (fac._pendingUpload) {
+                        text.textContent = `Uploading photo: ${fac.name}...`;
+                        await ghUpload(token, fac._pendingPath, fac._pendingUpload);
+                        delete fac._pendingUpload;
+                        delete fac._pendingPath;
+                    }
+                }
 
-                // Handle New Image
+                // 2. Upload new home images
                 const imgFile = document.getElementById('image-upload').files[0];
                 if (imgFile) {
+                    text.textContent = 'Uploading image...';
                     const b64 = await getBase64(imgFile);
-                    const ext = imgFile.name.split('.').pop();
-                    const path = `images/dynamic_${Date.now()}.${ext}`;
-                    await uploadToGitHub(token, path, b64);
-                    dataJson.images.push(path);
+                    const path = `images/dynamic_${Date.now()}.${imgFile.name.split('.').pop()}`;
+                    await ghUpload(token, path, b64);
+                    siteData.images.push(path);
                 }
 
-                // Handle New Video
+                // 3. Upload new home videos
                 const vidFile = document.getElementById('video-upload').files[0];
                 if (vidFile) {
+                    text.textContent = 'Uploading video...';
                     const b64 = await getBase64(vidFile);
-                    const ext = vidFile.name.split('.').pop();
-                    const path = `video/dynamic_${Date.now()}.${ext}`;
-                    await uploadToGitHub(token, path, b64);
-                    dataJson.videos.push(path);
+                    const path = `video/dynamic_${Date.now()}.${vidFile.name.split('.').pop()}`;
+                    await ghUpload(token, path, b64);
+                    siteData.videos.push(path);
                 }
 
-                // Delete removed media from github fully
-                for (let path of mediaToRemove) {
-                    await deleteFromGitHub(token, path);
+                // 4. Delete removed media from GitHub
+                for (let path of mediaToDelete) {
+                    text.textContent = `Deleting: ${path.split('/').pop()}...`;
+                    await ghDelete(token, path);
                 }
 
-                // Add kept images and videos to the final list
-                existingImages.forEach(img => {
-                    if (!mediaToRemove.has(img)) dataJson.images.push(img);
-                });
+                // 5. Build final data.json
+                siteData.notice = document.getElementById('notice-text').value;
 
-                existingVideos.forEach(vid => {
-                    if (!mediaToRemove.has(vid)) dataJson.videos.push(vid);
-                });
+                // Clean internal fields before saving
+                const cleanFaculty = siteData.faculty.map(f => ({
+                    name: f.name,
+                    tag: f.tag,
+                    education: f.education || '',
+                    experience: f.experience || '',
+                    email: f.email || '',
+                    bio: f.bio,
+                    image: f.image,
+                    category: f.category
+                }));
 
-                // Upload data.json
-                const dataStr = unescape(encodeURIComponent(JSON.stringify(dataJson, null, 2))); // handle utf-8 base64 properly
+                const finalData = {
+                    notice: siteData.notice,
+                    images: siteData.images,
+                    videos: siteData.videos,
+                    faculty: cleanFaculty,
+                    courses: siteData.courses
+                };
+
+                text.textContent = 'Saving data.json...';
+                const dataStr = unescape(encodeURIComponent(JSON.stringify(finalData, null, 2)));
                 const dataB64 = btoa(dataStr);
-                await uploadToGitHub(token, 'data.json', dataB64);
+                await ghUpload(token, 'data.json', dataB64);
 
-                showStatus('success', 'Changes published successfully! They will appear on the homepage shortly.');
-                document.getElementById('image-upload').value = "";
-                document.getElementById('video-upload').value = "";
+                // 6. Now regenerate faculty.html and courses.html
+                text.textContent = 'Rebuilding faculty page...';
+                await rebuildFacultyPage(token, cleanFaculty);
 
-                // Update local status with new reality
-                existingImages = [...dataJson.images];
-                existingVideos = [...dataJson.videos];
-                mediaToRemove.clear();
-                renderExistingMedia();
+                text.textContent = 'Rebuilding courses page...';
+                await rebuildCoursesPage(token, siteData.courses);
+
+                // Done
+                showAlert('success', '✅ All changes published successfully! Pages will update shortly.');
+                document.getElementById('image-upload').value = '';
+                document.getElementById('video-upload').value = '';
+                mediaToDelete.clear();
+                siteData.faculty = cleanFaculty;
+                renderAll();
 
             } catch (e) {
                 console.error(e);
-                showStatus('error', 'Error: ' + e.message);
+                showAlert('error', 'Error: ' + e.message);
             } finally {
                 btn.disabled = false;
-                document.getElementById('save-loader').style.display = 'none';
-                document.getElementById('save-text').textContent = 'Publish Changes to Homepage';
+                spinner.style.display = 'none';
+                icon.style.display = 'inline-block';
+                text.textContent = 'Publish All Changes';
             }
+        }
+
+        // ══════════════════════════════════════════════════
+        //  REBUILD FACULTY PAGE HTML
+        // ══════════════════════════════════════════════════
+        async function rebuildFacultyPage(token, faculty) {
+            // Fetch current faculty.html to get the template
+            const url = `https://api.github.com/repos/${REPO}/contents/faculty.html`;
+            const headers = { 'Authorization': `token ${token}`, 'Content-Type': 'application/json' };
+
+            const res = await fetch(url, { headers });
+            if (!res.ok) throw new Error('Could not fetch faculty.html');
+            const fileData = await res.json();
+            const currentHtml = atob(fileData.content.replace(/\n/g, ''));
+
+            // Find the features-grid content and replace
+            const gridStart = currentHtml.indexOf('<div class="features-grid">');
+            const gridEnd = currentHtml.indexOf('</div>\r\n    </section>', gridStart) || currentHtml.indexOf('</div>\n    </section>', gridStart);
+
+            if (gridStart === -1) throw new Error('Could not find features-grid in faculty.html');
+
+            // Build faculty cards HTML
+            let cardsHtml = '\n';
+            faculty.forEach(fac => {
+                const emailHtml = fac.email ? `<a class="profile-email" href="mailto:${fac.email}"><i class="fa-solid fa-envelope"></i> ${fac.email}</a>` : '';
+                cardsHtml += `                <div class="profile-card scroll-reveal" data-category="${fac.category}">
+                    <div class="profile-card-image">
+                        <img alt="${fac.name}" src="${fac.image}" />
+                    </div>
+                    <div class="profile-card-content">
+                        <span class="profile-tag">${fac.tag}</span>
+                        <h3>${fac.name}</h3>${emailHtml}
+                        <p>${fac.education}</p>
+                        <p>${fac.bio.substring(0, 100)}${fac.bio.length > 100 ? '...' : ''}</p>
+                        <button class="btn-know-more-card"
+                            data-bio="${fac.bio.replace(/"/g, '&quot;')}"
+                            data-edu="${fac.education}" data-email="${fac.email}" data-exp="${fac.experience}"
+                            data-img="${fac.image}" data-name="${fac.name}"
+                            data-tag="${fac.tag}">
+                            Know More <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>\n`;
+            });
+
+            // Find end of grid more carefully
+            const closingTag = '</div>\r\n        </div>\r\n    </section>';
+            const closingTagLF = '</div>\n        </div>\n    </section>';
+            let actualEnd = currentHtml.indexOf(closingTag, gridStart + 30);
+            let useClosing = closingTag;
+            if (actualEnd === -1) {
+                actualEnd = currentHtml.indexOf(closingTagLF, gridStart + 30);
+                useClosing = closingTagLF;
+            }
+
+            // The features-grid div content
+            const newHtml = currentHtml.substring(0, gridStart) +
+                '<div class="features-grid">' + cardsHtml + '            </div>\r\n        </div>\r\n    </section>' +
+                currentHtml.substring(actualEnd + useClosing.length);
+
+            const b64 = btoa(unescape(encodeURIComponent(newHtml)));
+            await ghUpload(token, 'faculty.html', b64);
+        }
+
+        // ══════════════════════════════════════════════════
+        //  REBUILD COURSES PAGE HTML
+        // ══════════════════════════════════════════════════
+        async function rebuildCoursesPage(token, courses) {
+            const url = `https://api.github.com/repos/${REPO}/contents/courses.html`;
+            const headers = { 'Authorization': `token ${token}`, 'Content-Type': 'application/json' };
+
+            const res = await fetch(url, { headers });
+            if (!res.ok) throw new Error('Could not fetch courses.html');
+            const fileData = await res.json();
+            const currentHtml = atob(fileData.content.replace(/\n/g, ''));
+
+            const gridStart = currentHtml.indexOf('<div class="courses-grid" id="coursesGrid">');
+            if (gridStart === -1) throw new Error('Could not find coursesGrid in courses.html');
+
+            // Build course cards
+            let cardsHtml = '\n';
+            courses.forEach((c, i) => {
+                const delayClass = i === 0 ? '' : (i === 1 ? ' delay-1' : ' delay-2');
+                cardsHtml += `                <!-- Course ${i + 1} -->
+                <div class="course-card scroll-reveal${delayClass}" data-category="${c.category}">
+                    <div class="course-image">
+                        <img src="${c.image}" alt="${c.title}">
+                    </div>
+                    <div class="course-content">
+                        <h3>${c.title}</h3>
+                        <p>${c.description}</p>
+                    </div>
+                    <div class="course-footer">
+                        <span class="course-students"><i class="fa-solid fa-users"></i> Available</span>
+                    </div>
+                </div>\n`;
+            });
+
+            // Find the closing of courses-grid
+            const closingTag = '</div>\r\n        </div>\r\n    </section>';
+            const closingTagLF = '</div>\n        </div>\n    </section>';
+            let actualEnd = currentHtml.indexOf(closingTag, gridStart + 30);
+            let useClosing = closingTag;
+            if (actualEnd === -1) {
+                actualEnd = currentHtml.indexOf(closingTagLF, gridStart + 30);
+                useClosing = closingTagLF;
+            }
+
+            // Find the correct section end (after coursesGrid)
+            // We need the first </section> that closes the courses grid section
+            const sectionEnd = currentHtml.indexOf('</section>', gridStart);
+            const beforeSection = currentHtml.lastIndexOf('</div>', sectionEnd); // closing of container div
+            const beforeContainer = currentHtml.lastIndexOf('</div>', beforeSection - 1); // closing of courses-grid
+
+            const newHtml = currentHtml.substring(0, gridStart) +
+                '<div class="courses-grid" id="coursesGrid">' + cardsHtml + '            </div>\r\n        </div>\r\n    </section>' +
+                currentHtml.substring(sectionEnd + '</section>'.length);
+
+            const b64 = btoa(unescape(encodeURIComponent(newHtml)));
+            await ghUpload(token, 'courses.html', b64);
         }
     </script>
 </body>
