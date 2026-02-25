@@ -954,25 +954,51 @@
         }
 
         // ══════════════════════════════════════════════════
-        //  INIT DASHBOARD — Load from data.json
+        //  INIT DASHBOARD — Load from data.json (3 fallbacks)
         // ══════════════════════════════════════════════════
+        const RAW_DATA_URL = `https://raw.githubusercontent.com/${REPO}/main/data.json`;
+
+        async function tryLoadJSON() {
+            // Strategy 1: Local fetch (works on GitHub Pages)
+            try {
+                const res = await fetch('data.json?t=' + Date.now(), { cache: 'no-store' });
+                if (res.ok) {
+                    const d = await res.json();
+                    if (d && (d.faculty || d.courses)) return d;
+                }
+            } catch (e) { console.log('Local fetch failed, trying XHR...'); }
+
+            // Strategy 2: XMLHttpRequest (works on some local file:// setups)
+            try {
+                const d = await new Promise((resolve, reject) => {
+                    const xhr = new XMLHttpRequest();
+                    xhr.open('GET', 'data.json', true);
+                    xhr.onload = () => {
+                        try { resolve(JSON.parse(xhr.responseText)); }
+                        catch (e) { reject(e); }
+                    };
+                    xhr.onerror = reject;
+                    xhr.send();
+                });
+                if (d && (d.faculty || d.courses)) return d;
+            } catch (e) { console.log('XHR failed, trying GitHub raw...'); }
+
+            // Strategy 3: Fetch from GitHub raw URL (always works when online)
+            try {
+                const res = await fetch(RAW_DATA_URL + '?t=' + Date.now(), { cache: 'no-store' });
+                if (res.ok) {
+                    const d = await res.json();
+                    if (d) return d;
+                }
+            } catch (e) { console.log('GitHub raw fetch also failed.'); }
+
+            return null;
+        }
+
         async function initDashboard() {
             loadToken();
             try {
-                let data;
-                try {
-                    const res = await fetch('data.json?t=' + Date.now(), { cache: 'no-store' });
-                    if (res.ok) data = await res.json();
-                } catch (fetchErr) {
-                    // Fallback for file:// protocol — use XMLHttpRequest
-                    data = await new Promise((resolve, reject) => {
-                        const xhr = new XMLHttpRequest();
-                        xhr.open('GET', 'data.json', true);
-                        xhr.onload = () => { try { resolve(JSON.parse(xhr.responseText)); } catch (e) { reject(e); } };
-                        xhr.onerror = reject;
-                        xhr.send();
-                    });
-                }
+                const data = await tryLoadJSON();
                 if (data) {
                     siteData.notice = data.notice || '';
                     siteData.images = Array.isArray(data.images) ? data.images : (data.image ? [data.image] : []);
@@ -986,9 +1012,13 @@
 
                     document.getElementById('notice-text').value = siteData.notice;
                     renderAll();
+                    console.log(`Loaded: ${siteData.faculty.length} faculty, ${siteData.courses.length} courses`);
+                } else {
+                    showAlert('error', 'Could not load site data. Check your internet connection and try again.');
                 }
             } catch (e) {
                 console.error('Could not load data.json', e);
+                showAlert('error', 'Failed to load data: ' + e.message);
             }
         }
 
