@@ -948,6 +948,88 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- Image Gallery Management -->
+                <div class="card" id="about-gallery-form-card">
+                    <div class="card-header">
+                        <h3 id="about-gallery-form-title"><i class="fa-solid fa-images"></i> Add Gallery Image</h3>
+                    </div>
+                    <p style="font-size:12px; color:rgba(255,255,255,0.4); margin-bottom:15px;">Manage the expanding
+                        image gallery on the About page ("Explore Our Campus" section).</p>
+                    <div style="display:grid; grid-template-columns:1fr 1fr; gap: 12px;">
+                        <div class="form-group">
+                            <label>Image URL *</label>
+                            <input type="text" id="gallery-img" placeholder="https://images.unsplash.com/...">
+                        </div>
+                        <div class="form-group">
+                            <label>Icon (FA class) *</label>
+                            <input type="text" id="gallery-icon" placeholder="fas fa-university">
+                        </div>
+                    </div>
+                    <div style="display:grid; grid-template-columns:1fr 1fr; gap: 12px;">
+                        <div class="form-group">
+                            <label>Title *</label>
+                            <input type="text" id="gallery-title" placeholder="e.g., Main Building">
+                        </div>
+                        <div class="form-group">
+                            <label>Subtitle *</label>
+                            <input type="text" id="gallery-sub"
+                                placeholder="e.g., Where heritage meets modern education.">
+                        </div>
+                    </div>
+                    <div style="display: flex; align-items: center;">
+                        <button class="btn btn-primary" id="gallery-submit-btn" onclick="addGalleryItem()"><i
+                                class="fa-solid fa-plus"></i> Add Gallery Image</button>
+                        <span class="cancel-edit-link" id="gallery-cancel-edit" style="display:none;"
+                            onclick="cancelEditGallery()">✕ Cancel Edit</span>
+                    </div>
+                </div>
+
+                <!-- Existing Gallery Items -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3><i class="fa-solid fa-images"></i> Current Gallery (<span id="gallery-count">0</span>)</h3>
+                    </div>
+                    <div class="item-list" id="gallery-list"></div>
+                </div>
+
+                <!-- Video Gallery Management -->
+                <div class="card" id="about-video-form-card">
+                    <div class="card-header">
+                        <h3 id="about-video-form-title"><i class="fa-solid fa-film"></i> Add Video Card</h3>
+                    </div>
+                    <p style="font-size:12px; color:rgba(255,255,255,0.4); margin-bottom:15px;">Manage the video gallery
+                        on the About page ("Campus Pulse" section).</p>
+                    <div class="form-group">
+                        <label>Video URL *</label>
+                        <input type="text" id="about-vid-src" placeholder="video/myfile.mp4 or https://...">
+                    </div>
+                    <div style="display:grid; grid-template-columns:1fr 1fr; gap: 12px;">
+                        <div class="form-group">
+                            <label>Title *</label>
+                            <input type="text" id="about-vid-title" placeholder="e.g., Aerial Campus View">
+                        </div>
+                        <div class="form-group">
+                            <label>Description *</label>
+                            <input type="text" id="about-vid-desc"
+                                placeholder="e.g., Experience the vastness of our campus.">
+                        </div>
+                    </div>
+                    <div style="display: flex; align-items: center;">
+                        <button class="btn btn-primary" id="about-vid-submit-btn" onclick="addAboutVideo()"><i
+                                class="fa-solid fa-plus"></i> Add Video Card</button>
+                        <span class="cancel-edit-link" id="about-vid-cancel-edit" style="display:none;"
+                            onclick="cancelEditAboutVideo()">✕ Cancel Edit</span>
+                    </div>
+                </div>
+
+                <!-- Existing Video Items -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3><i class="fa-solid fa-film"></i> Current Videos (<span id="about-vid-count">0</span>)</h3>
+                    </div>
+                    <div class="item-list" id="about-vid-list"></div>
+                </div>
             </div>
 
             <!-- ═══ PLACEMENT PAGE PANEL ═══ -->
@@ -1086,6 +1168,23 @@
                     { title: 'Top Rated', desc: 'Recognized as one of the best universities globally.', icon: 'fa-solid fa-trophy' },
                     { title: 'Global Community', desc: 'Students from over 100 countries around the world.', icon: 'fa-solid fa-globe' },
                     { title: 'Certified Courses', desc: 'Get certified upon completion of our premium courses.', icon: 'fa-solid fa-certificate' }
+                ],
+                gallery: [
+                    { image: 'https://images.unsplash.com/photo-1541339907198-e08756dedf3f?q=80&w=2070&auto=format&fit=crop', icon: 'fas fa-university', title: 'Main Building', sub: 'Where heritage meets modern education.' },
+                    { image: 'https://images.unsplash.com/photo-1562774053-701939374585?q=80&w=1986&auto=format&fit=crop', icon: 'fas fa-microscope', title: 'Advanced Labs', sub: 'Equipped with state-of-the-art research tools.' },
+                    { image: 'https://images.unsplash.com/photo-1521587760476-6c12a4b040da?q=80&w=2070&auto=format&fit=crop', icon: 'fas fa-book-reader', title: 'Library Center', sub: 'A quiet sanctuary for knowledge seekers.' },
+                    { image: 'https://images.unsplash.com/photo-1519337265831-281ec6cc8514?q=80&w=2070&auto=format&fit=crop', icon: 'fas fa-users', title: 'Student Lounge', sub: 'Cultivating collaboration and community.' },
+                    { image: 'https://images.unsplash.com/photo-1504450758481-7338eba7524a?q=80&w=2069&auto=format&fit=crop', icon: 'fas fa-running', title: 'Sports Arena', sub: 'Fueling the competitive spirit.' }
+                ],
+                aboutVideos: [
+                    { src: 'video/32aa32b3564e50d11cca18f1b63fac0b_720w.mp4', title: 'Aerial Campus View', desc: 'Experience the vastness of our historic campus from a new perspective.' },
+                    { src: 'video/ec0266fb955b9521ead16989d2b76944.mp4', title: 'Student Connections', desc: 'Lifelong friendships start in our collaborative student hubs.' },
+                    { src: 'https://assets.mixkit.co/videos/preview/mixkit-students-walking-in-a-university-campus-41551-large.mp4', title: 'Campus Pathways', desc: 'Walk through the iconic corridors of academic excellence.' },
+                    { src: 'https://assets.mixkit.co/videos/preview/mixkit-university-building-and-fountain-41553-large.mp4', title: 'The Landmark Fountain', desc: 'Our landmarks tell the story of a century-long legacy.' },
+                    { src: 'https://assets.mixkit.co/videos/preview/mixkit-young-man-studying-with-a-headset-in-a-library-41555-large.mp4', title: 'Study Sanctuaries', desc: 'Libraries designed for deep focus and digital research.' },
+                    { src: 'https://assets.mixkit.co/videos/preview/mixkit-students-talking-in-the-university-41558-large.mp4', title: 'Academic Synergy', desc: 'Vibrant discussions that spark innovation and leadership.' },
+                    { src: 'https://assets.mixkit.co/videos/preview/mixkit-female-student-reading-in-the-university-library-41557-large.mp4', title: 'Knowledge Discovery', desc: 'Dive deep into our global archives and vast academic databases.' },
+                    { src: 'https://assets.mixkit.co/videos/preview/mixkit-groups-of-students-studying-in-the-university-41556-large.mp4', title: 'Global Community', desc: 'Join a diverse network of future leaders from across the globe.' }
                 ]
             },
             placements: [],
@@ -1634,6 +1733,8 @@
                     document.getElementById(`about-card${i + 1}-icon`).value = a.cards[i].icon || '';
                 }
             }
+            renderGalleryItems();
+            renderAboutVideos();
         }
 
         function collectAboutData() {
@@ -1645,8 +1746,170 @@
                     title: document.getElementById(`about-card${i + 1}-title`).value.trim(),
                     desc: document.getElementById(`about-card${i + 1}-desc`).value.trim(),
                     icon: document.getElementById(`about-card${i + 1}-icon`).value.trim() || 'fa-solid fa-star'
-                }))
+                })),
+                gallery: siteData.about.gallery || [],
+                aboutVideos: siteData.about.aboutVideos || []
             };
+        }
+
+        // ── Gallery Items (About page) ────────────────
+        function renderGalleryItems() {
+            const list = document.getElementById('gallery-list');
+            const items = siteData.about.gallery || [];
+            document.getElementById('gallery-count').textContent = items.length;
+            list.innerHTML = '';
+            if (items.length === 0) {
+                list.innerHTML = '<p style="text-align:center; color:rgba(255,255,255,0.3); font-size:13px; padding:20px;">No gallery images yet.</p>';
+                return;
+            }
+            items.forEach((g, i) => {
+                list.innerHTML += `
+                    <div class="course-item">
+                        <div class="item-info">
+                            <div class="item-name"><i class="${g.icon}" style="margin-right:6px; color:#667eea;"></i> ${g.title}</div>
+                            <div class="item-sub">${g.sub} · ${g.image.substring(0, 50)}...</div>
+                        </div>
+                        <div class="item-actions">
+                            <button class="btn-edit-item" onclick="editGalleryItem(${i})" title="Edit"><i class="fa-solid fa-pen"></i></button>
+                            <button class="btn-delete-item" onclick="deleteGalleryItem(${i})" title="Delete"><i class="fa-solid fa-trash"></i></button>
+                        </div>
+                    </div>`;
+            });
+        }
+
+        let editingGalleryIndex = -1;
+
+        function editGalleryItem(index) {
+            const g = siteData.about.gallery[index];
+            editingGalleryIndex = index;
+            document.getElementById('gallery-img').value = g.image || '';
+            document.getElementById('gallery-icon').value = g.icon || '';
+            document.getElementById('gallery-title').value = g.title || '';
+            document.getElementById('gallery-sub').value = g.sub || '';
+            document.getElementById('about-gallery-form-title').innerHTML = '<i class="fa-solid fa-pen-to-square"></i> Editing: ' + g.title + ' <span class="editing-indicator">EDITING</span>';
+            document.getElementById('gallery-submit-btn').innerHTML = '<i class="fa-solid fa-check"></i> Update Gallery Image';
+            document.getElementById('gallery-submit-btn').className = 'btn btn-warning';
+            document.getElementById('gallery-cancel-edit').style.display = 'inline';
+            document.getElementById('about-gallery-form-card').scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+        function cancelEditGallery() {
+            editingGalleryIndex = -1;
+            ['gallery-img', 'gallery-icon', 'gallery-title', 'gallery-sub'].forEach(id => document.getElementById(id).value = '');
+            document.getElementById('about-gallery-form-title').innerHTML = '<i class="fa-solid fa-images"></i> Add Gallery Image';
+            document.getElementById('gallery-submit-btn').innerHTML = '<i class="fa-solid fa-plus"></i> Add Gallery Image';
+            document.getElementById('gallery-submit-btn').className = 'btn btn-primary';
+            document.getElementById('gallery-cancel-edit').style.display = 'none';
+        }
+
+        function addGalleryItem() {
+            const image = document.getElementById('gallery-img').value.trim();
+            const icon = document.getElementById('gallery-icon').value.trim();
+            const title = document.getElementById('gallery-title').value.trim();
+            const sub = document.getElementById('gallery-sub').value.trim();
+            if (!image || !icon || !title || !sub) {
+                showAlert('error', 'Please fill all gallery image fields.'); return;
+            }
+            if (!siteData.about.gallery) siteData.about.gallery = [];
+            if (editingGalleryIndex >= 0) {
+                siteData.about.gallery[editingGalleryIndex] = { image, icon, title, sub };
+                cancelEditGallery();
+                renderGalleryItems();
+                showAlert('success', `Gallery image "${title}" updated. Click Publish to save.`);
+                return;
+            }
+            siteData.about.gallery.push({ image, icon, title, sub });
+            ['gallery-img', 'gallery-icon', 'gallery-title', 'gallery-sub'].forEach(id => document.getElementById(id).value = '');
+            renderGalleryItems();
+            showAlert('success', `Gallery image "${title}" added. Click Publish to save.`);
+        }
+
+        function deleteGalleryItem(index) {
+            const title = siteData.about.gallery[index].title;
+            if (confirm(`Remove gallery image "${title}"?`)) {
+                siteData.about.gallery.splice(index, 1);
+                renderGalleryItems();
+                showAlert('success', `"${title}" removed. Click Publish to save.`);
+            }
+        }
+
+        // ── About Videos (Campus Pulse) ────────────────
+        function renderAboutVideos() {
+            const list = document.getElementById('about-vid-list');
+            const items = siteData.about.aboutVideos || [];
+            document.getElementById('about-vid-count').textContent = items.length;
+            list.innerHTML = '';
+            if (items.length === 0) {
+                list.innerHTML = '<p style="text-align:center; color:rgba(255,255,255,0.3); font-size:13px; padding:20px;">No video cards yet.</p>';
+                return;
+            }
+            items.forEach((v, i) => {
+                list.innerHTML += `
+                    <div class="course-item">
+                        <div class="item-info">
+                            <div class="item-name"><i class="fa-solid fa-video" style="margin-right:6px; color:#667eea;"></i> ${v.title}</div>
+                            <div class="item-sub">${v.desc.substring(0, 50)}... · ${v.src.substring(0, 40)}...</div>
+                        </div>
+                        <div class="item-actions">
+                            <button class="btn-edit-item" onclick="editAboutVideo(${i})" title="Edit"><i class="fa-solid fa-pen"></i></button>
+                            <button class="btn-delete-item" onclick="deleteAboutVideo(${i})" title="Delete"><i class="fa-solid fa-trash"></i></button>
+                        </div>
+                    </div>`;
+            });
+        }
+
+        let editingAboutVideoIndex = -1;
+
+        function editAboutVideo(index) {
+            const v = siteData.about.aboutVideos[index];
+            editingAboutVideoIndex = index;
+            document.getElementById('about-vid-src').value = v.src || '';
+            document.getElementById('about-vid-title').value = v.title || '';
+            document.getElementById('about-vid-desc').value = v.desc || '';
+            document.getElementById('about-video-form-title').innerHTML = '<i class="fa-solid fa-pen-to-square"></i> Editing: ' + v.title + ' <span class="editing-indicator">EDITING</span>';
+            document.getElementById('about-vid-submit-btn').innerHTML = '<i class="fa-solid fa-check"></i> Update Video Card';
+            document.getElementById('about-vid-submit-btn').className = 'btn btn-warning';
+            document.getElementById('about-vid-cancel-edit').style.display = 'inline';
+            document.getElementById('about-video-form-card').scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+        function cancelEditAboutVideo() {
+            editingAboutVideoIndex = -1;
+            ['about-vid-src', 'about-vid-title', 'about-vid-desc'].forEach(id => document.getElementById(id).value = '');
+            document.getElementById('about-video-form-title').innerHTML = '<i class="fa-solid fa-film"></i> Add Video Card';
+            document.getElementById('about-vid-submit-btn').innerHTML = '<i class="fa-solid fa-plus"></i> Add Video Card';
+            document.getElementById('about-vid-submit-btn').className = 'btn btn-primary';
+            document.getElementById('about-vid-cancel-edit').style.display = 'none';
+        }
+
+        function addAboutVideo() {
+            const src = document.getElementById('about-vid-src').value.trim();
+            const title = document.getElementById('about-vid-title').value.trim();
+            const desc = document.getElementById('about-vid-desc').value.trim();
+            if (!src || !title || !desc) {
+                showAlert('error', 'Please fill all video card fields.'); return;
+            }
+            if (!siteData.about.aboutVideos) siteData.about.aboutVideos = [];
+            if (editingAboutVideoIndex >= 0) {
+                siteData.about.aboutVideos[editingAboutVideoIndex] = { src, title, desc };
+                cancelEditAboutVideo();
+                renderAboutVideos();
+                showAlert('success', `Video card "${title}" updated. Click Publish to save.`);
+                return;
+            }
+            siteData.about.aboutVideos.push({ src, title, desc });
+            ['about-vid-src', 'about-vid-title', 'about-vid-desc'].forEach(id => document.getElementById(id).value = '');
+            renderAboutVideos();
+            showAlert('success', `Video card "${title}" added. Click Publish to save.`);
+        }
+
+        function deleteAboutVideo(index) {
+            const title = siteData.about.aboutVideos[index].title;
+            if (confirm(`Remove video card "${title}"?`)) {
+                siteData.about.aboutVideos.splice(index, 1);
+                renderAboutVideos();
+                showAlert('success', `"${title}" removed. Click Publish to save.`);
+            }
         }
 
         // ══════════════════════════════════════════════════
@@ -2115,6 +2378,95 @@
                         });
                         html = html.substring(0, gridContentStart) + cardsHtml + '            ' + html.substring(actualGridEnd);
                     }
+                }
+            }
+
+            // Replace image gallery ("Explore Our Campus")
+            if (about.gallery && about.gallery.length > 0) {
+                const galleryStart = html.indexOf('<div class="gallery-options');
+                if (galleryStart !== -1) {
+                    const galleryContentStart = html.indexOf('>', galleryStart) + 1;
+                    // Find the closing </div> of gallery-options
+                    let closeTag = html.indexOf('</div>', galleryStart);
+                    // We need the outermost closing tag for gallery-options (after all cards)
+                    // Count nested divs to find the right closing tag
+                    let depth = 1;
+                    let pos = galleryContentStart;
+                    while (depth > 0 && pos < html.length) {
+                        const nextOpen = html.indexOf('<div', pos);
+                        const nextClose = html.indexOf('</div>', pos);
+                        if (nextClose === -1) break;
+                        if (nextOpen !== -1 && nextOpen < nextClose) {
+                            depth++;
+                            pos = nextOpen + 4;
+                        } else {
+                            depth--;
+                            if (depth === 0) { closeTag = nextClose; break; }
+                            pos = nextClose + 6;
+                        }
+                    }
+                    let galleryHtml = '\n';
+                    about.gallery.forEach((g, i) => {
+                        const activeClass = i === 0 ? ' active' : '';
+                        galleryHtml += `                <!-- Card ${i + 1} -->
+                <div class="gallery-option${activeClass}"
+                    style="--bg-url: url('${g.image}');">
+                    <div class="shadow"></div>
+                    <div class="label">
+                        <div class="icon">
+                            <i class="${g.icon}"></i>
+                        </div>
+                        <div class="info">
+                            <div class="main">${g.title}</div>
+                            <div class="sub">${g.sub}</div>
+                        </div>
+                    </div>
+                </div>\n`;
+                    });
+                    galleryHtml += '            ';
+                    html = html.substring(0, galleryContentStart) + galleryHtml + html.substring(closeTag);
+                }
+            }
+
+            // Replace video gallery ("Campus Pulse")
+            if (about.aboutVideos && about.aboutVideos.length > 0) {
+                const videoStackStart = html.indexOf('<div class="video-stack" id="videoStack">');
+                if (videoStackStart !== -1) {
+                    const videoStackContentStart = html.indexOf('>', videoStackStart) + 1;
+                    // Find closing </div> for video-stack
+                    let depth = 1;
+                    let pos = videoStackContentStart;
+                    let closeTag = pos;
+                    while (depth > 0 && pos < html.length) {
+                        const nextOpen = html.indexOf('<div', pos);
+                        const nextClose = html.indexOf('</div>', pos);
+                        if (nextClose === -1) break;
+                        if (nextOpen !== -1 && nextOpen < nextClose) {
+                            depth++;
+                            pos = nextOpen + 4;
+                        } else {
+                            depth--;
+                            if (depth === 0) { closeTag = nextClose; break; }
+                            pos = nextClose + 6;
+                        }
+                    }
+                    let videoHtml = '\n';
+                    about.aboutVideos.forEach((v, i) => {
+                        const dataPos = i < 4 ? i : -1;
+                        const activeClass = i === 0 ? ' active' : '';
+                        videoHtml += `                    <!-- Card ${i + 1} -->
+                    <div class="video-card${activeClass}" data-pos="${dataPos}">
+                        <video loop muted autoplay playsinline>
+                            <source src="${v.src}" type="video/mp4">
+                        </video>
+                        <div class="card-overlay">
+                            <h3>${v.title}</h3>
+                            <p>${v.desc}</p>
+                        </div>
+                    </div>\n`;
+                    });
+                    videoHtml += '                ';
+                    html = html.substring(0, videoStackContentStart) + videoHtml + html.substring(closeTag);
                 }
             }
 
