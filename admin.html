@@ -17,6 +17,8 @@
             align-items: center;
             min-height: 100vh;
             margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
         }
 
         .admin-card {
@@ -25,8 +27,8 @@
             border-radius: 15px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
             width: 100%;
-            max-width: 500px;
-            margin: 20px;
+            max-width: 600px;
+            margin: 20px auto;
         }
 
         .admin-card h2 {
@@ -143,6 +145,38 @@
                 transform: rotate(360deg);
             }
         }
+
+        .media-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 10px;
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+
+        .media-item img,
+        .media-item video {
+            height: 60px;
+            width: 100px;
+            object-fit: cover;
+            border-radius: 5px;
+            background: #000;
+        }
+
+        .media-item div {
+            flex-grow: 1;
+            word-break: break-all;
+            font-size: 13px;
+        }
+
+        .media-item input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
     </style>
 </head>
 
@@ -170,7 +204,7 @@
         <div class="alert success" id="dash-success"></div>
         <div class="alert info" style="display:block;">
             <i class="fa-solid fa-circle-info"></i> To publish your changes dynamically to the site, please provide a
-            GitHub Personal Access Token. Repository: <b>rahulbisht1826/BMScollege</b>
+            GitHub Personal Access Token.
         </div>
 
         <div class="input-group" style="padding-bottom:20px; border-bottom:1px solid #eee; margin-bottom:20px;">
@@ -186,25 +220,29 @@
                     onclick="document.getElementById('notice-text').value=''">Clear Notice</button></div>
         </div>
 
-        <div class="input-group">
-            <label>Upload Image Update</label>
+        <!-- Section for managing existing media -->
+        <div class="input-group" id="existing-media-container"
+            style="display:none; background:#f8f9fa; padding:15px; border-radius:8px; border: 1px solid #eee;">
+            <label style="color:#333;"><i class="fa-solid fa-trash-can"
+                    style="margin-right:8px; color:#dc3545;"></i>Manage Existing Media</label>
+            <p style="font-size:12px; color:#666; margin-top:0;">Check the boxes to mark files for deletion.</p>
+            <div id="existing-media-list"></div>
+        </div>
+
+        <div class="input-group" style="margin-top:20px;">
+            <label><i class="fa-solid fa-image" style="margin-right:8px; color:#1a75ff;"></i>Upload New Image</label>
             <input type="file" id="image-upload" accept="image/*">
-            <div style="text-align:right;"><button class="btn"
-                    style="width:auto; padding:8px 15px; margin-top:5px; font-size:13px; background:#dc3545;"
-                    onclick="clearImage()">Remove Image from Site</button></div>
         </div>
 
         <div class="input-group">
-            <label>Upload Video Update (Keep under 20MB)</label>
+            <label><i class="fa-solid fa-film" style="margin-right:8px; color:#1a75ff;"></i>Upload New Video (Keep under
+                20MB)</label>
             <input type="file" id="video-upload" accept="video/mp4,video/webm">
-            <div style="text-align:right;"><button class="btn"
-                    style="width:auto; padding:8px 15px; margin-top:5px; font-size:13px; background:#dc3545;"
-                    onclick="clearVideo()">Remove Video from Site</button></div>
         </div>
 
-        <button class="btn" id="save-btn" onclick="saveChanges()">
+        <button class="btn" id="save-btn" onclick="saveChanges()" style="margin-top:10px;">
             <span class="loader" id="save-loader"></span>
-            <span id="save-text">Publish to Homepage</span>
+            <span id="save-text">Publish Changes to Homepage</span>
         </button>
         <button class="btn" onclick="logout()" style="background:#6c757d; margin-top:10px;">Logout</button>
     </div>
@@ -230,21 +268,6 @@
             }
         }
 
-        let shouldClearImage = false;
-        let shouldClearVideo = false;
-
-        function clearImage() {
-            document.getElementById('image-upload').value = '';
-            shouldClearImage = true;
-            showStatus('info', 'Image marked for removal. Click Publish to apply changes.');
-        }
-
-        function clearVideo() {
-            document.getElementById('video-upload').value = '';
-            shouldClearVideo = true;
-            showStatus('info', 'Video marked for removal. Click Publish to apply changes.');
-        }
-
         function logout() {
             document.getElementById('login-screen').style.display = 'block';
             document.getElementById('dashboard').style.display = 'none';
@@ -252,15 +275,75 @@
             document.getElementById('admin-pass').value = '';
         }
 
+        let existingImages = [];
+        let existingVideos = [];
+        let mediaToRemove = new Set();
+
         async function loadExistingData() {
             try {
-                // Read local data.json just to prepopulate text fields
+                // Read local data.json 
                 const res = await fetch('data.json?t=' + Date.now());
                 if (res.ok) {
                     const data = await res.json();
+
                     if (data.notice) document.getElementById('notice-text').value = data.notice;
+
+                    let images = [];
+                    if (Array.isArray(data.images)) images = data.images;
+                    else if (data.image) images = [data.image];
+
+                    let videos = [];
+                    if (Array.isArray(data.videos)) videos = data.videos;
+                    else if (data.video) videos = [data.video];
+
+                    existingImages = images.filter(img => img && img.trim() !== '');
+                    existingVideos = videos.filter(vid => vid && vid.trim() !== '');
+
+                    renderExistingMedia();
                 }
-            } catch (e) { }
+            } catch (e) {
+                console.error("Could not load existing data.json", e);
+            }
+        }
+
+        function renderExistingMedia() {
+            const container = document.getElementById('existing-media-container');
+            const list = document.getElementById('existing-media-list');
+            list.innerHTML = '';
+
+            if (existingImages.length === 0 && existingVideos.length === 0) {
+                container.style.display = 'none';
+                return;
+            }
+
+            container.style.display = 'block';
+
+            existingImages.forEach((img) => {
+                const item = document.createElement('label');
+                item.className = 'media-item';
+                item.innerHTML = `
+                    <input type="checkbox" onchange="toggleRemoveMedia('${img}', this.checked)">
+                    <img src="${img}?t=${Date.now()}" alt="image">
+                    <div>${img.split('/').pop()}</div>
+                `;
+                list.appendChild(item);
+            });
+
+            existingVideos.forEach((vid) => {
+                const item = document.createElement('label');
+                item.className = 'media-item';
+                item.innerHTML = `
+                    <input type="checkbox" onchange="toggleRemoveMedia('${vid}', this.checked)">
+                    <video src="${vid}?t=${Date.now()}"></video>
+                    <div>${vid.split('/').pop()}</div>
+                `;
+                list.appendChild(item);
+            });
+        }
+
+        function toggleRemoveMedia(path, checked) {
+            if (checked) mediaToRemove.add(path);
+            else mediaToRemove.delete(path);
         }
 
         function showStatus(type, msg) {
@@ -289,7 +372,6 @@
                 'Content-Type': 'application/json'
             };
 
-            // Get existing file sha if it exists
             let sha = null;
             try {
                 const getRes = await fetch(url, { headers });
@@ -318,6 +400,33 @@
             return putRes.json();
         }
 
+        async function deleteFromGitHub(token, path) {
+            const url = `https://api.github.com/repos/${REPO}/contents/${path}`;
+            const headers = {
+                'Authorization': `token ${token}`,
+                'Content-Type': 'application/json'
+            };
+
+            try {
+                const getRes = await fetch(url, { headers });
+                if (getRes.ok) {
+                    const getJson = await getRes.json();
+                    const sha = getJson.sha;
+
+                    await fetch(url, {
+                        method: 'DELETE',
+                        headers,
+                        body: JSON.stringify({
+                            message: `Admin Delete: ${path}`,
+                            sha: sha
+                        })
+                    });
+                }
+            } catch (e) {
+                console.warn("Could not delete file from repo:", path);
+            }
+        }
+
         async function saveChanges() {
             const token = document.getElementById('gh-token').value.trim();
             if (!token) {
@@ -334,38 +443,41 @@
             showStatus('', '');
 
             try {
-                let dataJson = { notice: document.getElementById('notice-text').value, image: '', video: '' };
+                let dataJson = { notice: document.getElementById('notice-text').value, images: [], videos: [] };
 
-                // Handle Image
+                // Handle New Image
                 const imgFile = document.getElementById('image-upload').files[0];
                 if (imgFile) {
                     const b64 = await getBase64(imgFile);
                     const ext = imgFile.name.split('.').pop();
                     const path = `images/dynamic_${Date.now()}.${ext}`;
                     await uploadToGitHub(token, path, b64);
-                    dataJson.image = path;
+                    dataJson.images.push(path);
                 }
 
-                // Handle Video
+                // Handle New Video
                 const vidFile = document.getElementById('video-upload').files[0];
                 if (vidFile) {
                     const b64 = await getBase64(vidFile);
                     const ext = vidFile.name.split('.').pop();
                     const path = `video/dynamic_${Date.now()}.${ext}`;
                     await uploadToGitHub(token, path, b64);
-                    dataJson.video = path;
+                    dataJson.videos.push(path);
                 }
 
-                // If no new files uploaded, keep existing paths if any
-                try {
-                    const res = await fetch(`https://api.github.com/repos/${REPO}/contents/data.json`, { headers: { 'Authorization': `token ${token}` } });
-                    if (res.ok) {
-                        const oldContentRaw = await res.json();
-                        const oldData = JSON.parse(atob(oldContentRaw.content));
-                        if (!imgFile && !shouldClearImage && oldData.image) dataJson.image = oldData.image;
-                        if (!vidFile && !shouldClearVideo && oldData.video) dataJson.video = oldData.video;
-                    }
-                } catch (e) { }
+                // Delete removed media from github fully
+                for (let path of mediaToRemove) {
+                    await deleteFromGitHub(token, path);
+                }
+
+                // Add kept images and videos to the final list
+                existingImages.forEach(img => {
+                    if (!mediaToRemove.has(img)) dataJson.images.push(img);
+                });
+
+                existingVideos.forEach(vid => {
+                    if (!mediaToRemove.has(vid)) dataJson.videos.push(vid);
+                });
 
                 // Upload data.json
                 const dataStr = unescape(encodeURIComponent(JSON.stringify(dataJson, null, 2))); // handle utf-8 base64 properly
@@ -375,8 +487,12 @@
                 showStatus('success', 'Changes published successfully! They will appear on the homepage shortly.');
                 document.getElementById('image-upload').value = "";
                 document.getElementById('video-upload').value = "";
-                shouldClearImage = false;
-                shouldClearVideo = false;
+
+                // Update local status with new reality
+                existingImages = [...dataJson.images];
+                existingVideos = [...dataJson.videos];
+                mediaToRemove.clear();
+                renderExistingMedia();
 
             } catch (e) {
                 console.error(e);
@@ -384,7 +500,7 @@
             } finally {
                 btn.disabled = false;
                 document.getElementById('save-loader').style.display = 'none';
-                document.getElementById('save-text').textContent = 'Publish to Homepage';
+                document.getElementById('save-text').textContent = 'Publish Changes to Homepage';
             }
         }
     </script>
