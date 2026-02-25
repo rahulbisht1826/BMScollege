@@ -189,11 +189,17 @@
         <div class="input-group">
             <label>Upload Image Update</label>
             <input type="file" id="image-upload" accept="image/*">
+            <div style="text-align:right;"><button class="btn"
+                    style="width:auto; padding:8px 15px; margin-top:5px; font-size:13px; background:#dc3545;"
+                    onclick="clearImage()">Remove Image from Site</button></div>
         </div>
 
         <div class="input-group">
             <label>Upload Video Update (Keep under 20MB)</label>
             <input type="file" id="video-upload" accept="video/mp4,video/webm">
+            <div style="text-align:right;"><button class="btn"
+                    style="width:auto; padding:8px 15px; margin-top:5px; font-size:13px; background:#dc3545;"
+                    onclick="clearVideo()">Remove Video from Site</button></div>
         </div>
 
         <button class="btn" id="save-btn" onclick="saveChanges()">
@@ -222,6 +228,21 @@
             } else {
                 document.getElementById('login-error').style.display = 'block';
             }
+        }
+
+        let shouldClearImage = false;
+        let shouldClearVideo = false;
+
+        function clearImage() {
+            document.getElementById('image-upload').value = '';
+            shouldClearImage = true;
+            showStatus('info', 'Image marked for removal. Click Publish to apply changes.');
+        }
+
+        function clearVideo() {
+            document.getElementById('video-upload').value = '';
+            shouldClearVideo = true;
+            showStatus('info', 'Video marked for removal. Click Publish to apply changes.');
         }
 
         function logout() {
@@ -341,8 +362,8 @@
                     if (res.ok) {
                         const oldContentRaw = await res.json();
                         const oldData = JSON.parse(atob(oldContentRaw.content));
-                        if (!imgFile && oldData.image) dataJson.image = oldData.image;
-                        if (!vidFile && oldData.video) dataJson.video = oldData.video;
+                        if (!imgFile && !shouldClearImage && oldData.image) dataJson.image = oldData.image;
+                        if (!vidFile && !shouldClearVideo && oldData.video) dataJson.video = oldData.video;
                     }
                 } catch (e) { }
 
@@ -354,6 +375,8 @@
                 showStatus('success', 'Changes published successfully! They will appear on the homepage shortly.');
                 document.getElementById('image-upload').value = "";
                 document.getElementById('video-upload').value = "";
+                shouldClearImage = false;
+                shouldClearVideo = false;
 
             } catch (e) {
                 console.error(e);
