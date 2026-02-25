@@ -15,13 +15,20 @@ document.addEventListener('DOMContentLoaded', () => {
     const scrollElements = document.querySelectorAll('.scroll-reveal');
     scrollElements.forEach(el => observer.observe(el));
 
-    // Sticky Header Effect
+    // Sticky Header Effect with Throttling
     const header = document.querySelector('.header');
+    let scrollTicking = false;
     window.addEventListener('scroll', () => {
-        if (window.scrollY > 50) {
-            header.classList.add('scrolled');
-        } else {
-            header.classList.remove('scrolled');
+        if (!scrollTicking) {
+            window.requestAnimationFrame(() => {
+                if (window.scrollY > 50) {
+                    header.classList.add('scrolled');
+                } else {
+                    header.classList.remove('scrolled');
+                }
+                scrollTicking = false;
+            });
+            scrollTicking = true;
         }
     });
 
@@ -223,6 +230,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Show Modal
                 facultyModal.classList.add('active');
                 document.body.style.overflow = 'hidden'; // Prevent scrolling
+
+                // Accessibility: Focus modal
+                setTimeout(() => modalClose.focus(), 100);
+
+                // Store button that opened modal to return focus later
+                facultyModal._lastFocusedElement = btn;
             });
         });
 
@@ -230,6 +243,11 @@ document.addEventListener('DOMContentLoaded', () => {
         const closeModal = () => {
             facultyModal.classList.remove('active');
             document.body.style.overflow = 'auto'; // Re-enable scrolling
+
+            // Return focus to the button that opened it
+            if (facultyModal._lastFocusedElement) {
+                facultyModal._lastFocusedElement.focus();
+            }
         };
 
         if (modalClose) {

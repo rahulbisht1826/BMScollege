@@ -4,16 +4,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BMS COLLEGE OF COMMERCE & MANAGEMENT</title>
-    <meta name="description" content="BMS COLLEGE OF COMMERCE & MANAGEMENT - The Future of Education Technology.">
-    <!-- Google Fonts -->
+    <title>BMS COLLEGE OF COMMERCE & MANAGEMENT — Academic Excellence</title>
+    <meta name="description"
+        content="Official website of BMS College of Commerce & Management. Explore our premier commerce and management programs, expert faculty, and exceptional placement records.">
+
+    <!-- Resource Hints -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
-        rel="stylesheet">
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+
+    <!-- Stylesheets -->
     <link rel="stylesheet" href="style.css">
     <link rel="icon" type="image/png" href="images/logo.png">
-    <!-- Font Awesome for Icons -->
+
+    <!-- Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
 </head>
 
@@ -35,7 +41,8 @@
                 <div class="logo">
                     <a href="index.html" class="logo-link">
                         <div class="logo-icon-wrap">
-                            <img src="images/logo.png" alt="BMS College Logo">
+                            <img src="images/logo.png" alt="BMS College Official Logo" width="46" height="46"
+                                decoding="async">
                         </div>
                         <div class="logo-text">
                             <span class="logo-title">BMS</span>
@@ -54,9 +61,9 @@
                     </ul>
                 </nav>
                 <div class="header-actions">
-                    <div class="hamburger">
-                        <img src="images/menu_icon.svg" alt="Menu Icon">
-                    </div>
+                    <button class="hamburger" aria-label="Open Navigation Menu" aria-expanded="false">
+                        <img src="images/menu_icon.svg" alt="" width="35" height="35">
+                    </button>
                 </div>
             </div>
         </div>
@@ -212,10 +219,11 @@
                     <h3>BMS COLLEGE OF COMMERCE & MANAGEMENT</h3>
                     <p>The Premium System Education. Future Of Education Technology.</p>
                     <div class="social-links">
-                        <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
-                        <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
-                        <a href="#"><i class="fa-brands fa-instagram"></i></a>
-                        <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
+                        <a href="#" aria-label="Follow us on Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+                        <a href="#" aria-label="Follow us on X (Twitter)"><i class="fa-brands fa-x-twitter"></i></a>
+                        <a href="#" aria-label="Follow us on Instagram"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="#" aria-label="Connect with us on LinkedIn"><i
+                                class="fa-brands fa-linkedin-in"></i></a>
                     </div>
                 </div>
                 <div class="footer-col">
@@ -239,9 +247,10 @@
                 </div>
                 <div class="footer-col">
                     <h3>Newsletter</h3>
-                    <form class="newsletter-form">
-                        <input type="email" placeholder="Your Email">
-                        <button type="submit">Subscribe</button>
+                    <form class="newsletter-form" action="#">
+                        <label for="newsletter-email" class="sr-only">Your Email Address</label>
+                        <input type="email" id="newsletter-email" placeholder="Your Email" required>
+                        <button type="submit" aria-label="Subscribe to newsletter">Subscribe</button>
                     </form>
                 </div>
             </div>
@@ -283,7 +292,7 @@
                         if (imgSrc.trim() === '') return;
                         const div = document.createElement('div');
                         div.style = 'flex:1; min-width:300px; max-width:500px;';
-                        div.innerHTML = `<img src="${imgSrc}?t=${new Date().getTime()}" alt="Latest Update" style="width:100%; border-radius:15px; box-shadow: var(--shadow); object-fit:cover;">`;
+                        div.innerHTML = `<img src="${imgSrc}?t=${new Date().getTime()}" alt="Latest Update from BMS College" style="width:100%; border-radius:15px; box-shadow: var(--shadow); object-fit:cover;" loading="lazy" decoding="async">`;
                         mediaContainer.appendChild(div);
                         hasContent = true;
                     });

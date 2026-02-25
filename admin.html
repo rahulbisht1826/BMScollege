@@ -2598,7 +2598,7 @@
                 const emailHtml = fac.email ? `<a class="profile-email" href="mailto:${fac.email}"><i class="fa-solid fa-envelope"></i> ${fac.email}</a>` : '';
                 cardsHtml += `                <div class="profile-card scroll-reveal" data-category="${fac.category}">
                     <div class="profile-card-image">
-                        <img alt="${fac.name}" src="${fac.image}" />
+                        <img alt="${fac.name}" src="${fac.image}" width="300" height="350" loading="lazy" decoding="async" />
                     </div>
                     <div class="profile-card-content">
                         <span class="profile-tag">${fac.tag}</span>
@@ -2657,7 +2657,7 @@
                 cardsHtml += `                <!-- Course ${i + 1} -->
                 <div class="course-card scroll-reveal${delayClass}" data-category="${c.category}">
                     <div class="course-image">
-                        <img src="${c.image}" alt="${c.title}">
+                        <img src="${c.image}" alt="${c.title}" width="400" height="200" loading="lazy" decoding="async">
                     </div>
                     <div class="course-content">
                         <h3>${c.title}</h3>
@@ -2694,7 +2694,7 @@
         }
 
         // ══════════════════════════════════════════════════
-        //  REBUILD ABOUT PAGE HTML
+        //  REBUILD ABOUT PAGE HTML - ROBUST VERSION
         // ══════════════════════════════════════════════════
         async function rebuildAboutPage(token, about) {
             const url = `https://api.github.com/repos/${REPO}/contents/about.html`;
@@ -2704,116 +2704,66 @@
             const fileData = await res.json();
             let html = decodeBase64UTF8(fileData.content.replace(/\n/g, ''));
 
-            // Replace about-content section
-            const aboutStart = html.indexOf('<div class="about-content');
-            const aboutEnd = html.indexOf('</div>', html.indexOf('</p>', html.indexOf('</p>', aboutStart + 1) + 1) + 1);
-            if (aboutStart !== -1 && aboutEnd !== -1) {
-                const newAboutContent = `<div class="about-content scroll-reveal">
+            const replaceSection = (fullText, startM, endM, content) => {
+                const s = fullText.indexOf(startM);
+                const e = fullText.indexOf(endM);
+                if (s === -1 || e === -1) {
+                    console.warn(`Marker not found: ${startM} or ${endM}`);
+                    return fullText;
+                }
+                return fullText.substring(0, s + startM.length) + "\n" + content + "\n            " + fullText.substring(e);
+            };
+
+            // 1. Replace About Content
+            const newAboutContent = `            <div class="about-content scroll-reveal">
                 <h2>${about.heading}</h2>
                 <p>${about.para1}</p>
                 <p>${about.para2}</p>
             </div>`;
-                html = html.substring(0, aboutStart) + newAboutContent + html.substring(aboutEnd + 6);
-            }
+            html = replaceSection(html, '<!-- About Content Start -->', '<!-- About Content End -->', newAboutContent);
 
-            // Replace feature cards
+            // 2. Replace Features Grid
             if (about.cards && about.cards.length >= 3) {
-                const gridStart = html.indexOf('<div class="features-grid"');
-                if (gridStart !== -1) {
-                    const gridContentStart = html.indexOf('>', gridStart) + 1;
-                    const gridEnd = html.indexOf('</div>\r\n        </div>\r\n    </section>', gridStart);
-                    const gridEndLF = html.indexOf('</div>\n        </div>\n    </section>', gridStart);
-                    const actualGridEnd = gridEnd !== -1 ? gridEnd : gridEndLF;
-                    if (actualGridEnd !== -1) {
-                        let cardsHtml = '\n';
-                        about.cards.forEach((card, i) => {
-                            const delay = i === 0 ? 'delay-1' : 'delay-2';
-                            cardsHtml += `                <div class="feature-card scroll-reveal ${delay}">
+                let cardsHtml = `            <div class="features-grid" style="margin-top: 50px;">\n`;
+                about.cards.forEach((card, i) => {
+                    const delay = i === 0 ? 'delay-1' : 'delay-2';
+                    cardsHtml += `                <div class="feature-card scroll-reveal ${delay}">
                     <div class="icon-box"><i class="${card.icon}"></i></div>
                     <h3>${card.title}</h3>
                     <p>${card.desc}</p>
                 </div>\n`;
-                        });
-                        html = html.substring(0, gridContentStart) + cardsHtml + '            ' + html.substring(actualGridEnd);
-                    }
-                }
+                });
+                cardsHtml += `            </div>`;
+                html = replaceSection(html, '<!-- Features Grid Start -->', '<!-- Features Grid End -->', cardsHtml);
             }
 
-            // Replace image gallery ("Explore Our Campus")
+            // 3. Replace Image Gallery (Expanding)
             if (about.gallery && about.gallery.length > 0) {
-                const galleryStart = html.indexOf('<div class="gallery-options');
-                if (galleryStart !== -1) {
-                    const galleryContentStart = html.indexOf('>', galleryStart) + 1;
-                    // Find the closing </div> of gallery-options
-                    let closeTag = html.indexOf('</div>', galleryStart);
-                    // We need the outermost closing tag for gallery-options (after all cards)
-                    // Count nested divs to find the right closing tag
-                    let depth = 1;
-                    let pos = galleryContentStart;
-                    while (depth > 0 && pos < html.length) {
-                        const nextOpen = html.indexOf('<div', pos);
-                        const nextClose = html.indexOf('</div>', pos);
-                        if (nextClose === -1) break;
-                        if (nextOpen !== -1 && nextOpen < nextClose) {
-                            depth++;
-                            pos = nextOpen + 4;
-                        } else {
-                            depth--;
-                            if (depth === 0) { closeTag = nextClose; break; }
-                            pos = nextClose + 6;
-                        }
-                    }
-                    let galleryHtml = '\n';
-                    about.gallery.forEach((g, i) => {
-                        const activeClass = i === 0 ? ' active' : '';
-                        galleryHtml += `                <!-- Card ${i + 1} -->
-                <div class="gallery-option${activeClass}"
-                    style="--bg-url: url('${g.image}');">
+                let galleryHtml = `            <div class="gallery-options scroll-reveal">\n`;
+                about.gallery.forEach((g, i) => {
+                    const activeClass = i === 0 ? ' active' : '';
+                    galleryHtml += `                <div class="gallery-option${activeClass}" style="--bg-url: url('${g.image}');">
                     <div class="shadow"></div>
                     <div class="label">
-                        <div class="icon">
-                            <i class="${g.icon}"></i>
-                        </div>
+                        <div class="icon"><i class="${g.icon}"></i></div>
                         <div class="info">
                             <div class="main">${g.title}</div>
                             <div class="sub">${g.sub}</div>
                         </div>
                     </div>
                 </div>\n`;
-                    });
-                    galleryHtml += '            ';
-                    html = html.substring(0, galleryContentStart) + galleryHtml + html.substring(closeTag);
-                }
+                });
+                galleryHtml += `            </div>`;
+                html = replaceSection(html, '<!-- Gallery Options Start -->', '<!-- Gallery Options End -->', galleryHtml);
             }
 
-            // Replace video gallery ("Campus Pulse")
+            // 4. Replace Video Stack (Campus Pulse)
             if (about.aboutVideos && about.aboutVideos.length > 0) {
-                const videoStackStart = html.indexOf('<div class="video-stack" id="videoStack">');
-                if (videoStackStart !== -1) {
-                    const videoStackContentStart = html.indexOf('>', videoStackStart) + 1;
-                    // Find closing </div> for video-stack
-                    let depth = 1;
-                    let pos = videoStackContentStart;
-                    let closeTag = pos;
-                    while (depth > 0 && pos < html.length) {
-                        const nextOpen = html.indexOf('<div', pos);
-                        const nextClose = html.indexOf('</div>', pos);
-                        if (nextClose === -1) break;
-                        if (nextOpen !== -1 && nextOpen < nextClose) {
-                            depth++;
-                            pos = nextOpen + 4;
-                        } else {
-                            depth--;
-                            if (depth === 0) { closeTag = nextClose; break; }
-                            pos = nextClose + 6;
-                        }
-                    }
-                    let videoHtml = '\n';
-                    about.aboutVideos.forEach((v, i) => {
-                        const dataPos = i < 4 ? i : -1;
-                        const activeClass = i === 0 ? ' active' : '';
-                        videoHtml += `                    <!-- Card ${i + 1} -->
-                    <div class="video-card${activeClass}" data-pos="${dataPos}">
+                let videoHtml = `                <div class="video-stack" id="videoStack">\n`;
+                about.aboutVideos.forEach((v, i) => {
+                    const dataPos = i < 4 ? i : -1;
+                    const activeClass = i === 0 ? ' active' : '';
+                    videoHtml += `                    <div class="video-card${activeClass}" data-pos="${dataPos}">
                         <video loop muted autoplay playsinline>
                             <source src="${v.src}" type="video/mp4">
                         </video>
@@ -2822,15 +2772,15 @@
                             <p>${v.desc}</p>
                         </div>
                     </div>\n`;
-                    });
-                    videoHtml += '                ';
-                    html = html.substring(0, videoStackContentStart) + videoHtml + html.substring(closeTag);
-                }
+                });
+                videoHtml += `                </div>`;
+                html = replaceSection(html, '<!-- Video Stack Start -->', '<!-- Video Stack End -->', videoHtml);
             }
 
             const b64 = btoa(unescape(encodeURIComponent(html)));
             await ghUpload(token, 'about.html', b64);
         }
+
 
         // ══════════════════════════════════════════════════
         //  REBUILD PLACEMENT PAGE HTML

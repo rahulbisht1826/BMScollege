@@ -4,16 +4,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact - BMS COLLEGE OF COMMERCE & MANAGEMENT</title>
-    <meta name="description" content="Contact BMS COLLEGE OF COMMERCE & MANAGEMENT.">
-    <!-- Google Fonts -->
+    <title>Contact Us - BMS COLLEGE OF COMMERCE & MANAGEMENT</title>
+    <meta name="description"
+        content="Reach out to BMS College of Commerce & Management. Our team is here to assist you with admissions, inquiries, and more. Visit us in Bangalore or contact us online.">
+
+    <!-- Resource Hints -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
-        rel="stylesheet">
+
+    <!-- Stylesheets & Icons -->
     <link rel="stylesheet" href="style.css">
     <link rel="icon" type="image/png" href="images/logo.png">
-    <!-- Font Awesome for Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
 </head>
 
@@ -35,7 +38,8 @@
                 <div class="logo">
                     <a href="index.html" class="logo-link">
                         <div class="logo-icon-wrap">
-                            <img src="images/logo.png" alt="BMS College Logo">
+                            <img src="images/logo.png" alt="BMS College Official Logo" width="46" height="46"
+                                decoding="async">
                         </div>
                         <div class="logo-text">
                             <span class="logo-title">BMS</span>
@@ -54,9 +58,9 @@
                     </ul>
                 </nav>
                 <div class="header-actions">
-                    <div class="hamburger">
-                        <img src="images/menu_icon.svg" alt="Menu Icon">
-                    </div>
+                    <button class="hamburger" aria-label="Open Navigation Menu" aria-expanded="false">
+                        <img src="images/menu_icon.svg" alt="" width="35" height="35">
+                    </button>
                 </div>
             </div>
         </div>
@@ -98,22 +102,26 @@
 
                 <!-- Contact Form -->
                 <div class="scroll-reveal delay-1">
-                    <form class="contact-form"
+                    <form class="contact-form" action="#"
                         style="background: white; padding: 40px; box-shadow: var(--shadow); border-radius: 10px;">
                         <div style="margin-bottom: 20px;">
-                            <input type="text" placeholder="Name"
+                            <label for="contact-name" class="sr-only">Your Name</label>
+                            <input type="text" id="contact-name" placeholder="Name" required
                                 style="width: 100%; padding: 12px; border: 1px solid #eee; border-radius: 4px; outline: none;">
                         </div>
                         <div style="margin-bottom: 20px;">
-                            <input type="email" placeholder="Email"
+                            <label for="contact-email" class="sr-only">Email Address</label>
+                            <input type="email" id="contact-email" placeholder="Email" required
                                 style="width: 100%; padding: 12px; border: 1px solid #eee; border-radius: 4px; outline: none;">
                         </div>
                         <div style="margin-bottom: 20px;">
-                            <textarea placeholder="Message" rows="5"
+                            <label for="contact-message" class="sr-only">Your Message</label>
+                            <textarea id="contact-message" placeholder="Message" rows="5" required
                                 style="width: 100%; padding: 12px; border: 1px solid #eee; border-radius: 4px; outline: none; font-family: inherit;"></textarea>
                         </div>
-                        <button type="button"
-                            style="padding: 12px 30px; background-color: var(--header-top-bg); color: var(--white); border: none; border-radius: 4px; cursor: pointer; font-weight: 600; transition: var(--transition);">SEND
+                        <button type="submit"
+                            style="padding: 12px 30px; background-color: var(--header-top-bg); color: var(--white); border: none; border-radius: 4px; cursor: pointer; font-weight: 600; transition: var(--transition);"
+                            aria-label="Send Message to BMS College">SEND
                             MESSAGE</button>
                     </form>
                 </div>

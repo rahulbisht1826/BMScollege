@@ -4,16 +4,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Courses - BMS COLLEGE OF COMMERCE & MANAGEMENT</title>
-    <meta name="description" content="Browse our wide range of premium online courses.">
-    <!-- Google Fonts -->
+    <title>Our Courses - BMS COLLEGE OF COMMERCE & MANAGEMENT</title>
+    <meta name="description"
+        content="Explore our premium academic programs including BCA, BBA, B.Com, and Management courses at BMS College. Start your journey towards professional excellence today.">
+
+    <!-- Resource Hints -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
-        rel="stylesheet">
+
+    <!-- Stylesheets & Icons -->
     <link rel="stylesheet" href="style.css">
     <link rel="icon" type="image/png" href="images/logo.png">
-    <!-- Font Awesome for Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
 </head>
 
@@ -35,7 +38,8 @@
                 <div class="logo">
                     <a href="index.html" class="logo-link">
                         <div class="logo-icon-wrap">
-                            <img src="images/logo.png" alt="BMS College Logo">
+                            <img src="images/logo.png" alt="BMS College Official Logo" width="46" height="46"
+                                decoding="async">
                         </div>
                         <div class="logo-text">
                             <span class="logo-title">BMS</span>
@@ -54,9 +58,9 @@
                     </ul>
                 </nav>
                 <div class="header-actions">
-                    <div class="hamburger">
-                        <img src="images/menu_icon.svg" alt="Menu Icon">
-                    </div>
+                    <button class="hamburger" aria-label="Open Navigation Menu" aria-expanded="false">
+                        <img src="images/menu_icon.svg" alt="" width="35" height="35">
+                    </button>
                 </div>
             </div>
         </div>
@@ -76,7 +80,10 @@
     <section class="section-padding" style="background-color: #eef2f7; padding-bottom: 20px;">
         <div class="container">
             <div class="search-box course-search-box scroll-reveal">
+                <label for="courseSearch" class="sr-only">Search Courses</label>
                 <input type="text" id="courseSearch" placeholder="Search courses...">
+
+                <label for="courseCategory" class="sr-only">Filter by Category</label>
                 <select id="courseCategory">
                     <option value="">All Categories</option>
                     <option value="bca">BCA</option>
@@ -85,7 +92,7 @@
                     <option value="management">Management</option>
                 </select>
 
-                <button type="button" id="courseSearchBtn">SEARCH</button>
+                <button type="button" id="courseSearchBtn" aria-label="Search">SEARCH</button>
             </div>
         </div>
     </section>
@@ -97,7 +104,9 @@
                 <!-- Course 1 -->
                 <div class="course-card scroll-reveal" data-category="bca">
                     <div class="course-image">
-                        <img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=2070&auto=format&fit=crop" alt="BACHELORS OF COMPUTER APPLICATION (BCA)">
+                        <img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=2070&auto=format&fit=crop"
+                            alt="BACHELORS OF COMPUTER APPLICATION (BCA)" width="400" height="200" loading="lazy"
+                            decoding="async">
                     </div>
                     <div class="course-content">
                         <h3>BACHELORS OF COMPUTER APPLICATION (BCA)</h3>
@@ -111,7 +120,8 @@
                 <!-- Course 2 -->
                 <div class="course-card scroll-reveal delay-1" data-category="bba">
                     <div class="course-image">
-                        <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=2070&auto=format&fit=crop" alt="BACHELOR OF BUSINESS ADMINISTRATION (BBA)">
+                        <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=2070&auto=format&fit=crop"
+                            alt="BACHELOR OF BUSINESS ADMINISTRATION (BBA)">
                     </div>
                     <div class="course-content">
                         <h3>BACHELOR OF BUSINESS ADMINISTRATION (BBA)</h3>
@@ -124,7 +134,8 @@
                 <!-- Course 3 -->
                 <div class="course-card scroll-reveal delay-2" data-category="bcom">
                     <div class="course-image">
-                        <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?q=80&w=2071&auto=format&fit=crop" alt="BACHELOR OF COMMERCE (B.COM)">
+                        <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?q=80&w=2071&auto=format&fit=crop"
+                            alt="BACHELOR OF COMMERCE (B.COM)">
                     </div>
                     <div class="course-content">
                         <h3>BACHELOR OF COMMERCE (B.COM)</h3>
@@ -137,7 +148,8 @@
                 <!-- Course 4 -->
                 <div class="course-card scroll-reveal delay-2" data-category="management">
                     <div class="course-image">
-                        <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=2070&auto=format&fit=crop" alt="WEEKEND EXECUTIVE MANAGEMENT PROGRAM">
+                        <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=2070&auto=format&fit=crop"
+                            alt="WEEKEND EXECUTIVE MANAGEMENT PROGRAM">
                     </div>
                     <div class="course-content">
                         <h3>WEEKEND EXECUTIVE MANAGEMENT PROGRAM</h3>
