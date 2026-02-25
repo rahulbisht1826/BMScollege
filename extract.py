@@ -112,7 +112,12 @@ data = {
     "images": existing.get("images", [existing["image"]] if existing.get("image") else []),
     "videos": existing.get("videos", [existing["video"]] if existing.get("video") else []),
     "faculty": faculty_members,
-    "courses": courses
+    "courses": courses,
+    "about": existing.get("about", {}),
+    "placements": existing.get("placements", []),
+    "placementStats": existing.get("placementStats", {"total": "", "recruiters": "", "highest": ""}),
+    "contact": existing.get("contact", {}),
+    "sitemap": existing.get("sitemap", [])
 }
 
 # Clean empty strings from arrays
