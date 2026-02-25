@@ -716,6 +716,8 @@
                         class="fa-solid fa-briefcase"></i> Placement</button>
                 <button class="page-tab" data-page="contact" onclick="switchPage('contact')"><i
                         class="fa-solid fa-envelope"></i> Contact</button>
+                <button class="page-tab" data-page="sitemap" onclick="switchPage('sitemap')"><i
+                        class="fa-solid fa-sitemap"></i> Sitemap</button>
             </div>
 
             <!-- ═══ HOME PAGE PANEL ═══ -->
@@ -1161,6 +1163,77 @@
                 </div>
             </div>
 
+            <!-- ═══ SITEMAP PAGE PANEL ═══ -->
+            <div class="page-panel" id="panel-sitemap">
+                <!-- Add Sitemap Entry -->
+                <div class="card" id="sitemap-form-card">
+                    <div class="card-header">
+                        <h3 id="sitemap-form-title"><i class="fa-solid fa-circle-plus"></i> Add Sitemap Entry</h3>
+                    </div>
+                    <p style="font-size:12px; color:rgba(255,255,255,0.4); margin-bottom:15px;">Manage the pages listed
+                        in sitemap.html and sitemap.xml. You can add, edit, temporarily hide, or permanently delete
+                        entries.</p>
+                    <div style="display:grid; grid-template-columns:1fr 1fr; gap: 12px;">
+                        <div class="form-group">
+                            <label>Page Title *</label>
+                            <input type="text" id="sm-title" placeholder="e.g., About Us">
+                        </div>
+                        <div class="form-group">
+                            <label>URL / Filename *</label>
+                            <input type="text" id="sm-url" placeholder="e.g., about.html">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Description *</label>
+                        <input type="text" id="sm-desc"
+                            placeholder="e.g., Campus gallery, video showcase, college history">
+                    </div>
+                    <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap: 12px;">
+                        <div class="form-group">
+                            <label>Icon (FA class) *</label>
+                            <input type="text" id="sm-icon" placeholder="fa-solid fa-info-circle">
+                        </div>
+                        <div class="form-group">
+                            <label>Priority</label>
+                            <select id="sm-priority">
+                                <option value="high">High</option>
+                                <option value="medium">Medium</option>
+                                <option value="low">Low / Utility</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Change Freq (XML)</label>
+                            <select id="sm-freq">
+                                <option value="weekly">Weekly</option>
+                                <option value="monthly">Monthly</option>
+                                <option value="yearly">Yearly</option>
+                                <option value="daily">Daily</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div style="display: flex; align-items: center;">
+                        <button class="btn btn-primary" id="sm-submit-btn" onclick="addSitemapEntry()"><i
+                                class="fa-solid fa-plus"></i> Add Entry</button>
+                        <span class="cancel-edit-link" id="sm-cancel-edit" style="display:none;"
+                            onclick="cancelEditSitemap()">✕ Cancel Edit</span>
+                    </div>
+                </div>
+
+                <!-- Existing Sitemap Entries -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3><i class="fa-solid fa-sitemap"></i> Current Sitemap Entries (<span id="sm-count">0</span>)
+                        </h3>
+                    </div>
+                    <p style="font-size:12px; color:rgba(255,255,255,0.4); margin-bottom:10px;">
+                        <i class="fa-solid fa-eye-slash" style="color:#ffc107;"></i> = Temporarily hidden (not shown on
+                        website but kept in data)
+                        &nbsp;|&nbsp; <i class="fa-solid fa-trash" style="color:#ff6b8a;"></i> = Permanently delete
+                    </p>
+                    <div class="item-list" id="sitemap-list"></div>
+                </div>
+            </div>
+
             <!-- ═══ PUBLISH BUTTON ═══ -->
             <button class="btn btn-primary" id="publish-btn" onclick="publishChanges()"
                 style="padding: 16px; font-size: 16px; margin-bottom: 40px;">
@@ -1208,6 +1281,17 @@
             },
             placements: [],
             placementStats: { total: '', recruiters: '', highest: '' },
+            sitemap: [
+                { title: 'Home', url: 'index.html', desc: 'Main landing page — Hero, Features, Popular Courses', icon: 'fa-solid fa-house', priority: 'high', freq: 'weekly', isRoot: true },
+                { title: 'About Us', url: 'about.html', desc: 'Campus gallery, video showcase, college history & mission', icon: 'fa-solid fa-info-circle', priority: 'high', freq: 'monthly' },
+                { title: 'Courses', url: 'courses.html', desc: 'Course catalog with search & filter by category', icon: 'fa-solid fa-book-open', priority: 'high', freq: 'weekly' },
+                { title: 'Faculty', url: 'faculty.html', desc: '49 faculty profiles with photos, bios & contact details', icon: 'fa-solid fa-chalkboard-user', priority: 'high', freq: 'monthly' },
+                { title: 'Placement', url: 'placement.html', desc: 'Placement records, recruiters & career opportunities', icon: 'fa-solid fa-briefcase', priority: 'medium', freq: 'monthly' },
+                { title: 'Contact', url: 'contact.html', desc: 'Contact form, address, phone, email & Google Maps', icon: 'fa-solid fa-envelope', priority: 'high', freq: 'monthly' },
+                { title: 'Login / Register', url: 'login.html', desc: 'Student login, registration & Google sign-in', icon: 'fa-solid fa-right-to-bracket', priority: 'low', freq: 'yearly' },
+                { title: 'Admin Dashboard', url: 'admin.html', desc: 'Website administration panel for managing content', icon: 'fa-solid fa-shield-halved', priority: 'low', freq: 'yearly' },
+                { title: 'Sitemap', url: 'sitemap.html', desc: 'Visual website structure & XML sitemap link', icon: 'fa-solid fa-sitemap', priority: 'low', freq: 'monthly' }
+            ],
             contact: {
                 address: 'No-97, Kavi Lakshmisha Road, V.V. Puram, Bangalore - 560 004 Karnataka, India.',
                 phone: '080-26610174 / 91 96202 25400-03',
@@ -1395,6 +1479,7 @@
                     if (data.placementStats) siteData.placementStats = { ...siteData.placementStats, ...data.placementStats };
                     // Contact data
                     if (data.contact) siteData.contact = { ...siteData.contact, ...data.contact };
+                    if (data.sitemap) siteData.sitemap = data.sitemap;
 
                     // Filter empties
                     siteData.images = siteData.images.filter(x => x && x.trim());
@@ -1422,6 +1507,7 @@
             renderAbout();
             renderPlacements();
             renderContact();
+            renderSitemap();
             updateStats();
         }
 
@@ -2019,6 +2105,117 @@
         }
 
         // ══════════════════════════════════════════════════
+        //  SITEMAP FUNCTIONS
+        // ══════════════════════════════════════════════════
+        function renderSitemap() {
+            const list = document.getElementById('sitemap-list');
+            const items = siteData.sitemap || [];
+            document.getElementById('sm-count').textContent = items.length;
+            list.innerHTML = '';
+            if (items.length === 0) {
+                list.innerHTML = '<p style="text-align:center; color:rgba(255,255,255,0.3); font-size:13px; padding:20px;">No sitemap entries yet.</p>';
+                return;
+            }
+            items.forEach((s, i) => {
+                const hiddenStyle = s.hidden ? 'opacity: 0.45;' : '';
+                const hiddenBadge = s.hidden ? ' <span style="color:#ffc107; font-size:10px; font-weight:700;"><i class="fa-solid fa-eye-slash"></i> HIDDEN</span>' : '';
+                const rootBadge = s.isRoot ? ' <span style="color:#667eea; font-size:10px; font-weight:700;"><i class="fa-solid fa-star"></i> ROOT</span>' : '';
+                const toggleIcon = s.hidden ? 'fa-eye' : 'fa-eye-slash';
+                const toggleTitle = s.hidden ? 'Show on website' : 'Temporarily hide';
+                const priorityLabel = s.priority === 'high' ? '🟢 High' : s.priority === 'medium' ? '🟡 Medium' : '🟣 Low';
+                list.innerHTML += `
+                    <div class="course-item" style="${hiddenStyle}">
+                        <div class="item-info">
+                            <div class="item-name"><i class="${s.icon}" style="margin-right:6px; color:#667eea;"></i> ${s.title}${rootBadge}${hiddenBadge}</div>
+                            <div class="item-sub">${s.url} · ${priorityLabel} · ${s.freq}</div>
+                        </div>
+                        <div class="item-actions">
+                            <button class="btn-edit-item" onclick="editSitemap(${i})" title="Edit"><i class="fa-solid fa-pen"></i></button>
+                            <button class="btn-edit-item" onclick="toggleSitemapHidden(${i})" title="${toggleTitle}" style="color:#ffc107;"><i class="fa-solid ${toggleIcon}"></i></button>
+                            <button class="btn-delete-item" onclick="deleteSitemapEntry(${i})" title="Permanently Delete"><i class="fa-solid fa-trash"></i></button>
+                        </div>
+                    </div>`;
+            });
+        }
+
+        let editingSitemapIndex = -1;
+
+        function editSitemap(index) {
+            const s = siteData.sitemap[index];
+            editingSitemapIndex = index;
+            document.getElementById('sm-title').value = s.title || '';
+            document.getElementById('sm-url').value = s.url || '';
+            document.getElementById('sm-desc').value = s.desc || '';
+            document.getElementById('sm-icon').value = s.icon || '';
+            document.getElementById('sm-priority').value = s.priority || 'high';
+            document.getElementById('sm-freq').value = s.freq || 'monthly';
+            document.getElementById('sitemap-form-title').innerHTML = '<i class="fa-solid fa-pen-to-square"></i> Editing: ' + s.title + ' <span class="editing-indicator">EDITING</span>';
+            document.getElementById('sm-submit-btn').innerHTML = '<i class="fa-solid fa-check"></i> Update Entry';
+            document.getElementById('sm-submit-btn').className = 'btn btn-warning';
+            document.getElementById('sm-cancel-edit').style.display = 'inline';
+            document.getElementById('sitemap-form-card').scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+        function cancelEditSitemap() {
+            editingSitemapIndex = -1;
+            ['sm-title', 'sm-url', 'sm-desc', 'sm-icon'].forEach(id => document.getElementById(id).value = '');
+            document.getElementById('sm-priority').value = 'high';
+            document.getElementById('sm-freq').value = 'weekly';
+            document.getElementById('sitemap-form-title').innerHTML = '<i class="fa-solid fa-circle-plus"></i> Add Sitemap Entry';
+            document.getElementById('sm-submit-btn').innerHTML = '<i class="fa-solid fa-plus"></i> Add Entry';
+            document.getElementById('sm-submit-btn').className = 'btn btn-primary';
+            document.getElementById('sm-cancel-edit').style.display = 'none';
+        }
+
+        function addSitemapEntry() {
+            const title = document.getElementById('sm-title').value.trim();
+            const url = document.getElementById('sm-url').value.trim();
+            const desc = document.getElementById('sm-desc').value.trim();
+            const icon = document.getElementById('sm-icon').value.trim();
+            const priority = document.getElementById('sm-priority').value;
+            const freq = document.getElementById('sm-freq').value;
+            if (!title || !url || !desc || !icon) {
+                showAlert('error', 'Please fill Title, URL, Description, and Icon.');
+                return;
+            }
+            const entry = { title, url, desc, icon, priority, freq };
+
+            if (editingSitemapIndex >= 0) {
+                // Preserve isRoot and hidden flags during edit
+                if (siteData.sitemap[editingSitemapIndex].isRoot) entry.isRoot = true;
+                if (siteData.sitemap[editingSitemapIndex].hidden) entry.hidden = true;
+                siteData.sitemap[editingSitemapIndex] = entry;
+                cancelEditSitemap();
+                renderSitemap();
+                showAlert('success', `"${title}" updated. Click Publish to save.`);
+                return;
+            }
+            siteData.sitemap.push(entry);
+            ['sm-title', 'sm-url', 'sm-desc', 'sm-icon'].forEach(id => document.getElementById(id).value = '');
+            renderSitemap();
+            showAlert('success', `Sitemap entry "${title}" added. Click Publish to save.`);
+        }
+
+        function toggleSitemapHidden(index) {
+            const s = siteData.sitemap[index];
+            s.hidden = !s.hidden;
+            renderSitemap();
+            const msg = s.hidden
+                ? `"${s.title}" is now HIDDEN. It won't appear on the sitemap pages. Click Publish to save.`
+                : `"${s.title}" is now VISIBLE again. Click Publish to save.`;
+            showAlert('success', msg);
+        }
+
+        function deleteSitemapEntry(index) {
+            const title = siteData.sitemap[index].title;
+            if (confirm(`PERMANENTLY delete "${title}" from the sitemap? Use the eye icon to temporarily hide instead.`)) {
+                siteData.sitemap.splice(index, 1);
+                renderSitemap();
+                showAlert('success', `"${title}" permanently removed. Click Publish to save.`);
+            }
+        }
+
+        // ══════════════════════════════════════════════════
         //  PLACEMENT FUNCTIONS
         // ══════════════════════════════════════════════════
         function renderPlacements() {
@@ -2320,7 +2517,8 @@
                     about: siteData.about,
                     placements: siteData.placements,
                     placementStats: siteData.placementStats,
-                    contact: siteData.contact
+                    contact: siteData.contact,
+                    sitemap: siteData.sitemap
                 };
 
                 text.textContent = 'Saving data.json...';
@@ -2343,6 +2541,10 @@
 
                 text.textContent = 'Rebuilding contact page...';
                 await rebuildContactPage(token, siteData.contact);
+
+                text.textContent = 'Rebuilding sitemap...';
+                await rebuildSitemapPage(token, siteData.sitemap);
+                await rebuildSitemapXml(token, siteData.sitemap);
 
                 // Done
                 showAlert('success', '✅ All changes published successfully! Pages will update shortly.');
@@ -2736,6 +2938,102 @@
 
             const b64 = btoa(unescape(encodeURIComponent(html)));
             await ghUpload(token, 'contact.html', b64);
+        }
+
+        // ══════════════════════════════════════════════════
+        //  REBUILD SITEMAP PAGE HTML
+        // ══════════════════════════════════════════════════
+        async function rebuildSitemapPage(token, sitemap) {
+            const url = `https://api.github.com/repos/${REPO}/contents/sitemap.html`;
+            const headers = { 'Authorization': `token ${token}`, 'Content-Type': 'application/json' };
+            const res = await fetch(url, { headers });
+            if (!res.ok) throw new Error('Could not fetch sitemap.html');
+            const fileData = await res.json();
+            let html = atob(fileData.content.replace(/\n/g, ''));
+
+            const visible = sitemap.filter(s => !s.hidden);
+            const root = visible.find(s => s.isRoot) || visible[0];
+            const branches = visible.filter(s => s !== root);
+
+            // Rebuild the tree content
+            const treeStart = html.indexOf('<div class="sitemap-tree">');
+            const treeEnd = html.indexOf('<!-- XML Sitemap Link -->');
+            if (treeStart !== -1 && treeEnd !== -1) {
+                const treeContentStart = html.indexOf('>', treeStart) + 1;
+
+                let treeHtml = '\n\n';
+
+                // Root node
+                if (root) {
+                    treeHtml += `                <!-- Root: ${root.title} -->\n`;
+                    treeHtml += `                <div class="tree-root scroll-reveal">\n`;
+                    treeHtml += `                    <a href="${root.url}" class="sitemap-node">\n`;
+                    treeHtml += `                        <div class="node-icon">\n`;
+                    treeHtml += `                            <i class="${root.icon}"></i>\n`;
+                    treeHtml += `                        </div>\n`;
+                    treeHtml += `                        <div class="node-title">${root.title}</div>\n`;
+                    treeHtml += `                        <div class="node-desc">${root.desc}</div>\n`;
+                    treeHtml += `                        <div class="node-url">/${root.url}</div>\n`;
+                    treeHtml += `                    </a>\n`;
+                    treeHtml += `                </div>\n\n`;
+                    treeHtml += `                <!-- Connector -->\n`;
+                    treeHtml += `                <div class="tree-connector scroll-reveal"></div>\n\n`;
+                }
+
+                // Branch pages
+                treeHtml += `                <!-- Branch Pages -->\n`;
+                treeHtml += `                <div class="tree-branches">\n\n`;
+                branches.forEach(s => {
+                    const priorityClass = s.priority === 'high' ? 'priority-high' : s.priority === 'medium' ? 'priority-medium' : 'priority-low';
+                    const priorityLabel = s.priority === 'high' ? 'High' : s.priority === 'medium' ? 'Medium' : 'Utility';
+                    treeHtml += `                    <!-- ${s.title} -->\n`;
+                    treeHtml += `                    <a href="${s.url}" class="sitemap-node scroll-reveal">\n`;
+                    treeHtml += `                        <span class="node-priority ${priorityClass}">${priorityLabel}</span>\n`;
+                    treeHtml += `                        <div class="node-icon">\n`;
+                    treeHtml += `                            <i class="${s.icon}"></i>\n`;
+                    treeHtml += `                        </div>\n`;
+                    treeHtml += `                        <div class="node-title">${s.title}</div>\n`;
+                    treeHtml += `                        <div class="node-desc">${s.desc}</div>\n`;
+                    treeHtml += `                        <div class="node-url">/${s.url}</div>\n`;
+                    treeHtml += `                    </a>\n\n`;
+                });
+                treeHtml += `                </div>\n`;
+                treeHtml += `            </div>\n\n            `;
+
+                html = html.substring(0, treeContentStart) + treeHtml + html.substring(treeEnd);
+            }
+
+            const b64 = btoa(unescape(encodeURIComponent(html)));
+            await ghUpload(token, 'sitemap.html', b64);
+        }
+
+        // ══════════════════════════════════════════════════
+        //  REBUILD SITEMAP XML
+        // ══════════════════════════════════════════════════
+        async function rebuildSitemapXml(token, sitemap) {
+            const baseUrl = `https://rahulbisht1826.github.io/BMScollege`;
+            const today = new Date().toISOString().split('T')[0];
+            const visible = sitemap.filter(s => !s.hidden);
+
+            let xml = `<?xml version="1.0" encoding="UTF-8"?>\n`;
+            xml += `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n`;
+
+            visible.forEach(s => {
+                const xmlPriority = s.priority === 'high' ? '0.9' : s.priority === 'medium' ? '0.7' : '0.5';
+                const adjustedPriority = s.isRoot ? '1.0' : xmlPriority;
+                xml += `\n    <!-- ${s.title} -->\n`;
+                xml += `    <url>\n`;
+                xml += `        <loc>${baseUrl}/${s.url}</loc>\n`;
+                xml += `        <lastmod>${today}</lastmod>\n`;
+                xml += `        <changefreq>${s.freq}</changefreq>\n`;
+                xml += `        <priority>${adjustedPriority}</priority>\n`;
+                xml += `    </url>\n`;
+            });
+
+            xml += `\n</urlset>\n`;
+
+            const b64 = btoa(unescape(encodeURIComponent(xml)));
+            await ghUpload(token, 'sitemap.xml', b64);
         }
     </script>
 </body>
