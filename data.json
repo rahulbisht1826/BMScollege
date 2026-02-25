@@ -571,6 +571,12 @@
         "icon": "fas fa-running",
         "title": "Sports Arena",
         "sub": "Fueling the competitive spirit."
+      },
+      {
+        "image": "images/gallery_1772023688648.png",
+        "icon": "sndbsd",
+        "title": "dasdsd",
+        "sub": "dasdasd"
       }
     ],
     "aboutVideos": [
@@ -605,7 +611,7 @@
   "contact": {
     "address": "No-97, Kavi Lakshmisha Road, V.V. Puram, Bangalore - 560 004 Karnataka, India.",
     "phone": "080-26610174 / 91 96202 25400-03",
-    "email": "principal.bmsccm@gmail.com\nprincipal@bmsccm.ac.in",
+    "email": "principal.bmsccm@gmail.comprincipal@bmsccm.ac.in",
     "mapUrl": "https://maps.google.com/maps?q=No-97,+Kavi+Lakshmisha+Road,+V.V.+Puram,+Bangalore+-+560+004+Karnataka,+India&t=&z=15&ie=UTF8&iwloc=&output=embed"
   },
   "sitemap": [
