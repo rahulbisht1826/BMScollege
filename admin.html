@@ -853,9 +853,14 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <label>Image URL</label>
+                            <label>Image URL (or upload below)</label>
                             <input type="text" id="course-img" placeholder="https://... (leave empty for default)">
                         </div>
+                    </div>
+                    <div class="form-group">
+                        <label><i class="fa-solid fa-upload" style="margin-right:6px; color:#667eea;"></i> Or upload
+                            image from PC</label>
+                        <input type="file" id="course-img-file" accept="image/*">
                     </div>
                     <div style="display: flex; align-items: center;">
                         <button class="btn btn-primary" id="course-submit-btn" onclick="addCourse()"><i
@@ -958,9 +963,17 @@
                         image gallery on the About page ("Explore Our Campus" section).</p>
                     <div style="display:grid; grid-template-columns:1fr 1fr; gap: 12px;">
                         <div class="form-group">
-                            <label>Image URL *</label>
+                            <label>Image URL (or upload below)</label>
                             <input type="text" id="gallery-img" placeholder="https://images.unsplash.com/...">
                         </div>
+                    </div>
+                    <div class="form-group">
+                        <label><i class="fa-solid fa-upload" style="margin-right:6px; color:#667eea;"></i> Or upload
+                            image
+                            from PC</label>
+                        <input type="file" id="gallery-img-file" accept="image/*">
+                    </div>
+                    <div style="display:grid; grid-template-columns:1fr 1fr; gap: 12px;">
                         <div class="form-group">
                             <label>Icon (FA class) *</label>
                             <input type="text" id="gallery-icon" placeholder="fas fa-university">
@@ -1001,8 +1014,14 @@
                     <p style="font-size:12px; color:rgba(255,255,255,0.4); margin-bottom:15px;">Manage the video gallery
                         on the About page ("Campus Pulse" section).</p>
                     <div class="form-group">
-                        <label>Video URL *</label>
+                        <label>Video URL (or upload below)</label>
                         <input type="text" id="about-vid-src" placeholder="video/myfile.mp4 or https://...">
+                    </div>
+                    <div class="form-group">
+                        <label><i class="fa-solid fa-upload" style="margin-right:6px; color:#667eea;"></i> Or upload
+                            video
+                            from PC</label>
+                        <input type="file" id="about-vid-file" accept="video/*">
                     </div>
                     <div style="display:grid; grid-template-columns:1fr 1fr; gap: 12px;">
                         <div class="form-group">
@@ -1661,6 +1680,7 @@
             document.getElementById('course-title').value = '';
             document.getElementById('course-desc').value = '';
             document.getElementById('course-img').value = '';
+            document.getElementById('course-img-file').value = '';
             document.getElementById('course-form-title').innerHTML = '<i class="fa-solid fa-circle-plus"></i> Add New Course';
             document.getElementById('course-submit-btn').innerHTML = '<i class="fa-solid fa-plus"></i> Add Course';
             document.getElementById('course-submit-btn').className = 'btn btn-primary';
@@ -1672,6 +1692,7 @@
             const desc = document.getElementById('course-desc').value.trim();
             const cat = document.getElementById('course-cat').value;
             let img = document.getElementById('course-img').value.trim();
+            const imgFile = document.getElementById('course-img-file').files[0];
 
             if (!title || !desc) {
                 showAlert('error', 'Please fill Course Title and Description.');
@@ -1685,6 +1706,30 @@
                 bcom: 'https://images.unsplash.com/photo-1554224155-6726b3ff858f?q=80&w=2071&auto=format&fit=crop',
                 management: 'https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=2070&auto=format&fit=crop'
             };
+
+            // If file uploaded, read and store as pending
+            if (imgFile) {
+                const reader = new FileReader();
+                reader.onload = () => {
+                    const path = `images/course_${Date.now()}.${imgFile.name.split('.').pop()}`;
+                    const courseObj = { title, description: desc, image: path, category: cat, _pendingUpload: reader.result.split(',')[1], _pendingPath: path };
+                    if (editingCourseIndex >= 0) {
+                        siteData.courses[editingCourseIndex] = courseObj;
+                        cancelEditCourse();
+                    } else {
+                        siteData.courses.push(courseObj);
+                        document.getElementById('course-title').value = '';
+                        document.getElementById('course-desc').value = '';
+                        document.getElementById('course-img').value = '';
+                        document.getElementById('course-img-file').value = '';
+                    }
+                    renderCourses(); updateStats();
+                    showAlert('success', `Course "${title}" ${editingCourseIndex >= 0 ? 'updated' : 'added'}. Click Publish to save.`);
+                };
+                reader.readAsDataURL(imgFile);
+                return;
+            }
+
             if (!img) img = defaultImages[cat] || defaultImages.bca;
 
             // EDIT MODE
@@ -1705,6 +1750,7 @@
             document.getElementById('course-title').value = '';
             document.getElementById('course-desc').value = '';
             document.getElementById('course-img').value = '';
+            document.getElementById('course-img-file').value = '';
             showAlert('success', `Course "${title}" added. Click Publish to save.`);
         }
 
@@ -1747,8 +1793,8 @@
                     desc: document.getElementById(`about-card${i + 1}-desc`).value.trim(),
                     icon: document.getElementById(`about-card${i + 1}-icon`).value.trim() || 'fa-solid fa-star'
                 })),
-                gallery: siteData.about.gallery || [],
-                aboutVideos: siteData.about.aboutVideos || []
+                gallery: (siteData.about.gallery || []).map(g => ({ image: g.image, icon: g.icon, title: g.title, sub: g.sub })),
+                aboutVideos: (siteData.about.aboutVideos || []).map(v => ({ src: v.src, title: v.title, desc: v.desc }))
             };
         }
 
@@ -1796,6 +1842,7 @@
         function cancelEditGallery() {
             editingGalleryIndex = -1;
             ['gallery-img', 'gallery-icon', 'gallery-title', 'gallery-sub'].forEach(id => document.getElementById(id).value = '');
+            document.getElementById('gallery-img-file').value = '';
             document.getElementById('about-gallery-form-title').innerHTML = '<i class="fa-solid fa-images"></i> Add Gallery Image';
             document.getElementById('gallery-submit-btn').innerHTML = '<i class="fa-solid fa-plus"></i> Add Gallery Image';
             document.getElementById('gallery-submit-btn').className = 'btn btn-primary';
@@ -1803,14 +1850,42 @@
         }
 
         function addGalleryItem() {
-            const image = document.getElementById('gallery-img').value.trim();
+            let image = document.getElementById('gallery-img').value.trim();
             const icon = document.getElementById('gallery-icon').value.trim();
             const title = document.getElementById('gallery-title').value.trim();
             const sub = document.getElementById('gallery-sub').value.trim();
-            if (!image || !icon || !title || !sub) {
-                showAlert('error', 'Please fill all gallery image fields.'); return;
+            const imgFile = document.getElementById('gallery-img-file').files[0];
+
+            if (!icon || !title || !sub) {
+                showAlert('error', 'Please fill Icon, Title, and Subtitle.'); return;
+            }
+            if (!image && !imgFile) {
+                showAlert('error', 'Please provide an Image URL or upload a file.'); return;
             }
             if (!siteData.about.gallery) siteData.about.gallery = [];
+
+            // If file uploaded, read and store as pending
+            if (imgFile) {
+                const reader = new FileReader();
+                reader.onload = () => {
+                    const path = `images/gallery_${Date.now()}.${imgFile.name.split('.').pop()}`;
+                    const item = { image: path, icon, title, sub, _pendingUpload: reader.result.split(',')[1], _pendingPath: path };
+                    if (editingGalleryIndex >= 0) {
+                        siteData.about.gallery[editingGalleryIndex] = item;
+                        cancelEditGallery();
+                    } else {
+                        siteData.about.gallery.push(item);
+                        ['gallery-img', 'gallery-icon', 'gallery-title', 'gallery-sub'].forEach(id => document.getElementById(id).value = '');
+                        document.getElementById('gallery-img-file').value = '';
+                    }
+                    renderGalleryItems();
+                    showAlert('success', `Gallery image "${title}" ${editingGalleryIndex >= 0 ? 'updated' : 'added'}. Click Publish to save.`);
+                };
+                reader.readAsDataURL(imgFile);
+                return;
+            }
+
+            // URL mode
             if (editingGalleryIndex >= 0) {
                 siteData.about.gallery[editingGalleryIndex] = { image, icon, title, sub };
                 cancelEditGallery();
@@ -1820,6 +1895,7 @@
             }
             siteData.about.gallery.push({ image, icon, title, sub });
             ['gallery-img', 'gallery-icon', 'gallery-title', 'gallery-sub'].forEach(id => document.getElementById(id).value = '');
+            document.getElementById('gallery-img-file').value = '';
             renderGalleryItems();
             showAlert('success', `Gallery image "${title}" added. Click Publish to save.`);
         }
@@ -1876,6 +1952,7 @@
         function cancelEditAboutVideo() {
             editingAboutVideoIndex = -1;
             ['about-vid-src', 'about-vid-title', 'about-vid-desc'].forEach(id => document.getElementById(id).value = '');
+            document.getElementById('about-vid-file').value = '';
             document.getElementById('about-video-form-title').innerHTML = '<i class="fa-solid fa-film"></i> Add Video Card';
             document.getElementById('about-vid-submit-btn').innerHTML = '<i class="fa-solid fa-plus"></i> Add Video Card';
             document.getElementById('about-vid-submit-btn').className = 'btn btn-primary';
@@ -1883,13 +1960,41 @@
         }
 
         function addAboutVideo() {
-            const src = document.getElementById('about-vid-src').value.trim();
+            let src = document.getElementById('about-vid-src').value.trim();
             const title = document.getElementById('about-vid-title').value.trim();
             const desc = document.getElementById('about-vid-desc').value.trim();
-            if (!src || !title || !desc) {
-                showAlert('error', 'Please fill all video card fields.'); return;
+            const vidFile = document.getElementById('about-vid-file').files[0];
+
+            if (!title || !desc) {
+                showAlert('error', 'Please fill Title and Description.'); return;
+            }
+            if (!src && !vidFile) {
+                showAlert('error', 'Please provide a Video URL or upload a file.'); return;
             }
             if (!siteData.about.aboutVideos) siteData.about.aboutVideos = [];
+
+            // If file uploaded
+            if (vidFile) {
+                const reader = new FileReader();
+                reader.onload = () => {
+                    const path = `video/about_${Date.now()}.${vidFile.name.split('.').pop()}`;
+                    const item = { src: path, title, desc, _pendingUpload: reader.result.split(',')[1], _pendingPath: path };
+                    if (editingAboutVideoIndex >= 0) {
+                        siteData.about.aboutVideos[editingAboutVideoIndex] = item;
+                        cancelEditAboutVideo();
+                    } else {
+                        siteData.about.aboutVideos.push(item);
+                        ['about-vid-src', 'about-vid-title', 'about-vid-desc'].forEach(id => document.getElementById(id).value = '');
+                        document.getElementById('about-vid-file').value = '';
+                    }
+                    renderAboutVideos();
+                    showAlert('success', `Video card "${title}" ${editingAboutVideoIndex >= 0 ? 'updated' : 'added'}. Click Publish to save.`);
+                };
+                reader.readAsDataURL(vidFile);
+                return;
+            }
+
+            // URL mode
             if (editingAboutVideoIndex >= 0) {
                 siteData.about.aboutVideos[editingAboutVideoIndex] = { src, title, desc };
                 cancelEditAboutVideo();
@@ -1899,6 +2004,7 @@
             }
             siteData.about.aboutVideos.push({ src, title, desc });
             ['about-vid-src', 'about-vid-title', 'about-vid-desc'].forEach(id => document.getElementById(id).value = '');
+            document.getElementById('about-vid-file').value = '';
             renderAboutVideos();
             showAlert('success', `Video card "${title}" added. Click Publish to save.`);
         }
@@ -2113,6 +2219,40 @@
                     }
                 }
 
+                // 1b. Upload pending course images
+                for (let course of siteData.courses) {
+                    if (course._pendingUpload) {
+                        text.textContent = `Uploading course image: ${course.title}...`;
+                        await ghUpload(token, course._pendingPath, course._pendingUpload);
+                        delete course._pendingUpload;
+                        delete course._pendingPath;
+                    }
+                }
+
+                // 1c. Upload pending gallery images (About page)
+                if (siteData.about.gallery) {
+                    for (let g of siteData.about.gallery) {
+                        if (g._pendingUpload) {
+                            text.textContent = `Uploading gallery image: ${g.title}...`;
+                            await ghUpload(token, g._pendingPath, g._pendingUpload);
+                            delete g._pendingUpload;
+                            delete g._pendingPath;
+                        }
+                    }
+                }
+
+                // 1d. Upload pending about videos
+                if (siteData.about.aboutVideos) {
+                    for (let v of siteData.about.aboutVideos) {
+                        if (v._pendingUpload) {
+                            text.textContent = `Uploading video: ${v.title}...`;
+                            await ghUpload(token, v._pendingPath, v._pendingUpload);
+                            delete v._pendingUpload;
+                            delete v._pendingPath;
+                        }
+                    }
+                }
+
                 // 2. Upload new home images
                 const imgFile = document.getElementById('image-upload').files[0];
                 if (imgFile) {
@@ -2154,6 +2294,14 @@
                     category: f.category
                 }));
 
+                // Clean course internal fields
+                const cleanCourses = siteData.courses.map(c => ({
+                    title: c.title,
+                    description: c.description,
+                    image: c.image,
+                    category: c.category
+                }));
+
                 // Collect About + Contact from form fields
                 siteData.about = collectAboutData();
                 siteData.contact = collectContactData();
@@ -2168,7 +2316,7 @@
                     images: siteData.images,
                     videos: siteData.videos,
                     faculty: cleanFaculty,
-                    courses: siteData.courses,
+                    courses: cleanCourses,
                     about: siteData.about,
                     placements: siteData.placements,
                     placementStats: siteData.placementStats,
