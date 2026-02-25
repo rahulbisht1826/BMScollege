@@ -2345,6 +2345,14 @@
             });
         }
 
+        // Properly decode base64 → UTF-8 string (atob only handles Latin-1!)
+        function decodeBase64UTF8(base64) {
+            const raw = atob(base64);
+            const bytes = new Uint8Array(raw.length);
+            for (let i = 0; i < raw.length; i++) bytes[i] = raw.charCodeAt(i);
+            return new TextDecoder('utf-8').decode(bytes);
+        }
+
         async function ghUpload(token, path, base64Content) {
             const url = `https://api.github.com/repos/${REPO}/contents/${path}`;
             const headers = { 'Authorization': `token ${token}`, 'Content-Type': 'application/json' };
@@ -2555,8 +2563,8 @@
                 renderAll();
 
             } catch (e) {
-                console.error(e);
-                showAlert('error', 'Error: ' + e.message);
+                console.error('Publish error:', e);
+                showAlert('error', 'Publish failed at step: ' + (text.textContent || 'unknown') + ' — ' + e.message);
             } finally {
                 btn.disabled = false;
                 spinner.style.display = 'none';
@@ -2576,7 +2584,7 @@
             const res = await fetch(url, { headers });
             if (!res.ok) throw new Error('Could not fetch faculty.html');
             const fileData = await res.json();
-            const currentHtml = atob(fileData.content.replace(/\n/g, ''));
+            const currentHtml = decodeBase64UTF8(fileData.content.replace(/\n/g, ''));
 
             // Find the features-grid content and replace
             const gridStart = currentHtml.indexOf('<div class="features-grid">');
@@ -2637,7 +2645,7 @@
             const res = await fetch(url, { headers });
             if (!res.ok) throw new Error('Could not fetch courses.html');
             const fileData = await res.json();
-            const currentHtml = atob(fileData.content.replace(/\n/g, ''));
+            const currentHtml = decodeBase64UTF8(fileData.content.replace(/\n/g, ''));
 
             const gridStart = currentHtml.indexOf('<div class="courses-grid" id="coursesGrid">');
             if (gridStart === -1) throw new Error('Could not find coursesGrid in courses.html');
@@ -2694,7 +2702,7 @@
             const res = await fetch(url, { headers });
             if (!res.ok) throw new Error('Could not fetch about.html');
             const fileData = await res.json();
-            let html = atob(fileData.content.replace(/\n/g, ''));
+            let html = decodeBase64UTF8(fileData.content.replace(/\n/g, ''));
 
             // Replace about-content section
             const aboutStart = html.indexOf('<div class="about-content');
@@ -2833,7 +2841,7 @@
             const res = await fetch(url, { headers });
             if (!res.ok) throw new Error('Could not fetch placement.html');
             const fileData = await res.json();
-            let html = atob(fileData.content.replace(/\n/g, ''));
+            let html = decodeBase64UTF8(fileData.content.replace(/\n/g, ''));
 
             // Find the insertion point (between page-title section and footer)
             const footerStart = html.indexOf('<!-- Footer -->');
@@ -2892,7 +2900,7 @@
             const res = await fetch(url, { headers });
             if (!res.ok) throw new Error('Could not fetch contact.html');
             const fileData = await res.json();
-            let html = atob(fileData.content.replace(/\n/g, ''));
+            let html = decodeBase64UTF8(fileData.content.replace(/\n/g, ''));
 
             // Update address
             const addressStart = html.indexOf('<h4 style="margin-bottom: 5px; color: var(--header-top-bg);">Address</h4>');
@@ -2949,7 +2957,7 @@
             const res = await fetch(url, { headers });
             if (!res.ok) throw new Error('Could not fetch sitemap.html');
             const fileData = await res.json();
-            let html = atob(fileData.content.replace(/\n/g, ''));
+            let html = decodeBase64UTF8(fileData.content.replace(/\n/g, ''));
 
             const visible = sitemap.filter(s => !s.hidden);
             const root = visible.find(s => s.isRoot) || visible[0];
